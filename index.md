@@ -3,12 +3,18 @@
 
 ###Authors and Contributors
 ###Mentors:     
-* Matthew Ballard   (@mdballard)
+* Matthew Ballard    (@mdballard)
+* Greg Emerick       (@gemerick)
 
 ###Lead Developer: 
-* Kurtis Dressel    (@kdcrafter)
+* Kurtis Dressel     (@kdcrafter)
 
 ###Programming Team:
+* Josie Debrecht     (@josiedebrecht)
+* Caleb Washburn     (@Caleb0801)
+* Ariana Bingaman    (@The-Flame-Princess)
+* Lauren Myles-White (@laumyl)
+* Ashlyn Holt        (@Ashnholt)
 
 ### Support or Contact
-Having trouble with Pages? Contact Matthew Ballard (@mdballard)
+Having trouble with Pages? Contact Matthew Ballard (@mdballard) or Greg Emerick (@gemerick).
