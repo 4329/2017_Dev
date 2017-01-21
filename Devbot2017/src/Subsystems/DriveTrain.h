@@ -41,11 +41,12 @@ public:
 
 	void TankDrive(float left, float right);
 	void ArcadeDrive(float x, float y);
+	void SetPosition(int left, int right);
 
 	void Config();
 	void SetVoltageMode();
-	//void SetPositionMode();
-	//void SetSpeedMode
+	void SetPositionMode();
+	//void SetSpeedMode();
 
 	float Limit(float num);
 };

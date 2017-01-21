@@ -96,4 +96,25 @@ void DriveTrain::SetVoltageMode() {
 
 }
 
+void DriveTrain::SetPositionMode(){
+	left1->SetFeedbackDevice(CANTalon::QuadEncoder);
+	left1->ConfigEncoderCodesPerRev(1024);
+	left1->SetControlMode(CANSpeedController::kPosition);
+	left2->SetControlMode(CANSpeedController::kFollower);
+	right1->SetFeedbackDevice(CANTalon::QuadEncoder);
+	right1->ConfigEncoderCodesPerRev(1024);
+	right1->SetControlMode(CANSpeedController::kPosition);
+	right2->SetControlMode(CANSpeedController::kFollower);
 
+	left2->Set(1); // change to work with config system
+	right2->Set(3);
+
+
+}
+
+void DriveTrain::SetPosition(int left, int right){
+	left1->SetPosition(left);
+	right1->SetPosition(right);
+
+
+}
