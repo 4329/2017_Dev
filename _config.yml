@@ -1,0 +1,8 @@
+title: 2017 dev
+description: "FRC 4329 2017 Season "
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-hacker
+
+gems:
+  - jekyll-mentions
