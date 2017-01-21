@@ -26,6 +26,14 @@ private:
 	//controllers
 	std::shared_ptr<XboxController> robotOperator;
 	std::shared_ptr<XboxController> robotDriver;
+	//dead zones
+		float LeftX_min = 0.1;
+		float LeftY_min = 0.1;
+		float LeftTrigger_min = 0.1;
+		float Righttrigger_min = 0.1;
+		float RightX_min = 0.1;
+		float RightY_min = 0.1;
+public:
 
 	//button and axis number values
 	enum Xbox_Button
@@ -39,30 +47,23 @@ private:
 		Back 			= 7,
 		Start 			= 8,
 		Left_Stick 		= 9,
-		Right_Stick 	= 10,
+		Right_Stick 	= 10
 	};
 
 	enum Xbox_Axis
 	{
-		Left_X 			= 0,	// left: 1, right -1
-		Left_Y 			= 1,	// upwards: -1, downwards: 1 ( GetAxisValue() makes this upwards: 1, downwards -1 )
-		Left_trigger 	= 2,	// not pressed: 0, pressed: 1
-		Right_Trigger	= 3,	// not pressed: 0, pressed: 1
-		Right_X 		= 4,	// left: 1, right -1
-		Right_Y 		= 5,	// upwards: -1, downwards: 1 ( GetAxisValue() makes this upwards: 1, downwards -1 )
-		DPad_X 			= 6,
-		DPad_Y 			= 7,
+		Xbox_Axis_Left_X 			= 0,	// left: 1, right -1
+		Xbox_Axis_Left_Y 			= 1,	// upwards: -1, downwards: 1 ( GetAxisValue() makes this upwards: 1, downwards -1 )
+		Xbox_Axis_Left_Trigger 	= 2,	// not pressed: 0, pressed: 1
+		Xbox_Axis_Right_Trigger	= 3,	// not pressed: 0, pressed: 1
+		Xbox_Axis_Right_X 		= 4,	// left: 1, right -1
+		Xbox_Axis_Right_Y 		= 5,	// upwards: -1, downwards: 1 ( GetAxisValue() makes this upwards: 1, downwards -1 )
+		Xbox_Axis_DPad_X 			= 6,
+		Xbox_Axis_DPad_Y 			= 7
 	};
 
-	//dead zones
-	float LeftX_min = 0.1;
-	float LeftY_min = 0.1;
-	float LeftTrigger_min = 0.1;
-	float Righttrigger_min = 0.1;
-	float RightX_min = 0.1;
-	float RightY_min = 0.1;
 
-public:
+
 	OI();
 
 	std::shared_ptr<XboxController> getRobotDriver();

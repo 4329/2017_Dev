@@ -24,11 +24,15 @@ TeleopDrive::TeleopDrive(): Command() {
 
 // Called just before this Command runs the first time
 void TeleopDrive::Initialize() {
+	Robot::driveTrain->SetVoltageMode();
 
 }
 
 // Called repeatedly when this Command is scheduled to run
 void TeleopDrive::Execute() {
+	float right, left;
+	left = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Left_Y);
+	right = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Right_Y);
 
 }
 

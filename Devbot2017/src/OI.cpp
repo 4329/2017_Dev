@@ -48,28 +48,28 @@ float OI::GetAxisValue(std::shared_ptr<XboxController> controller, int axis) {
 	float value;
 
 	switch (axis) {
-	case Xbox_Axis::Left_X:
+	case Xbox_Axis::Xbox_Axis_Left_X:
 		value = No_DeadZone_Value(controller->GetRawAxis(axis), LeftX_min);
 		break;
-	case Xbox_Axis::Left_Y:
+	case Xbox_Axis::Xbox_Axis_Left_Y:
 		value = -1 * No_DeadZone_Value(controller->GetRawAxis(axis), LeftY_min);	//y axis is inverted
 		break;
-	case Xbox_Axis::Left_trigger:
+	case Xbox_Axis::Xbox_Axis_Left_Trigger:
 		value = No_DeadZone_Value(controller->GetRawAxis(axis), LeftTrigger_min);
 		break;
-	case Xbox_Axis::Right_Trigger:
+	case Xbox_Axis::Xbox_Axis_Right_Trigger:
 		value = No_DeadZone_Value(controller->GetRawAxis(axis), Righttrigger_min);
 		break;
-	case Xbox_Axis::Right_X:
+	case Xbox_Axis::Xbox_Axis_Right_X:
 		value = No_DeadZone_Value(controller->GetRawAxis(axis), RightX_min);
 		break;
-	case Xbox_Axis::Right_Y:
+	case Xbox_Axis::Xbox_Axis_Right_Y:
 		value = -1 * No_DeadZone_Value(controller->GetRawAxis(axis), RightY_min); //y axis is inverted
 		break;
-	case Xbox_Axis::DPad_X:
+	case Xbox_Axis::Xbox_Axis_DPad_X:
 		value = controller->GetRawAxis(axis);
 		break;
-	case Xbox_Axis::DPad_Y:
+	case Xbox_Axis::Xbox_Axis_DPad_Y:
 		value = controller->GetRawAxis(axis);
 		break;
 	default:
