@@ -14,6 +14,7 @@
 
 #include "WPILib.h"
 #include "XboxController.h"
+#include <iostream>
 
 class OI {
 private:
@@ -68,7 +69,7 @@ public:
 	std::shared_ptr<XboxController> getRobotOperator();
 
 	float GetAxisValue(std::shared_ptr<XboxController> controller, int axis);	//gets the axis value of the specified button (with dead zones)
-	float No_DeadZone_Value(float value, float deadZone);	//returns a value that, which will be 0 if it is under the deadzone value
+	float No_DeadZone_Value(float value, float deadZone);	//returns a value that, which will be 0 if it is in the deadzone value
 															//Ex. if dead zone value is 0.1
 															//-1 will be -1, 0.5 will be 0, -0.5 will be 0, etc
 };
