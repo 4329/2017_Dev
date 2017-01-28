@@ -27,8 +27,11 @@ void FuelIntake::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void FuelIntake::Execute() {
-	float axis = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis::Xbox_Axis_Left_Trigger);
-	Robot::intake->fuel_intake(axis);
+	float axis = Robot::oi->GetAxisValue(Robot::oi->getRobotOperator(), OI::Xbox_Axis::Xbox_Axis_Left_Trigger);
+
+	if(axis != 0) {
+		Robot::intake->fuel_intake(axis);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
