@@ -7,8 +7,8 @@
 
 #include "Intake.h"
 
-Intake::Intake() {
-	//intakeMotor=
+Intake::Intake() : Subsystem("Intake") {
+
 }
 
 void Intake::InitDefaultCommand() {
