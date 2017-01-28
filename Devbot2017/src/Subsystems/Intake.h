@@ -10,6 +10,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "mindsensors.h"
+#include "../RobotMap.h"
 
 class Intake : public Subsystem {
 public:
@@ -18,6 +19,7 @@ public:
 	void Configuration();
 	void fuel_intake();
 	void fuel_outtake();
+	void StopMotor();
 
 private:
 	std::shared_ptr<mindsensors::CANSD540> intakeMotor;
