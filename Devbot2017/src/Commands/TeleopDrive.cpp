@@ -30,11 +30,12 @@ void TeleopDrive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TeleopDrive::Execute() {
+	//get left joystick axis values
 	float right, left;
 	left = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Left_Y);
 	right = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Right_Y);
 
-	if( (right != 0) and (left != 0) ) {
+	if( (right != 0) and (left != 0) ) {	//if axes are being pushed, call the command
 		Robot::driveTrain->TankDrive(left,right);
 	}
 }

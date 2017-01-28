@@ -27,9 +27,10 @@ void FuelIntake::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void FuelIntake::Execute() {
+	//get left trigger axis value
 	float axis = Robot::oi->GetAxisValue(Robot::oi->getRobotOperator(), OI::Xbox_Axis::Xbox_Axis_Left_Trigger);
 
-	if(axis != 0) {
+	if(axis != 0) {		//if trigger is being pushed, call command
 		Robot::intake->fuel_intake(axis);
 	}
 }
