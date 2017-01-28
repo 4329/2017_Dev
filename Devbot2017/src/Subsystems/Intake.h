@@ -17,9 +17,12 @@ public:
 	Intake();
 	void InitDefaultCommand();
 	void Configuration();
-	void fuel_intake();
-	void fuel_outtake();
+
+	void fuel_intake(float trigger_axis);
+	void fuel_outtake(float trigger_axis);
 	void StopMotor();
+
+	float Limit(float num);
 
 private:
 	std::shared_ptr<mindsensors::CANSD540> intakeMotor;

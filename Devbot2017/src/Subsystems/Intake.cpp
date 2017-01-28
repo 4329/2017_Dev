@@ -12,7 +12,8 @@ Intake::Intake() : Subsystem("Intake") {
 }
 
 void Intake::InitDefaultCommand() {
-
+	SetDefaultCommand(new FuelIntake());
+	SetDefaultCommand(new FuelOuttake());
 }
 
 void Intake::Configuration() {
@@ -21,13 +22,31 @@ void Intake::Configuration() {
 	//intakeMotor->SetVoltageRamp();
 }
 
-void Intake::fuel_intake() {
-	intakeMotor->Set(1);
+float Intake::Limit(float num) {
+	if (num > 1) {
+		return 1;
+	}
+	else if (num < 0) {
+		return 0;
+	}
+	else {
+		return num;
+	}
+}
+
+void Intake::fuel_intake(float trigger_axis) {
+	float nValue = Limit(trigger_axis);
+	std::cout << "Intake right trigger axis: " << nValue << std::endl;
+
+	intakeMotor->Set(nValue);
 	std::cout << "Intake voltage: " << intakeMotor->GetBatteryVoltage() << std::endl;
 }
 
-void Intake::fuel_outtake() {
-	intakeMotor->Set(-1);
+void Intake::fuel_outtake(float trigger_axis) {
+	float nValue = Limit(trigger_axis);
+	std::cout << "Intake left trigger axis: " << nValue << std::endl;
+
+	intakeMotor->Set(-nValue);
 	std::cout << "Intake voltage: " << intakeMotor->GetBatteryVoltage() << std::endl;
 }
 
