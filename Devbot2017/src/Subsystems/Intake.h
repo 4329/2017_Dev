@@ -9,6 +9,7 @@
 #define SRC_SUBSYSTEMS_INTAKE_H_
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include "mindsensors.h"
 
 class Intake : public Subsystem {
 public:
@@ -17,6 +18,7 @@ public:
 	void Configuration();
 	void fuel_intake();
 	void fuel_outtake();
+
 private:
 	std::shared_ptr<mindsensors::CANSD540> intakeMotor;
 };

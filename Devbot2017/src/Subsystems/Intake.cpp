@@ -7,8 +7,22 @@
 
 #include "Intake.h"
 
-Intake::Intake() {
-	//intakeMotor=
+Intake::Intake() : Subsystem("Intake") {
+
 }
 
+void Intake::InitDefaultCommand() {
 
+}
+
+void Intake::Configuration() {
+
+}
+
+void Intake::fuel_intake() {
+
+}
+
+void Intake::fuel_outtake() {
+
+}
