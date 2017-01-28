@@ -11,4 +11,18 @@ Intake::Intake() {
 	//intakeMotor=
 }
 
+void Intake::InitDefaultCommand() {
 
+}
+
+void Intake::Configuration() {
+
+}
+
+void Intake::fuel_intake() {
+
+}
+
+void Intake::fuel_outtake() {
+
+}
