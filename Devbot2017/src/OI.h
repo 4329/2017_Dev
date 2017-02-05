@@ -31,12 +31,12 @@ private:
 	std::shared_ptr<XboxController> robotDriver;
 
 	//dead zones
-		float LeftX_min 		= 0.1;
-		float LeftY_min 		= 0.1;
-		float LeftTrigger_min 	= 0.1;
-		float Righttrigger_min 	= 0.1;
-		float RightX_min 		= 0.1;
-		float RightY_min 		= 0.1;
+		float LeftX_min 		= 0.15;
+		float LeftY_min 		= 0.15;
+		float LeftTrigger_min 	= 0.15;
+		float Righttrigger_min 	= 0.15;
+		float RightX_min 		= 0.15;
+		float RightY_min 		= 0.15;
 
 public:
 
@@ -78,7 +78,6 @@ public:
 	float No_DeadZone_Value(float value, float deadZone);	//returns a value that, which will be 0 if it is in the deadzone value
 															//Ex. if dead zone value is 0.1
 															//-1 will be -1, 0.5 will be 0, -0.5 will be 0, etc
-	float No_DeadZone_TriggerValue(float value, float deadZone);
 };
 
 #endif

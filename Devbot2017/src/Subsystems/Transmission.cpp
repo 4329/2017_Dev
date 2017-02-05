@@ -43,13 +43,12 @@ void Transmission::Configuration() {
 
 //possibly have value in configuration that says what is low and what is high - low is forward, high is backwards, or vice versa, etc.
 void Transmission::ToggleSHIFTER() {
-	if (shifterSolenoid->Get() == DoubleSolenoid::kForward) {	//check if solenoid is forward or backward
-		shifterSolenoid->Set(DoubleSolenoid::kReverse);	//set solenoid to backward if it used to be forward
+	if (shifterSolenoid->Get() == frc::DoubleSolenoid::kForward) {	//check if solenoid is forward
+		shifterSolenoid->Set(frc::DoubleSolenoid::kReverse);	//set solenoid to backward if it used to be forward
 	}
 	else {
-		shifterSolenoid->Set(DoubleSolenoid::kForward);	//set solenoid to forward if it used to be backward
+		shifterSolenoid->Set(frc::DoubleSolenoid::kForward);	//set solenoid to forward if it used to be backward
 	}
-
 }
 
 

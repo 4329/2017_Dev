@@ -9,7 +9,7 @@
 #define SRC_SUBSYSTEMS_INTAKE_H_
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
-#include "mindsensors.h"
+#include "CANTalon.h"
 #include "../RobotMap.h"
 
 class Intake : public Subsystem {
@@ -25,7 +25,7 @@ public:
 	float Limit(float num);
 
 private:
-	std::shared_ptr<mindsensors::CANSD540> intakeMotor;
+	std::shared_ptr<CANTalon> intakeMotor;
 };
 
 

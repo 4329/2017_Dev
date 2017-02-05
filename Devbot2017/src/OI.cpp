@@ -22,6 +22,8 @@
 #include "Commands/PushGearHolder.h"
 #include "Commands/PullGearHolder.h"
 
+#include <cmath> //for dead zones
+
 OI::OI() {
     // Process operator interface input here.
     robotOperator.reset(new XboxController(1));
@@ -62,27 +64,35 @@ float OI::GetAxisValue(std::shared_ptr<XboxController> controller, int axis) {
 	case Xbox_Axis::Xbox_Axis_Left_X:
 		value = No_DeadZone_Value(controller->GetRawAxis(axis), LeftX_min);
 		break;
+
 	case Xbox_Axis::Xbox_Axis_Left_Y:
 		value = -1 * No_DeadZone_Value(controller->GetRawAxis(axis), LeftY_min);	//y axis is inverted
 		break;
+
 	case Xbox_Axis::Xbox_Axis_Left_Trigger:
-		value = No_DeadZone_TriggerValue(controller->GetRawAxis(axis), LeftTrigger_min);
+		value = No_DeadZone_Value(controller->GetRawAxis(axis), LeftTrigger_min);
 		break;
+
 	case Xbox_Axis::Xbox_Axis_Right_Trigger:
-		value = No_DeadZone_TriggerValue(controller->GetRawAxis(axis), Righttrigger_min);
+		value = No_DeadZone_Value(controller->GetRawAxis(axis), Righttrigger_min);
 		break;
+
 	case Xbox_Axis::Xbox_Axis_Right_X:
 		value = No_DeadZone_Value(controller->GetRawAxis(axis), RightX_min);
 		break;
+
 	case Xbox_Axis::Xbox_Axis_Right_Y:
 		value = -1 * No_DeadZone_Value(controller->GetRawAxis(axis), RightY_min); //y axis is inverted
 		break;
+
 	case Xbox_Axis::Xbox_Axis_DPad_X:
 		value = controller->GetRawAxis(axis);
 		break;
+
 	case Xbox_Axis::Xbox_Axis_DPad_Y:
 		value = controller->GetRawAxis(axis);
 		break;
+
 	default:
 		std::cerr << "Unhandled axis: " << __LINE__ << " value " << axis << std::endl;
 		value = 0;
@@ -91,20 +101,8 @@ float OI::GetAxisValue(std::shared_ptr<XboxController> controller, int axis) {
 	return value;
 }
 
-float OI::No_DeadZone_Value(float value, float deadZone) {
-	if ( (value < deadZone) and (value >= 0) ) {
-		return 0;
-	}
-	else if ( (value > -deadZone) and (value <= 0) ) {
-		return 0;
-	}
-	else {
-		return value;
-	}
-}
-
-float OI::No_DeadZone_TriggerValue(float value, float deadZone) {
-	if (value < deadZone) {
+float OI::No_DeadZone_Value(float value, float deadZone) {	//works with all axes
+	if ( fabs(value) < deadZone ) {
 		return 0;
 	}
 	else {

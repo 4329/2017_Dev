@@ -6,6 +6,8 @@
  */
 
 #include "Intake.h"
+#include "../Commands/FuelIntake.h"
+#include "../Commands/FuelOuttake.h"
 
 Intake::Intake() : Subsystem("Intake") {
 	intakeMotor = RobotMap::intakeMotor;
@@ -41,7 +43,8 @@ void Intake::fuel_intake(float trigger_axis) {
 	std::cout << "Intake right trigger axis: " << nValue << std::endl;	//print axis value
 
 	intakeMotor->Set(nValue);	//set motor value ( number will betweeen the deadzone and 1)
-	std::cout << "Intake voltage: " << intakeMotor->GetBatteryVoltage() << std::endl;	//print voltage
+	std::cout << "Intake: voltage: " << intakeMotor->GetOutputVoltage() << "  ";	//print voltage
+	std::cout << "current: " << intakeMotor->GetOutputCurrent() << std::endl;	//print current
 }
 
 void Intake::fuel_outtake(float trigger_axis) {
@@ -49,7 +52,8 @@ void Intake::fuel_outtake(float trigger_axis) {
 	std::cout << "Intake left trigger axis: " << nValue << std::endl;	//print axis value
 
 	intakeMotor->Set(-nValue);	//set motor value ( number will be between -deadzone and -1
-	std::cout << "Intake voltage: " << intakeMotor->GetBatteryVoltage() << std::endl;	//print voltage
+	std::cout << "Intake: voltage: " << intakeMotor->GetOutputVoltage() << "  ";	//print voltage
+	std::cout << "current: " << intakeMotor->GetOutputCurrent() << std::endl;	//print current
 }
 
 void Intake::StopMotor() {
