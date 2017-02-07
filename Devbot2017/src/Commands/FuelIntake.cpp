@@ -34,10 +34,12 @@ void FuelIntake::Execute() {
 	if (right_t != 0) {
 		Robot::intake->fuel_intake(1);	//will be at max speed for now
 	}
+
 	else if (left_t != 0) {
 		Robot::intake->fuel_outtake(1);	//will be at max speed for now
 										//inverts motor direction in the intake susystem file
 	}
+
 	else {
 		Robot::intake->StopMotor();
 	}
