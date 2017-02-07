@@ -60,7 +60,7 @@ void DriveTrain::TankDrive(float left, float right) {
 	float nright = Limit(right);
 
 	//print axis values
-	std::cout << "TankDrive axes: Left: " << nleft << "Right: " << nright << std::endl;
+	std::cout << "TankDrive axes: Left: " << nleft << " Right: " << nright << std::endl;
 
 	//set outputs
 	left1->Set(nleft);
@@ -72,7 +72,7 @@ void DriveTrain::TankDrive(float left, float right) {
 	std::cout << "right1: " << right1->GetOutputVoltage() << ", ";
 	std::cout << "right2: " << right2->GetOutputVoltage() << std::endl;
 
-	std::cout << "TankDrive voltage: left1" << left1->GetOutputCurrent() << ", ";
+	std::cout << "TankDrive current: left1" << left1->GetOutputCurrent() << ", ";
 	std::cout << "left2: " << left1->GetOutputCurrent() << ", ";
 	std::cout << "right1: " << right1->GetOutputCurrent() << ", ";
 	std::cout << "right2: " << right2->GetOutputCurrent() << std::endl;

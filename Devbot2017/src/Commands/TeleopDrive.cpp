@@ -35,9 +35,7 @@ void TeleopDrive::Execute() {
 	left = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Left_Y);
 	right = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Right_Y);
 
-	if( (right != 0) and (left != 0) ) {	//if axes are being pushed, call the command
-		Robot::driveTrain->TankDrive(left,right);
-	}
+	Robot::driveTrain->TankDrive(left,right);
 }
 
 // Make this return true when this Command no longer needs to run execute()

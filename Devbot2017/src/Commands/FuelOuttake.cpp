@@ -31,9 +31,7 @@ void FuelOuttake::Execute() {
 	//get left trigger axis value
 	float axis = Robot::oi->GetAxisValue(Robot::oi->getRobotOperator(), OI::Xbox_Axis::Xbox_Axis_Right_Trigger);
 
-	if (axis != 0) {	//if trigger is being pushed, call command
-		Robot::intake->fuel_outtake(axis);
-	}
+	Robot::intake->fuel_outtake(axis);
 }
 
 // Make this return true when this Command no longer needs to run execute()

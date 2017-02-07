@@ -26,6 +26,7 @@
 #include "OI.h"
 #include "Subsystems/Intake.h"
 #include "Subsystems/GearHolder.h"
+#include <iostream>
 
 class Robot : public IterativeRobot {
 public:

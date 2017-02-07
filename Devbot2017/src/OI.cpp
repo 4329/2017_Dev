@@ -82,7 +82,7 @@ float OI::GetAxisValue(std::shared_ptr<XboxController> controller, int axis) {
 		break;
 
 	case Xbox_Axis::Xbox_Axis_Right_Y:
-		value = -1 * No_DeadZone_Value(controller->GetRawAxis(axis), RightY_min); //y axis is inverted
+		value = No_DeadZone_Value(controller->GetRawAxis(axis), RightY_min);	//y axis shouldn't be inverted
 		break;
 
 	case Xbox_Axis::Xbox_Axis_DPad_X:
@@ -103,7 +103,7 @@ float OI::GetAxisValue(std::shared_ptr<XboxController> controller, int axis) {
 
 float OI::No_DeadZone_Value(float value, float deadZone) {	//works with all axes
 	if ( fabs(value) < deadZone ) {
-		return 0;
+		return 0.0;
 	}
 	else {
 		return value;
