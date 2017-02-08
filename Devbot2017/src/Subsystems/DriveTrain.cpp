@@ -55,6 +55,68 @@ float DriveTrain::Limit(float num) {	//set number to correct value if it's over 
 	}
 }
 
+void DriveTrain::ArcadeDrive(float x, float y) {
+	float nx = Limit(x);	//the n stand for new (new x)
+	float ny = Limit(y);
+
+	//print axis values
+	std::cout << "ArcadeDrive axes: x: " << nx << " Right: " << ny << std::endl;
+
+	float leftOutput;
+	float rightOutput;
+
+	//calculate outputs
+	if (ny > 0.0)  // If moving forward
+	{
+		if (nx > 0.0) // If turning/rotating right
+		{
+			leftOutput = ny - nx;
+			rightOutput = std::max(ny, nx);
+		}
+		else if (nx < 0.0) // If turning/rotating left or not moving
+		{
+			leftOutput = std::max(ny, -nx);
+			rightOutput = ny + nx;
+		} else
+		{
+			leftOutput = ny;
+			rightOutput = ny;
+		}
+	}
+	else  // If moving backward
+	{
+		if (nx > 0.0) // If turning/rotating right
+		{
+			leftOutput = - std::max(-ny, nx);
+			rightOutput = ny + nx;
+		}
+		else if (nx < 0.0) // If turning/rotating left or not moving
+		{
+			leftOutput = ny - nx;
+			rightOutput = - std::max(-ny, -nx);
+		} else
+		{
+			leftOutput = ny;
+			rightOutput = ny;
+		}
+	}
+
+	//set outputs
+	left1->Set(leftOutput);
+	right1->Set(rightOutput);
+
+	//output voltage and current
+	std::cout << "ArcadeDrive voltage: left1: " << left1->GetOutputVoltage() << ", ";
+	std::cout << "left2: " << left1->GetOutputVoltage() << ", ";
+	std::cout << "right1: " << right1->GetOutputVoltage() << ", ";
+	std::cout << "right2: " << right2->GetOutputVoltage() << std::endl;
+
+	std::cout << "ArcadeDrive current: left1" << left1->GetOutputCurrent() << ", ";
+	std::cout << "left2: " << left1->GetOutputCurrent() << ", ";
+	std::cout << "right1: " << right1->GetOutputCurrent() << ", ";
+	std::cout << "right2: " << right2->GetOutputCurrent() << std::endl;
+}
+
 void DriveTrain::TankDrive(float left, float right) {
 	float nleft = Limit(left);	//n stands for new
 	float nright = Limit(right);

@@ -30,12 +30,22 @@ void TeleopDrive::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void TeleopDrive::Execute() {
-	//get left joystick axis values
-	float right, left;
-	left = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Left_Y);
-	right = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Right_Y);
+	float axis1, axis2;
 
-	Robot::driveTrain->TankDrive(left,right);
+	if (true) {	//needs implemented with the config system
+		//gets axis values
+		axis1 = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Left_X);
+		axis2 = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Left_Y);
+
+		//control motors
+		Robot::driveTrain->ArcadeDrive(axis1, axis2);	//ArcadeDrive(x, y)
+	}
+	else  {
+		axis1 = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Left_Y);
+		axis2 = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Right_Y);
+
+		Robot::driveTrain->TankDrive(axis1, axis2);	//TankDrive(left, right)
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
