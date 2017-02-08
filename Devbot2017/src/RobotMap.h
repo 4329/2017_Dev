@@ -35,6 +35,8 @@ public:
 	static std::shared_ptr<CANTalon> intakeMotor;
 	static std::shared_ptr<Solenoid> gearSolenoid1;
 	static std::shared_ptr<Solenoid> gearSolenoid2;
+	static std::shared_ptr<CANTalon> shooterTalon1;
+	static std::shared_ptr<CANTalon> shooterTalon2;
 
 	static void init();
 };

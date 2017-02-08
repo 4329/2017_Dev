@@ -42,6 +42,10 @@ void DriveTrain::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+void DriveTrain::Config() {
+	//put config stuff here
+}
+
 float DriveTrain::Limit(float num) {	//set number to correct value if it's over 1 or under -1
 										//( joystick value is usually between 1 and -1, but may be otherwise)
 	if (num > 1) {
@@ -154,7 +158,7 @@ void DriveTrain::SetVoltageMode() {
 
 	std::cout << "drivetrain set Voltage mode on kPercentVbus" << std::endl;
 
-	left1->Enable();	//enable after change the control mode
+	left1->Enable();	//enable after changing the control mode
 	left2->Enable();
 	right1->Enable();
 	right2->Enable();
@@ -175,6 +179,10 @@ void DriveTrain::SetPositionMode(){
 	//set which master talons the slave talons follow
 	left2->Set(1); // change to work with config system
 	right2->Set(3);
+
+	//motors won't move
+	left1->Set(0);
+	right1->Set(0);
 }
 
 void DriveTrain::SetPosition(int left, int right){
