@@ -11,6 +11,8 @@
 
 Intake::Intake() : Subsystem("Intake") {
 	intakeMotor = RobotMap::intakeMotor;
+
+	Configuration();
 }
 
 void Intake::InitDefaultCommand() {

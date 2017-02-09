@@ -28,6 +28,7 @@ std::shared_ptr<frc::Solenoid> RobotMap::gearSolenoid1;
 std::shared_ptr<frc::Solenoid> RobotMap::gearSolenoid2;
 std::shared_ptr<CANTalon> RobotMap::shooterTalon1;
 std::shared_ptr<CANTalon> RobotMap::shooterTalon2;
+std::shared_ptr<CANTalon> RobotMap::gateTalon;
 
 
 void RobotMap::init() {
@@ -65,4 +66,7 @@ void RobotMap::init() {
 
     shooterTalon2.reset(new CANTalon(10));
     lw->AddActuator("Shooter", "shooterTalon2", shooterTalon2);
+
+    gateTalon.reset(new CANTalon(6));
+    lw->AddActuator("GateKeeper", "gateTalon", gateTalon);
 }

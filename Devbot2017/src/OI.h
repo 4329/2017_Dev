@@ -25,6 +25,7 @@ private:
 	std::shared_ptr<JoystickButton> outtake;
 	std::shared_ptr<JoystickButton> intake;
 	std::shared_ptr<JoystickButton> GearHolderPusher;
+	std::shared_ptr<JoystickButton> shoot;
 
 	//controllers
 	std::shared_ptr<XboxController> robotOperator;

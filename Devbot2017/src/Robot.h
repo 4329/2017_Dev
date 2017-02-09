@@ -27,6 +27,7 @@
 #include "Subsystems/Intake.h"
 #include "Subsystems/GearHolder.h"
 #include "Subsystems/Shooter.h"
+#include "Subsystems/GateKeeper.h"
 #include <iostream>
 
 class Robot : public IterativeRobot {
@@ -41,6 +42,7 @@ public:
     static std::shared_ptr<Intake> intake;
     static std::shared_ptr<GearHolder> gearholder;
     static std::shared_ptr<Shooter> shooter;
+    static std::shared_ptr<GateKeeper> gateKeeper;
 
  	virtual void RobotInit();
 	virtual void DisabledInit();
