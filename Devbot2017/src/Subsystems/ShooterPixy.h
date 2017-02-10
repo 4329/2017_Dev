@@ -36,6 +36,8 @@ public:
 	bool OnTarget(); //checks if shooter is directly facing the target (boiler)
 	float Distance_From_Target(); //uses trig to check how far the shooter is from the target (boiler)
 
+	uint16_t _10bit_to_16bit(int num);
+	int _16bit_to_10bit(uint16_t num);
 };
 
 #endif
