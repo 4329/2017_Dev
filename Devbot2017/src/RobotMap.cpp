@@ -29,6 +29,7 @@ std::shared_ptr<frc::Solenoid> RobotMap::gearSolenoid2;
 std::shared_ptr<CANTalon> RobotMap::shooterTalon1;
 std::shared_ptr<CANTalon> RobotMap::shooterTalon2;
 std::shared_ptr<CANTalon> RobotMap::gateTalon;
+std::shared_ptr<Pixy> RobotMap::pixy;
 
 
 void RobotMap::init() {
@@ -69,4 +70,6 @@ void RobotMap::init() {
 
     gateTalon.reset(new CANTalon(6));
     lw->AddActuator("GateKeeper", "gateTalon", gateTalon);
+
+    pixy.reset(new Pixy(0x00));	//Address needs to be changed to something else
 }
