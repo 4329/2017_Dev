@@ -14,7 +14,7 @@ void RunShooter::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void RunShooter::Execute() {
-	Robot::shooter->StartUp();	//set shooter to a certain RPM until command ends
+	Robot::shooter->StartUp();	//set shooter to a certain RPM until shoot command ends
 }
 
 // Make this return true when this Command no longer needs to run execute()

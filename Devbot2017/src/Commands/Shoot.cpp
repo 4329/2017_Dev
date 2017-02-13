@@ -17,4 +17,3 @@ Shoot::Shoot() {
 	AddParallel(new ReceiveFuel());
 	AddParallel(new RunShooter());
 }
-

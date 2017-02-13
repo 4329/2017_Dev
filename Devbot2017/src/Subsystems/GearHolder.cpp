@@ -21,6 +21,7 @@ void GearHolder::Configuration() {
 //put config stuff here
 }
 
+//change functions later
 void GearHolder::PushGearHolder() {
 	gearSolenoid1->Set(true);
 	gearSolenoid2->Set(true);
