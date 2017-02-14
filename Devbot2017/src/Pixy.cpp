@@ -5,7 +5,7 @@
  *      Author: mdbal
  */
 
-#include "../Pixy.h"
+#include "Pixy.h"
 #include "Timer.h"
 
 void Block::print()

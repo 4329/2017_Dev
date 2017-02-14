@@ -27,12 +27,19 @@ public:
 	void InitDefaultCommand();
 	void Configuration();
 
+	void ToggleGearHolder();
+	void SetStart();
+
+	//climb command sequence(in this order)
 	void PushGearHolder();
+	//delay
+	void Vent();
 	void PullGearHolder();
 
+
 private:
-	std::shared_ptr<Solenoid> gearSolenoid1;
-	std::shared_ptr<Solenoid> gearSolenoid2;
+	std::shared_ptr<Solenoid> gearSolenoidExtender;
+	std::shared_ptr<Solenoid> gearSolenoidVent;
 };
 
 #endif

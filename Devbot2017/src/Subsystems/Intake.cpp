@@ -7,7 +7,6 @@
 
 #include "Intake.h"
 #include "../Commands/FuelIntake.h"
-#include "../Commands/FuelOuttake.h"
 
 Intake::Intake() : Subsystem("Intake") {
 	intakeMotor = RobotMap::intakeMotor;

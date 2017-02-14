@@ -27,6 +27,7 @@ void Robot::RobotInit() {
 
 	RobotMap::init();
 
+    timer.reset(new Timer());
 	intake.reset(new Intake());
 	gearholder.reset(new GearHolder());
 	shooter.reset(new Shooter());
