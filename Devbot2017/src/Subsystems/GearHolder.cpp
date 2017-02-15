@@ -3,8 +3,8 @@
 
 
 GearHolder::GearHolder() : Subsystem("GearHolder") {
-	gearSolenoidExtender = RobotMap::gearSolenoid1;
-	gearSolenoidVent = RobotMap::gearSolenoid2;
+	gearSolenoidExtender = RobotMap::extenderSolenoid;
+	gearSolenoidVent = RobotMap::ventSolenoid;
 
 	Configuration();
 

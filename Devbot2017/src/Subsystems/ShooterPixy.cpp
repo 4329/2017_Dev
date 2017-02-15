@@ -16,7 +16,7 @@ void ShooterPixy::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
-
+/*
 Block * ShooterPixy::Get_Target() {
 	Block * block_ptr;	//points to the correct block (the 15 in. by 4 in. one)
 	double new_ratio;	//the w/h ratio of the newest block
@@ -39,3 +39,4 @@ Block * ShooterPixy::Get_Target() {
 		new_ratio = pixy->signatures[i].width / pixy->signatures[i].height;
 	}
 }
+*/
