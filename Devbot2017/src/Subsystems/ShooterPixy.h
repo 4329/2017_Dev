@@ -3,11 +3,13 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "../Pixy.h"
+#include <cmath>
 
-#define low_block_ratio		15/4	//   width / height
-#define high_block_ratio	15/2	//   width / height
-#define H_FOV 75	//(horizontal field of view) whole view: 75 degrees, half view 75/2 (36.5) degrees
-#define V_FOV 47	//(vertical field of view) whole view: 47 degrees, half view 47/2 (23.5) degrees
+#define low_block_ratio		15/2	//   width / height
+#define high_block_ratio	15/4	//   width / height
+#define H_FOV 60.0f	//(horizontal field of view) whole view: 60 degrees, half view 60/2 (30) degrees
+#define V_FOV 35.0f	//(vertical field of view) whole view: 35 degrees, half view 35/2 (17.5) degrees
+#define pi 3.14159265358979323846f	//the f means that it is a float
 
 /**
  *
@@ -32,8 +34,9 @@ public:
 
 	bool OnTarget();	//check if shooter is facing boiler
 
-	uint16_t _10bit_to_16bit(int num);
-	int _16bit_to_10bit(uint16_t num);
+	void printBlockData();
+
+	float _16bit_to_10bit(uint16_t _16bit_num);
 };
 
 #endif
