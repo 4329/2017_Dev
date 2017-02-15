@@ -26,6 +26,9 @@ private:
 	std::shared_ptr<JoystickButton> intake;
 	std::shared_ptr<JoystickButton> GearHolderPusher;
 	std::shared_ptr<JoystickButton> shoot;
+	std::shared_ptr<JoystickButton> RobotClimb;
+	std::shared_ptr<JoystickButton> RobotClimbStop;
+	std::shared_ptr<JoystickButton> RobotVent;
 
 	//controllers
 	std::shared_ptr<XboxController> robotOperator;
@@ -74,6 +77,8 @@ public:
 
 	std::shared_ptr<XboxController> getRobotDriver();
 	std::shared_ptr<XboxController> getRobotOperator();
+	std::shared_ptr<JoystickButton> getClimbButton();
+	std::shared_ptr<JoystickButton> getShootButton();
 
 	float GetAxisValue(std::shared_ptr<XboxController> controller, int axis);	//gets the axis value of the specified button (with dead zones)
 	float No_DeadZone_Value(float value, float deadZone);	//returns a value that, which will be 0 if it is in the deadzone value

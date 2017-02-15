@@ -23,13 +23,13 @@
 #define PIXY_MAX_SIGNATURE          7
 #define PIXY_DEFAULT_ARGVAL         0xffff
 
-// Pixy x-y position values
-#define PIXY_MIN_X                  0L
+// Pixy x-y position values		(0, 0) is top left, (319, 199) is bottom right
+#define PIXY_MIN_X                  0L	//left
 #define PIXY_CENT_X                 160L
-#define PIXY_MAX_X                  319L
-#define PIXY_MIN_Y                  0L
+#define PIXY_MAX_X                  319L //right
+#define PIXY_MIN_Y                  0L	//top
 #define PIXY_CENT_Y                 100L
-#define PIXY_MAX_Y                  199L
+#define PIXY_MAX_Y                  199L //bottom
 
 // RC-servo values
 #define PIXY_RCS_MIN_POS            0L

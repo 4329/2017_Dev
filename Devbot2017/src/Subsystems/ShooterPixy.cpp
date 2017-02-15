@@ -5,7 +5,6 @@
 
 ShooterPixy::ShooterPixy() : Subsystem("ShooterPixy") {
 	pixy = RobotMap::pixy;
-	block_ptr = 0;
 }
 
 void ShooterPixy::InitDefaultCommand() {
@@ -18,22 +17,25 @@ void ShooterPixy::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-uint16_t * ShooterPixy::Get_Target_Values() {
-	//to do: check if there more than 2 blocks
-	//needs to be discussed
-	/*
-	pixy->signatures.clear();
-	pixy->GetBlocks();
-	int size = pixy->signatures.size();
+Block * ShooterPixy::Get_Target() {
+	Block * block_ptr;	//points to the correct block (the 15 in. by 4 in. one)
+	double new_ratio;	//the w/h ratio of the newest block
+	double old_ratio;	//the w/h ratio of the previous block
+	double new_ratio_diff;	//the difference of the new ratio to high block ratio
+	double old_ratio_diff;	//the difference of the old ratio to high block ratio
 
-	float ratio;	//the new width/height ratio of a block
-	float last_ratio;	//the last checked width/height ratio of a block
-	int high_block;	//the vector position of the high reflection tape strip
-	int low_block;	//the vector position of the low reflection tape strip
 
-	//gets the vector position of the high reflection tape strip
-	for (int i = 0; i >= size; i++) {
-			ratio = pixy->signatures[i].width / pixy->signatures[i].width;
+	pixy->signatures.clear();	//get rid of old blocks
+	pixy->GetBlocks();	//add new blocks
+
+	int num_of_blocks = pixy->signatures.size();
+
+	block_ptr = pixy->signatures[0];	//make the first block the default
+	new_ratio = pixy->signatures[0].width / pixy->signatures[0].height;
+
+	for(int i = 1; i < (num_of_blocks - 1); i++) {
+		//gets ratios
+		old_ratio = new_ratio;
+		new_ratio = pixy->signatures[i].width / pixy->signatures[i].height;
 	}
-	*/
 }

@@ -9,5 +9,5 @@ ToggleGearHolder::ToggleGearHolder(): InstantCommand() {
 
 // Called once when this command runs
 void ToggleGearHolder::Initialize() {
-	//put command here
+	Robot::gearholder->ToggleGearHolder();
 }

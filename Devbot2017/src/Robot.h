@@ -29,7 +29,7 @@
 #include "Subsystems/Shooter.h"
 #include "Subsystems/GateKeeper.h"
 #include "Subsystems/ShooterPixy.h"
-#include "Timer.h"
+#include "Subsystems/Climber.h"
 #include <iostream>
 
 class Robot : public IterativeRobot {
@@ -46,7 +46,7 @@ public:
     static std::shared_ptr<Shooter> shooter;
     static std::shared_ptr<GateKeeper> gateKeeper;
     static std::shared_ptr<ShooterPixy> shooterPixy;
-	static std::shared_ptr<Timer> timer;
+    static std::shared_ptr<Climber> climb;
 
  	virtual void RobotInit();
 	virtual void DisabledInit();

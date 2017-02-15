@@ -21,13 +21,14 @@ std::shared_ptr<GearHolder> Robot::gearholder;
 std::shared_ptr<Shooter> Robot::shooter;
 std::shared_ptr<GateKeeper> Robot::gateKeeper;
 std::shared_ptr<ShooterPixy> Robot::shooterPixy;
+std::shared_ptr<Climber> Robot::climb;
 
 void Robot::RobotInit() {
 	std::cout << "robot init start" << std::endl;
 
 	RobotMap::init();
 
-    timer.reset(new Timer());
+	climb.reset(new Climber());
 	intake.reset(new Intake());
 	gearholder.reset(new GearHolder());
 	shooter.reset(new Shooter());
