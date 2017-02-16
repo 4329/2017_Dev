@@ -18,7 +18,7 @@ void Shooter::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void Shooter::Configuration() {
-	shooterTalon1->SetFeedbackDevice(CANTalon::QuadEncoder);
+	shooterTalon1->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
 	shooterTalon1->SetSensorDirection(false);
 	shooterTalon1->ConfigEncoderCodesPerRev(1024);
 

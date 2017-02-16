@@ -39,9 +39,10 @@ public:
 	static std::shared_ptr<Solenoid> ventSolenoid;
 	static std::shared_ptr<CANTalon> shooterTalon1;
 	static std::shared_ptr<CANTalon> shooterTalon2;
-	static std::shared_ptr<CANTalon> gateTalon;
+	static std::shared_ptr<CANTalon> conveyorTalon;
 	static std::shared_ptr<Pixy> pixy;
 	static std::shared_ptr<AHRS> imu;
+	static std::shared_ptr<CANTalon> indexTalon;
 
 	static std::shared_ptr<CANTalon> climberMotor;
 

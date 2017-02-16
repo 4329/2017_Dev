@@ -1,22 +1,23 @@
-#ifndef GATEKEEPER_H
-#define GATEKEEPER_H
+#ifndef CONVEYORBELT_H
+#define CONVEYORBELT_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "CANTalon.h"
 
 
-class GateKeeper: public Subsystem {
+class ConveyorBelt: public Subsystem {
 private:
 	// It's desirable that everything possible is private except
 	// for methods that implement subsystem capabilities
-	std::shared_ptr<CANTalon> gateTalon;
+	std::shared_ptr<CANTalon> conveyorTalon;
 
 public:
-	GateKeeper();
+	ConveyorBelt();
 	void InitDefaultCommand();
 
 	void Configuration();
-	void ReceiveFuel();
+	void Forward();
+	void Backward();
 	void Stop();
 	void SetVoltageMode();
 };

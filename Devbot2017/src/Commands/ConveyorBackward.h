@@ -1,14 +1,14 @@
-#ifndef RECEIVEFUEL_H
-#define RECEIVEFUEL_H
+#ifndef CONVEYORBACKWARD_H
+#define CONVEYORBACKWARD_H
 
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
 
-class ReceiveFuel: public Command {
+class ConveyorBackward: public Command {
 public:
-	ReceiveFuel();
+	ConveyorBackward();
 
 	virtual void Initialize();
 	virtual void Execute();

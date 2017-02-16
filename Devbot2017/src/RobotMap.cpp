@@ -28,9 +28,10 @@ std::shared_ptr<frc::Solenoid> RobotMap::extenderSolenoid;
 std::shared_ptr<frc::Solenoid> RobotMap::ventSolenoid;
 std::shared_ptr<CANTalon> RobotMap::shooterTalon1;
 std::shared_ptr<CANTalon> RobotMap::shooterTalon2;
-std::shared_ptr<CANTalon> RobotMap::gateTalon;
+std::shared_ptr<CANTalon> RobotMap::conveyorTalon;
 std::shared_ptr<Pixy> RobotMap::pixy;
 std::shared_ptr<AHRS> RobotMap::imu;
+std::shared_ptr<CANTalon> RobotMap::indexTalon;
 
 std::shared_ptr<CANTalon> RobotMap::climberMotor;
 
@@ -74,11 +75,14 @@ void RobotMap::init() {
     shooterTalon2.reset(new CANTalon(8));
     lw->AddActuator("Shooter", "shooterTalon2", shooterTalon2);
 
-    gateTalon.reset(new CANTalon(6));
-    lw->AddActuator("GateKeeper", "gateTalon", gateTalon);
+    conveyorTalon.reset(new CANTalon(6));
+    lw->AddActuator("ConveyorBelt", "conveyorTalon", conveyorTalon);
 
     pixy.reset(new Pixy(0x54));
 
     climberMotor.reset(new CANTalon(10));
     lw->AddActuator("Climber", "climberMotor", climberMotor);
+
+    indexTalon.reset(new CANTalon(9));
+    lw->AddActuator("ShooterIndex", "indexTalon", indexTalon);
 }
