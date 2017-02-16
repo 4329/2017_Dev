@@ -5,6 +5,7 @@
 #include "../Pixy.h"
 #include <cmath>
 
+//ratios may be different depending on where the robot is on the field
 #define low_block_ratio		15/2	//   width / height
 #define high_block_ratio	15/4	//   width / height
 #define H_FOV 60.0f	//(horizontal field of view) whole view: 60 degrees, half view 60/2 (30) degrees
@@ -27,11 +28,8 @@ public:
 	void InitDefaultCommand();
 
 	Block * Get_Target();	//return the correct target
-	float Distance_From_Target(); //uses trig to check how far the pixy is from the target (boiler)
-								//gets distance that is from the pixy directly to the target
-								//then does math and returns horizontal distance from pixy to tape
-								//distance is in inches
-
+	float Distance_From_Target(); //gets horizontal distance from the pixy to the target (boiler) in inches
+	float Angle_From_Target();
 	bool OnTarget();	//check if shooter is facing boiler
 
 	void printBlockData();
