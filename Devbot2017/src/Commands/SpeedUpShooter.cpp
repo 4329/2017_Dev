@@ -15,17 +15,12 @@ void SpeedUpShooter::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void SpeedUpShooter::Execute() {
-	Robot::shooter->StartUp();
+	Robot::shooter->Run();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool SpeedUpShooter::IsFinished() {
-    if (Robot::shooter->CorrectRPM()) {
-    	return true;
-    }
-    else {
-    	return false;
-    }
+    return Robot::shooter->CorrectRPM();
 }
 
 // Called once after isFinished returns true

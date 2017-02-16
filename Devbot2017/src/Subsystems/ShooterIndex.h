@@ -17,6 +17,18 @@ public:
 	ShooterIndex();
 	void InitDefaultCommand();
 	void Configuration();
+	void ConfigEncoder();
+
+	void SetVoltageMode();
+	void ForwardVoltage();
+	void BackwardVoltage();
+
+	void SetSpeedMode();
+	void ForwardSpeed();
+	void BackwardSpeed();
+	bool CorrectRPM();
+
+	void Stop();
 
 };
 

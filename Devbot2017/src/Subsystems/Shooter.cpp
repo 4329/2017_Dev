@@ -54,7 +54,7 @@ void Shooter::SetSpeedMode() {	//needs to be called before shooter is used
 	shooterTalon2->Enable();
 }
 
-void Shooter::StartUp() {
+void Shooter::Run() {
 	shooterTalon1->Set(10000);
 }
 
@@ -63,7 +63,7 @@ void Shooter::Stop() {
 }
 
 bool Shooter::CorrectRPM() {
-	if ( fabs(shooterTalon1->GetSpeed() ) > 10000) {	//needs to work with config system
+	if ( fabs(shooterTalon1->GetSpeed() ) >= 10000) {	//needs to work with config system
 		return true;
 	}
 	else {

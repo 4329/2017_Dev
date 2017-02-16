@@ -1,36 +1,36 @@
-#include "ConveyorForward.h"
+#include "RunIndex.h"
 
 
-ConveyorForward::ConveyorForward(): Command() {
+RunIndex::RunIndex(): Command() {
         // Use requires() here to declare subsystem dependencies
     // eg. requires(Robot::chassis.get());
-	Requires(Robot::conveyorBelt.get());
+	Requires(Robot::shooterIndex.get());
 }
 
 // Called just before this Command runs the first time
-void ConveyorForward::Initialize() {
+void RunIndex::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ConveyorForward::Execute() {
-	Robot::conveyorBelt->Forward();
+void RunIndex::Execute() {
+	Robot::shooterIndex->ForwardVoltage();
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ConveyorForward::IsFinished() {
+bool RunIndex::IsFinished() {
     if (Robot::oi->getShootButton()->Get())
     return false;
     return true;
 }
 
 // Called once after isFinished returns true
-void ConveyorForward::End() {
-	Robot::conveyorBelt->Stop();
+void RunIndex::End() {
+	Robot::shooterIndex->Stop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void ConveyorForward::Interrupted() {
+void RunIndex::Interrupted() {
 
 }

@@ -14,12 +14,14 @@ void RunShooter::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void RunShooter::Execute() {
-	Robot::shooter->StartUp();	//set shooter to a certain RPM until shoot command ends
+	Robot::shooter->Run();	//set shooter to a certain RPM until shoot command ends
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool RunShooter::IsFinished() {
+    if (Robot::oi->getShootButton()->Get())
     return false;
+    return true;
 }
 
 // Called once after isFinished returns true

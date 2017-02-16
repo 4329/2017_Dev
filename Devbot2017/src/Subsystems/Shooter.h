@@ -19,7 +19,7 @@ public:
 	void InitDefaultCommand();
 	void Configuration();
 
-	void StartUp();
+	void Run();
 	void Stop();
 	bool CorrectRPM();
 	void SetSpeedMode();

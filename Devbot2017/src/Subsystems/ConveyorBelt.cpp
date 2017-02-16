@@ -37,4 +37,6 @@ void ConveyorBelt::Stop() {
 void ConveyorBelt::SetVoltageMode() {
 	conveyorTalon->SetControlMode(frc::CANSpeedController::kPercentVbus);
 	conveyorTalon->Enable();
+
+	std::cout << "Set Conveyor Talon to Voltage Mode" << std::endl;
 }
