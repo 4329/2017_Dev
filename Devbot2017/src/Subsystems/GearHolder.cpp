@@ -39,6 +39,16 @@ void GearHolder::GearFlap_Backward() {
 	gearSolenoidFlap->Set(false);
 }
 
+void GearHolder::ToggleGearFlap() {
+	gearSolenoidFlap->Set( ! gearSolenoidFlap->Get());
+}
+
+void GearHolder::ToggleGearHolder() {
+	gearSolenoidVent->Set(false);	//just in case
+
+	gearSolenoidExtender->Set( ! gearSolenoidExtender->Get() );	//set solenoid what posistion it isn't in
+}
+
 void GearHolder::PushGearHolder() {
 	gearSolenoidExtender->Set(true);
 }

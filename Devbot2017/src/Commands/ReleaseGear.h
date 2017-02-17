@@ -5,9 +5,11 @@
 #include "../Robot.h"
 
 
-class ReleaseGear: public CommandGroup {
+class ReleaseGear: public InstantCommand {
 public:
 	ReleaseGear();
+
+	virtual void Initialize();
 
 private:
 

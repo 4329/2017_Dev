@@ -32,8 +32,10 @@ public:
 	//for getting gear from feed
 	void GearFlap_Forward();
 	void GearFlap_Backward();
+	void ToggleGearFlap();
 
 	//for putting gear on peg and climbing
+	void ToggleGearHolder();
 	void PushGearHolder();
 	void Vent();
 	void PullGearHolder();

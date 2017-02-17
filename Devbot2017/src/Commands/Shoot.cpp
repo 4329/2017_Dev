@@ -19,7 +19,7 @@ Shoot::Shoot() {
 	Requires(Robot::conveyorBelt.get());
 
 	//run shooter until it is at the appropriate speed
-	AddSequential(new SpeedUpShooter());	//possibly add timeout?						//AddParallel(new SpeedUpShooter());
+	//AddSequential(new SpeedUpShooter());	//possibly add timeout?						//AddParallel(new SpeedUpShooter());
 																						//AddParallel(new SpeedUpIndex());
 
 																						//AddSequential(new ShooterTurn());
