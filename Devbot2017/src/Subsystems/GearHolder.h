@@ -27,19 +27,25 @@ public:
 	void InitDefaultCommand();
 	void Configuration();
 
-	void ToggleGearHolder();
 	void SetStart();
 
-	//climb command sequence(in this order)
+	//for getting gear from feed
+	void GearFlap_Forward();
+	void GearFlap_Backward();
+
+	//for putting gear on peg and climbing
 	void PushGearHolder();
-	//delay
 	void Vent();
 	void PullGearHolder();
 
 
 private:
+	//for climbing and putting gear on peg
 	std::shared_ptr<Solenoid> gearSolenoidExtender;
 	std::shared_ptr<Solenoid> gearSolenoidVent;
+
+	//for getting gears
+	std::shared_ptr<Solenoid> gearSolenoidFlap;
 };
 
 #endif

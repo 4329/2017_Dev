@@ -32,6 +32,7 @@ std::shared_ptr<CANTalon> RobotMap::conveyorTalon;
 std::shared_ptr<Pixy> RobotMap::pixy;
 std::shared_ptr<AHRS> RobotMap::imu;
 std::shared_ptr<CANTalon> RobotMap::indexTalon;
+std::shared_ptr<CANTalon> RobotMap::gearSolenoidFlap;
 
 std::shared_ptr<CANTalon> RobotMap::climberMotor;
 
@@ -85,4 +86,7 @@ void RobotMap::init() {
 
     indexTalon.reset(new CANTalon(9));
     lw->AddActuator("ShooterIndex", "indexTalon", indexTalon);
+
+    gearSolenoidFlap.reset(new frc::Solenoid(7));
+    lw->AddActuator("GearHolder", "gearSolenoidFlap", gearSolenoidFlap);
 }

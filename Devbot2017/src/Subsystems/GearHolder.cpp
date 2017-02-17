@@ -5,6 +5,7 @@
 GearHolder::GearHolder() : Subsystem("GearHolder") {
 	gearSolenoidExtender = RobotMap::extenderSolenoid;
 	gearSolenoidVent = RobotMap::ventSolenoid;
+	gearSolenoidFlap = RobotMap::gearSolenoidFlap;
 
 	Configuration();
 
@@ -23,16 +24,19 @@ void GearHolder::Configuration() {
 //put config stuff here
 }
 
-//change functions later
-void GearHolder::ToggleGearHolder() {
-	gearSolenoidVent->Set(false);	//just so vent is always off
-
-	gearSolenoidExtender->Set( ! gearSolenoidExtender.get() );	//toggle between off and on
-}
-
 void GearHolder::SetStart() {
+	gearSolenoidFlap->Set(false);
+
 	gearSolenoidExtender->Set(true);
 	gearSolenoidVent->Set(false);
+}
+
+void GearHolder::GearFlap_Forward() {
+	gearSolenoidFlap->Set(true);
+}
+
+void GearHolder::GearFlap_Backward() {
+	gearSolenoidFlap->Set(false);
 }
 
 void GearHolder::PushGearHolder() {
