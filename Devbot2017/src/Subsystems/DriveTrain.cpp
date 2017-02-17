@@ -91,8 +91,8 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 			rightOutput = ny + nx;
 		} else
 		{
-			leftOutput = ny;
-			rightOutput = ny;
+			leftOutput = -1 * ny;
+			rightOutput = -1 * ny;
 		}
 	}
 	else  // If moving backward
@@ -108,25 +108,27 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 			rightOutput = - std::max(-ny, -nx);
 		} else
 		{
-			leftOutput = ny;
-			rightOutput = ny;
+			leftOutput = -1 * ny;
+			rightOutput = -1 * ny;
 		}
 	}
+
+	std::cout << "L: " << leftOutput << " R: " << rightOutput << std::endl;
 
 	//set outputs
 	left1->Set(leftOutput);
 	right1->Set(rightOutput);
 
 	//output voltage and current
-	std::cout << "ArcadeDrive voltage: left1: " << left1->GetOutputVoltage() << ", ";
-	std::cout << "left2: " << left1->GetOutputVoltage() << ", ";
-	std::cout << "right1: " << right1->GetOutputVoltage() << ", ";
-	std::cout << "right2: " << right2->GetOutputVoltage() << std::endl;
+	//std::cout << "ArcadeDrive voltage: left1: " << left1->GetOutputVoltage() << ", ";
+	//std::cout << "left2: " << left1->GetOutputVoltage() << ", ";
+	//std::cout << "right1: " << right1->GetOutputVoltage() << ", ";
+	//std::cout << "right2: " << right2->GetOutputVoltage() << std::endl;
 
-	std::cout << "ArcadeDrive current: left1" << left1->GetOutputCurrent() << ", ";
-	std::cout << "left2: " << left1->GetOutputCurrent() << ", ";
-	std::cout << "right1: " << right1->GetOutputCurrent() << ", ";
-	std::cout << "right2: " << right2->GetOutputCurrent() << std::endl;
+	//std::cout << "ArcadeDrive current: left1" << left1->GetOutputCurrent() << ", ";
+	//std::cout << "left2: " << left1->GetOutputCurrent() << ", ";
+	//std::cout << "right1: " << right1->GetOutputCurrent() << ", ";
+	//std::cout << "right2: " << right2->GetOutputCurrent() << std::endl;
 }
 
 void DriveTrain::TankDrive(float left, float right) {

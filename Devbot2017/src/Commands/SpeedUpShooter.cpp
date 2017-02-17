@@ -15,7 +15,7 @@ void SpeedUpShooter::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void SpeedUpShooter::Execute() {
-	Robot::shooter->Run();
+	Robot::shooter->RunSpeed();
 }
 
 // Make this return true when this Command no longer needs to run execute()

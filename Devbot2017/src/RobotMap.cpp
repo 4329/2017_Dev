@@ -32,7 +32,7 @@ std::shared_ptr<CANTalon> RobotMap::conveyorTalon;
 std::shared_ptr<Pixy> RobotMap::pixy;
 std::shared_ptr<AHRS> RobotMap::imu;
 std::shared_ptr<CANTalon> RobotMap::indexTalon;
-std::shared_ptr<CANTalon> RobotMap::gearSolenoidFlap;
+std::shared_ptr<Solenoid> RobotMap::gearSolenoidFlap;
 
 std::shared_ptr<CANTalon> RobotMap::climberMotor;
 

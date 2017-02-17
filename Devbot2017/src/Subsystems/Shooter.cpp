@@ -18,6 +18,7 @@ void Shooter::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void Shooter::Configuration() {
+	/*
 	shooterTalon1->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
 	shooterTalon1->SetSensorDirection(false);
 	shooterTalon1->ConfigEncoderCodesPerRev(1024);
@@ -35,8 +36,8 @@ void Shooter::Configuration() {
 	shooterTalon1->SetP(0);
 	shooterTalon1->SetI(0);
 	shooterTalon1->SetD(0);
-
-	SetSpeedMode();
+	*/
+	SetVoltageMode();
 }
 
 void Shooter::SetSpeedMode() {	//needs to be called before shooter is used
@@ -45,7 +46,7 @@ void Shooter::SetSpeedMode() {	//needs to be called before shooter is used
 	shooterTalon2->SetControlMode(frc::CANSpeedController::kFollower);
 
 	//set which master talons the slave talons follow
-	shooterTalon2->Set(9);
+	shooterTalon2->Set(7);
 
 	shooterTalon1->Set(0);	//motor won't move
 
@@ -54,8 +55,27 @@ void Shooter::SetSpeedMode() {	//needs to be called before shooter is used
 	shooterTalon2->Enable();
 }
 
-void Shooter::Run() {
-	shooterTalon1->Set(10000);
+void Shooter::SetVoltageMode() {
+	//change mode
+	shooterTalon1->SetControlMode(frc::CANSpeedController::kPercentVbus);
+	shooterTalon2->SetControlMode(frc::CANSpeedController::kFollower);
+
+	//set which master talons the slave talons follow
+	shooterTalon2->Set(7);
+
+	shooterTalon1->Set(0);	//motor won't move
+
+	//enable after changing the control mode
+	shooterTalon1->Enable();
+	shooterTalon2->Enable();
+}
+
+void Shooter::RunSpeed() {
+	shooterTalon1->Set(-10000);
+}
+
+void Shooter::RunVoltage() {
+	shooterTalon1->Set(1);
 }
 
 void Shooter::Stop() {

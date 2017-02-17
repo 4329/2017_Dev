@@ -27,7 +27,7 @@ void GearHolder::Configuration() {
 void GearHolder::SetStart() {
 	gearSolenoidFlap->Set(false);
 
-	gearSolenoidExtender->Set(true);
+	gearSolenoidExtender->Set(false);
 	gearSolenoidVent->Set(false);
 }
 

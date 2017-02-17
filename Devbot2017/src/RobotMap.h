@@ -43,7 +43,7 @@ public:
 	static std::shared_ptr<Pixy> pixy;
 	static std::shared_ptr<AHRS> imu;
 	static std::shared_ptr<CANTalon> indexTalon;
-	static std::shared_ptr<CANTalon> gearSolenoidFlap;
+	static std::shared_ptr<Solenoid> gearSolenoidFlap;
 
 	static std::shared_ptr<CANTalon> climberMotor;
 

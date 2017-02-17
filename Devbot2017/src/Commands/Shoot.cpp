@@ -1,5 +1,7 @@
 #include "Shoot.h"
 
+#include "Delay.h"
+
 #include "SpeedUpShooter.h"
 #include "SpeedUpIndex.h"
 
@@ -7,7 +9,7 @@
 #include "ShooterForward.h"
 
 #include "ConveyorForward.h"
-#include "RunIndex.h";
+#include "RunIndex.h"
 #include "RunShooter.h"
 
 
@@ -26,7 +28,8 @@ Shoot::Shoot() {
 																						//AddSequential(new ShooterForward());
 
 	//take in fuel and continuously run the shooter to shoot the fuel
-	AddParallel(new RunIndex());
 	AddParallel(new RunShooter());
+	AddParallel(new RunIndex());
+	AddSequential(new Delay(3));
 	AddParallel(new ConveyorForward());
 }

@@ -19,10 +19,12 @@ public:
 	void InitDefaultCommand();
 	void Configuration();
 
-	void Run();
+	void RunSpeed();
+	void RunVoltage();
 	void Stop();
 	bool CorrectRPM();
 	void SetSpeedMode();
+	void SetVoltageMode();
 
 };
 
