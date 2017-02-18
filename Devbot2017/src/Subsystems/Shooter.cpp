@@ -75,7 +75,7 @@ void Shooter::RunSpeed() {
 }
 
 void Shooter::RunVoltage() {
-	shooterTalon1->Set(1);
+	shooterTalon1->Set(0.75);
 }
 
 void Shooter::Stop() {

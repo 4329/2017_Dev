@@ -95,7 +95,9 @@ float OI::GetAxisValue(std::shared_ptr<XboxController> controller, int axis) {
 		break;
 
 	case Xbox_Axis::Xbox_Axis_Left_Y:
-		value = -No_DeadZone_Value(controller->GetRawAxis(axis), LeftY_min);	//y axis is inverted
+		value = No_DeadZone_Value(controller->GetRawAxis(axis), LeftY_min);	//y axis shouldn't be inverted
+																			//as the arcade drive code is tailored to
+																			//the y axis not being inverted
 		if (value == 0.0) { value = 0.0; }
 		break;
 

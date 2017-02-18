@@ -30,6 +30,6 @@ Shoot::Shoot() {
 	//take in fuel and continuously run the shooter to shoot the fuel
 	AddParallel(new RunShooter());
 	AddParallel(new RunIndex());
-	AddSequential(new Delay(3));
+	AddSequential(new Delay(1));
 	AddParallel(new ConveyorForward());
 }
