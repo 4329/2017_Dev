@@ -1,5 +1,5 @@
-#ifndef VENT_H
-#define VENT_H
+#ifndef VENT_ON_H
+#define VENT_ON_H
 
 
 #include "Commands/Subsystem.h"
@@ -10,9 +10,9 @@
  *
  * @author ExampleAuthor
  */
-class Vent: public InstantCommand {
+class Vent_On: public InstantCommand {
 public:
-	Vent();
+	Vent_On();
 
 	virtual void Initialize();
 

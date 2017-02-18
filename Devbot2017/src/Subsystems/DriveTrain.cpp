@@ -74,6 +74,7 @@ float DriveTrain::Limit(float num) {	//set number to correct value if it's over 
 	}
 }
 
+//arcade drive also works as a split drive
 void DriveTrain::ArcadeDrive(float x, float y) {
 	float nx = Limit(x);	//the n stand for new (new x)
 	float ny = Limit(y);
@@ -107,10 +108,14 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 			leftOutput = ny - nx;
 			rightOutput = std::max(ny, nx);
 		}
-		else // If turning/rotating left or not moving
+		else if (nx < 0.0)// If turning/rotating left or not moving
 		{
 			leftOutput = std::max(ny, -nx);
 			rightOutput = ny + nx;
+		}
+		else {
+			leftOutput = ny;
+			rightOutput = ny;
 		}
 	}
 	else  // If moving backward
@@ -120,10 +125,14 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 			leftOutput = - std::max(-ny, nx);
 			rightOutput = ny + nx;
 		}
-		else // If turning/rotating left or not moving
+		else if (nx < 0.0) // If turning/rotating left or not moving
 		{
 			leftOutput = ny - nx;
 			rightOutput = - std::max(-ny, -nx);
+		}
+		else {
+			leftOutput = ny;
+			rightOutput = ny;
 		}
 	}
 
@@ -137,13 +146,13 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 
 	//output voltage and current
 	std::cout << "ArcadeDrive voltage: left1: " << left1->GetOutputVoltage() << ", ";
-	//std::cout << "left2: " << left1->GetOutputVoltage() << ", ";
-	std::cout << "right1: " << right1->GetOutputVoltage() << ", ";
+	//std::cout << "left2: " << left2->GetOutputVoltage() << ", ";
+	std::cout << "right1: " << right1->GetOutputVoltage() << ", " << std::endl;
 	//std::cout << "right2: " << right2->GetOutputVoltage() << std::endl;
 
-	//std::cout << "ArcadeDrive current: left1" << left1->GetOutputCurrent() << ", ";
+	std::cout << "ArcadeDrive current: left1" << left1->GetOutputCurrent() << ", ";
 	//std::cout << "left2: " << left1->GetOutputCurrent() << ", ";
-	//std::cout << "right1: " << right1->GetOutputCurrent() << ", ";
+	std::cout << "right1: " << right1->GetOutputCurrent() << ", " << std::endl;
 	//std::cout << "right2: " << right2->GetOutputCurrent() << std::endl;
 }
 

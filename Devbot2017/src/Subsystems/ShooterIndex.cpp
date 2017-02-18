@@ -17,10 +17,10 @@ void ShooterIndex::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void ShooterIndex::Configuration() {
-	//ConfigEncoder();
-	//SetSpeedMode();
+	ConfigEncoder();
+	SetSpeedMode();
 
-	SetVoltageMode();
+	//SetVoltageMode();
 }
 
 void ShooterIndex::ConfigEncoder() {

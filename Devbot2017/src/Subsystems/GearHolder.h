@@ -37,8 +37,11 @@ public:
 	//for putting gear on peg and climbing
 	void ToggleGearHolder();
 	void PushGearHolder();
-	void Vent();
+	void Vent_On();
+	void Vent_Off();
 	void PullGearHolder();
+
+	bool GetVentValue();
 
 
 private:

@@ -1,13 +1,13 @@
-#include "ReleaseGear.h"
+#include "ToggleGearHolder.h"
 
 
-ReleaseGear::ReleaseGear() {
+ToggleGearHolder::ToggleGearHolder() {
         // Use requires() here to declare subsystem dependencies
     // eg. requires(Robot::chassis.get());
 	Requires(Robot::gearholder.get());
 }
 
 
-void ReleaseGear::Initialize() {
+void ToggleGearHolder::Initialize() {
 	Robot::gearholder->ToggleGearHolder();
 }

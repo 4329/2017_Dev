@@ -14,7 +14,7 @@ void RunIndex::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void RunIndex::Execute() {
-	Robot::shooterIndex->BackwardVoltage();
+	Robot::shooterIndex->BackwardSpeed();
 }
 
 // Make this return true when this Command no longer needs to run execute()

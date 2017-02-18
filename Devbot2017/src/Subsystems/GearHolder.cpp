@@ -44,7 +44,7 @@ void GearHolder::ToggleGearFlap() {
 }
 
 void GearHolder::ToggleGearHolder() {
-	gearSolenoidVent->Set(false);	//just in case
+	gearSolenoidVent->Set(false);	//so vent can be set to off in case climb is activated
 
 	gearSolenoidExtender->Set( ! gearSolenoidExtender->Get() );	//set solenoid what posistion it isn't in
 }
@@ -53,10 +53,18 @@ void GearHolder::PushGearHolder() {
 	gearSolenoidExtender->Set(true);
 }
 
-void GearHolder::Vent() {
+void GearHolder::Vent_On() {
 	gearSolenoidVent->Set(true);
+}
+
+void GearHolder::Vent_Off() {
+	gearSolenoidVent->Set(false);
 }
 
 void GearHolder::PullGearHolder() {
 	gearSolenoidExtender->Set(false);
+}
+
+bool GearHolder::GetVentValue() {
+	return gearSolenoidVent->Get();
 }

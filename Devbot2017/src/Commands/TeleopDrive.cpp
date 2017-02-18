@@ -32,14 +32,16 @@ void TeleopDrive::Initialize() {
 void TeleopDrive::Execute() {
 	float axis1, axis2;
 
+	//currently split drive
 	if (true) {	//needs implemented with the config system
 		//gets axis values
 		axis1 = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Left_X);
-		axis2 = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Left_Y);
+		axis2 = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Right_Y);
 
 		//control motors
 		Robot::driveTrain->ArcadeDrive(axis1, axis2);	//ArcadeDrive(x, y)
 	}
+	//tank drive
 	else  {
 		axis1 = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Left_Y);
 		axis2 = Robot::oi->GetAxisValue(Robot::oi->getRobotDriver(), OI::Xbox_Axis_Right_Y);
