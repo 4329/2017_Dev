@@ -17,10 +17,10 @@ void ShooterIndex::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void ShooterIndex::Configuration() {
-	ConfigEncoder();
-	SetSpeedMode();
+	//ConfigEncoder();
+	//SetSpeedMode();
 
-	//SetVoltageMode();
+	SetVoltageMode();
 }
 
 void ShooterIndex::ConfigEncoder() {
@@ -68,10 +68,12 @@ void ShooterIndex::SetSpeedMode() {
 
 void ShooterIndex::ForwardSpeed() {
 	indexTalon->Set(2000); //2000 is a place holder
+	std::cout << "index: " << indexTalon->GetOutputVoltage() << std::endl;
 }
 
 void ShooterIndex::BackwardSpeed() {
 	indexTalon->Set(-2000); //2000 is a place holder
+	std::cout << "index: " << indexTalon->GetOutputVoltage() << std::endl;
 }
 
 bool ShooterIndex::CorrectRPM() {
