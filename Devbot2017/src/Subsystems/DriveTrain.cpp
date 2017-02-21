@@ -95,7 +95,7 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 	}
 
 	//print axis values
-	//std::cout << "ArcadeDrive axes: x: " << nx << ", y: " << ny << std::endl;
+	std::cout << "ArcadeDrive axes: x: " << nx << ", y: " << ny << std::endl;
 
 	float leftOutput;
 	float rightOutput;
@@ -136,7 +136,7 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 		}
 	}
 
-	//std::cout << "L: " << leftOutput << " R: " << rightOutput << std::endl;
+	std::cout << "L: " << leftOutput << " R: " << rightOutput << std::endl;
 
 	//set outputs
 	left1->Set(leftOutput);
