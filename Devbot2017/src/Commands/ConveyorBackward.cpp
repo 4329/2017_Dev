@@ -19,7 +19,9 @@ void ConveyorBackward::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ConveyorBackward::IsFinished() {
+    if (Robot::oi->getConveyorBackwardButton()->Get())
     return false;
+    return true;
 }
 
 // Called once after isFinished returns true

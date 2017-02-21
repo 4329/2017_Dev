@@ -29,7 +29,7 @@ private:
 	std::shared_ptr<JoystickButton> RobotClimb;
 	std::shared_ptr<JoystickButton> RobotClimbStop;
 	std::shared_ptr<JoystickButton> Flap;
-	//have a conveyor forward or backward button/axis
+	std::shared_ptr<JoystickButton> ConveyorBackward_B;
 
 	//controllers
 	std::shared_ptr<XboxController> robotOperator;
@@ -81,6 +81,7 @@ public:
 	std::shared_ptr<JoystickButton> getClimbButton();
 	std::shared_ptr<JoystickButton> getShootButton();
 	std::shared_ptr<JoystickButton> getFlapButton();
+	std::shared_ptr<JoystickButton> getConveyorBackwardButton();
 
 	float GetAxisValue(std::shared_ptr<XboxController> controller, int axis);	//gets the axis value of the specified button (with dead zones)
 	float No_DeadZone_Value(float value, float deadZone);	//returns a value that, which will be 0 if it is in the deadzone value

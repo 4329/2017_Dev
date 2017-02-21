@@ -29,6 +29,7 @@
 #include "Commands/PushGearHolder.h"
 #include "Commands/PullGearHolder.h"
 #include "Commands/ToggleGearFlap.h"
+#include "Commands/ConveyorBackward.h"
 
 #include <cmath> //for dead zones
 
@@ -43,8 +44,10 @@ OI::OI() {
     shoot.reset(new JoystickButton(robotOperator.get(), Xbox_Button::X));
     RobotClimb.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Y));
     Flap.reset(new JoystickButton(robotOperator.get(), Xbox_Button::B));	//held for now
+    ConveyorBackward_B.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Left_Bumper));
 
     //Specify which commands to call when button is pressed, released, etc
+    ConveyorBackward_B->WhenPressed(new ConveyorBackward());
     Flap->WhenPressed(new OpenFlap());	//actually while held
     ToggleGearHolder_B->WhenPressed(new ToggleGearHolder());
     shoot->WhenPressed(new Shoot());	//actually while held
@@ -84,6 +87,10 @@ std::shared_ptr<JoystickButton> OI::getShootButton() {
 
 std::shared_ptr<JoystickButton> OI::getFlapButton() {
    return Flap;
+}
+
+std::shared_ptr<JoystickButton> OI::getConveyorBackwardButton() {
+   return ConveyorBackward_B;
 }
 
 float OI::GetAxisValue(std::shared_ptr<XboxController> controller, int axis) {

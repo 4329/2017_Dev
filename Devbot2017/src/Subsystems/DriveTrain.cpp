@@ -95,7 +95,7 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 	}
 
 	//print axis values
-	std::cout << "ArcadeDrive axes: x: " << nx << ", y: " << ny << std::endl;
+	//std::cout << "ArcadeDrive axes: x: " << nx << ", y: " << ny << std::endl;
 
 	float leftOutput;
 	float rightOutput;
@@ -136,13 +136,11 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 		}
 	}
 
-	std::cout << "L: " << leftOutput << " R: " << rightOutput << std::endl;
+	//std::cout << "L: " << leftOutput << " R: " << rightOutput << std::endl;
 
 	//set outputs
 	left1->Set(leftOutput);
-	left2->Set(leftOutput);
 	right1->Set(rightOutput);
-	right2->Set(rightOutput);
 
 	//output voltage and current
 	std::cout << "ArcadeDrive voltage: left1: " << left1->GetOutputVoltage() << ", ";
@@ -150,7 +148,7 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 	std::cout << "right1: " << right1->GetOutputVoltage() << ", " << std::endl;
 	//std::cout << "right2: " << right2->GetOutputVoltage() << std::endl;
 
-	std::cout << "ArcadeDrive current: left1" << left1->GetOutputCurrent() << ", ";
+	std::cout << "ArcadeDrive current: left1: " << left1->GetOutputCurrent() << ", ";
 	//std::cout << "left2: " << left1->GetOutputCurrent() << ", ";
 	std::cout << "right1: " << right1->GetOutputCurrent() << ", " << std::endl;
 	//std::cout << "right2: " << right2->GetOutputCurrent() << std::endl;
