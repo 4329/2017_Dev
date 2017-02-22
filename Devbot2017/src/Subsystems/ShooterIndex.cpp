@@ -21,9 +21,11 @@ void ShooterIndex::Configuration() {
 	//SetSpeedMode();
 
 	SetVoltageMode();
+
+	indexTalon->SetInverted(true);
 }
 
-void ShooterIndex::ConfigEncoder() {
+void ShooterIndex::ConfigEncoder() {	//the set up of the encoder
 	indexTalon->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
 	indexTalon->SetSensorDirection(false);
 	indexTalon->ConfigEncoderCodesPerRev(1024);
@@ -50,12 +52,8 @@ void ShooterIndex::SetVoltageMode() {
 	std::cout << "Set index Talon to Voltage mode" << std::endl;
 }
 
-void ShooterIndex::ForwardVoltage() {
+void ShooterIndex::RunVoltage() {	//moves talon in voltage mode
 	indexTalon->Set(1);	//1 is a place holder
-}
-
-void ShooterIndex::BackwardVoltage() {
-	indexTalon->Set(-1); //1 is a place holder
 }
 
 void ShooterIndex::SetSpeedMode() {
@@ -66,17 +64,13 @@ void ShooterIndex::SetSpeedMode() {
 	std::cout << "Set index Talon to Speed mode" << std::endl;
 }
 
-void ShooterIndex::ForwardSpeed() {
+void ShooterIndex::RunSpeed() {	//moves talon in speed mode
 	indexTalon->Set(2000); //2000 is a place holder
 	std::cout << "index: " << indexTalon->GetOutputVoltage() << std::endl;
 }
 
-void ShooterIndex::BackwardSpeed() {
-	indexTalon->Set(-2000); //2000 is a place holder
-	std::cout << "index: " << indexTalon->GetOutputVoltage() << std::endl;
-}
-
-bool ShooterIndex::CorrectRPM() {
+bool ShooterIndex::CorrectRPM() {	//checks if the talon is running faster than the correct speed
+	//absolute value is used as talon speed may be negative
 	if ( fabs(indexTalon->GetSpeed() ) >= 2000) {	//needs to work with config system
 		return true;
 	}

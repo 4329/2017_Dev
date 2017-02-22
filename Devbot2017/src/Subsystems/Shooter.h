@@ -15,9 +15,12 @@ private:
 	std::shared_ptr<CANTalon> shooterTalon2;
 
 public:
+	//shooter should be moving forward( set to positive values ) when not inverted
+
 	Shooter();
 	void InitDefaultCommand();
 	void Configuration();
+	void ConfigEncoder();
 
 	void RunSpeed();
 	void RunVoltage();

@@ -18,7 +18,14 @@ void Shooter::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void Shooter::Configuration() {
-	/*
+	//ConfigEncoder();
+	//SetSpeedMode();
+	SetVoltageMode();
+	//shooterTalon1->SetInverted(false);
+	//shooterTalon2->SetInverted(false);
+}
+
+void Shooter::ConfigEncoder() {
 	shooterTalon1->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
 	shooterTalon1->SetSensorDirection(false);
 	shooterTalon1->ConfigEncoderCodesPerRev(1024);
@@ -36,8 +43,6 @@ void Shooter::Configuration() {
 	shooterTalon1->SetP(0);
 	shooterTalon1->SetI(0);
 	shooterTalon1->SetD(0);
-	*/
-	SetVoltageMode();
 }
 
 void Shooter::SetSpeedMode() {	//needs to be called before shooter is used
@@ -71,7 +76,7 @@ void Shooter::SetVoltageMode() {
 }
 
 void Shooter::RunSpeed() {
-	shooterTalon1->Set(-10000);
+	shooterTalon1->Set(10000);
 }
 
 void Shooter::RunVoltage() {

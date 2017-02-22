@@ -14,18 +14,21 @@ private:
 	std::shared_ptr<CANTalon> indexTalon;
 
 public:
+	//index should be moving backwards(set to negative values) when not inverted
+
+	//set up stuff
 	ShooterIndex();
 	void InitDefaultCommand();
 	void Configuration();
 	void ConfigEncoder();
 
+	//used when motor doesn't have a encoder
 	void SetVoltageMode();
-	void ForwardVoltage();
-	void BackwardVoltage();
+	void RunVoltage();
 
+	//when motor does have an encoder
 	void SetSpeedMode();
-	void ForwardSpeed();
-	void BackwardSpeed();
+	void RunSpeed();
 	bool CorrectRPM();
 
 	void Stop();

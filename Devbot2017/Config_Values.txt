@@ -1,0 +1,30 @@
+DriveTrain::left1_CANID 1
+DriveTrain::left2_CANID 2
+DriveTrain::right1_CANID 3
+DriveTrain::right2_CANID 4
+
+DriveTrain::left1_inverted true
+DriveTrain::left2_inverted true
+DriveTrain::right1_inverted false
+DriveTrain::right2_inverted false
+
+DriveTrain::type TankDrive
+// AracdeDrive TankDrive SplitDrive
+
+ShooterIndex::Inverted false\
+//true false
+ShooterIndex::Speed 2000
+ShooterIndex::P 0
+ShooterIndex::I 0
+ShooterIndex::D 0
+
+Intake::Inverted false
+//true false
+
+ConveyorBelt::Inverted false
+//true false
+
+Climber::Inverted false
+//true false
+
+ShooterPixy::Max_Angle_From_Target 5
