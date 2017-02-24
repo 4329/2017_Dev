@@ -33,6 +33,10 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     //talon values are set at their normal values when true, and are set to a fraction of their normal values when false
     HighSpeed = true;
 
+    leftMC.reset(new MotionController("LeftDriveMC",left1));
+    rightMC.reset(new MotionController("RightDriveMC",right1));
+    motionControlled = false;
+
     SetVoltageMode();
     Config();
 }
@@ -78,7 +82,9 @@ float DriveTrain::Limit(float num) {	//set number to correct value if it's over 
 }
 
 //arcade drive also works as a split drive
-void DriveTrain::ArcadeDrive(float x, float y) {
+void DriveTrain::ArcadeDrive(float x, float y)
+{
+	if (motionControlled) return;
 	float nx = Limit(x);	//the n stand for new (new x)
 	float ny = Limit(y);
 
@@ -163,7 +169,9 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 	//std::cout << "right2: " << right2->GetOutputCurrent() << std::endl;
 }
 
-void DriveTrain::TankDrive(float left, float right) {
+void DriveTrain::TankDrive(float left, float right)
+{
+	if (motionControlled) return;
 	float leftOutput = Limit(left);	//n stands for new
 	float rightOutput = Limit(right);
 
@@ -235,7 +243,9 @@ void DriveTrain::SetPositionMode(){
 	right1->Set(0);
 }
 
-void DriveTrain::SetPosition(int left, int right) {
+void DriveTrain::SetPosition(int left, int right)
+{
+	if (motionControlled) return;
 	left1->SetPosition(left);
 	right1->SetPosition(right);
 }
@@ -255,3 +265,62 @@ void DriveTrain::ToggleHighSpeed() {
 bool DriveTrain::GetHighSpeed() {
 	return HighSpeed;
 }
+
+void DriveTrain::AddMotionProfile(int index, int gainslot, double leftProfilePoints[][3], int leftSize,
+		                                       double rightProfilePoints[][3], int rightSize )
+{
+	leftMC->AddProfile(index,leftProfilePoints,leftSize,gainslot);
+	rightMC->AddProfile(index,rightProfilePoints,rightSize,gainslot);
+}
+
+bool DriveTrain::SetActiveMotionProfile(int index)
+{
+	return (leftMC->SetActiveProfile(index) && rightMC->SetActiveProfile(index));
+}
+
+void DriveTrain::StartMotionProfile()
+{
+	leftMC->Start();
+	rightMC->Start();
+	motionControlled = true;
+}
+
+void DriveTrain::MotionControl()
+{
+	leftMC->Control();
+	rightMC->Control();
+}
+
+void DriveTrain::StopMotionProfile()
+{
+	leftMC->Stop();
+	rightMC->Stop();
+	motionControlled = false;
+	SetVoltageMode();
+}
+
+void DriveTrain::ResetMotionProfile()
+{
+	leftMC->Reset();
+	rightMC->Reset();
+	motionControlled = false;
+	SetVoltageMode();
+}
+
+bool DriveTrain::MotionProfileInProgress()
+{
+	return (leftMC->ProfileInProgress() || rightMC->ProfileInProgress());
+}
+
+bool DriveTrain::MotionProfileComplete()
+{
+	return (leftMC->ProfileComplete() && rightMC->ProfileComplete());
+}
+
+void DriveTrain::EnableMotionDebug(bool enable)
+{
+	leftMC->EnableDebug(enable);
+	rightMC->EnableDebug(enable);
+}
+
+

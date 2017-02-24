@@ -14,6 +14,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "CANTalon.h"
+#include "../MotionController.h"
 //#include "AHRS.h"
 
 /**
@@ -36,6 +37,10 @@ private:
 
 	bool HighSpeed;
 
+	std::shared_ptr<MotionController> leftMC;
+	std::shared_ptr<MotionController> rightMC;
+
+	bool motionControlled;
 
 public:
 	DriveTrain();
@@ -50,12 +55,48 @@ public:
 	void Config();
 	void SetVoltageMode();
 	void SetPositionMode();
-	//void SetSpeedMode();
+
+
+	// Motion Control Methods.
+
+	// Adds a preplanned profile for both left and right sides of the drivetrain.
+	// Profiles are associated to index which allows the profiles to be added prior
+	// to sending over the CAN bus to the talons.  The gainslot is the PID slot on the
+	// Talons to be used for the inner loop Talon logic.
+	void AddMotionProfile(int index, int gainslot, double leftProfilePoints[][3], int leftSize,
+			                                       double rightProfilePoints[][3], int rightSize );
+
+	// Sets the motion profile by its index.  Returns true if profiles were found.
+	bool SetActiveMotionProfile(int index);
+
+	// Starts the current motion profile. Initiates the CAN bus transfer to the talons.
+	void StartMotionProfile();
+
+	// Must be called by the command in its execute method.
+	void MotionControl();
+
+	// Forces a stop of the currently executing motion profile.  Basically calls reset.
+	void StopMotionProfile();
+
+	// Stops and resets the motion profiles in the talons.
+	void ResetMotionProfile();
+
+	// Returns an indication if the motion profile is in progress.
+	bool MotionProfileInProgress();
+
+	// Returns if the motion profile has completed.
+	bool MotionProfileComplete();
+
+	// Enables/Disables debug.
+	void EnableMotionDebug(bool enable = true);
+
 
 	float Limit(float num);
 
 	void ToggleHighSpeed();
 	bool GetHighSpeed();
+
+
 };
 
 #endif
