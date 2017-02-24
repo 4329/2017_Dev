@@ -22,7 +22,7 @@ void ShooterIndex::Configuration() {
 
 	SetVoltageMode();
 
-	indexTalon->SetInverted(true);
+	//indexTalon->SetInverted(false);
 }
 
 void ShooterIndex::ConfigEncoder() {	//the set up of the encoder
@@ -53,7 +53,7 @@ void ShooterIndex::SetVoltageMode() {
 }
 
 void ShooterIndex::RunVoltage() {	//moves talon in voltage mode
-	indexTalon->Set(1);	//1 is a place holder
+	indexTalon->Set(-1);	//1 is a place holder
 }
 
 void ShooterIndex::SetSpeedMode() {

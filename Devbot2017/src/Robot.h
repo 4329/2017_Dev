@@ -33,6 +33,9 @@
 #include "Subsystems/ShooterIndex.h"
 #include <iostream>
 
+//function to set up the camera
+void Video_SetUp();
+
 class Robot : public IterativeRobot {
 public:
 	std::unique_ptr<Command> autonomousCommand;
@@ -50,6 +53,7 @@ public:
     static std::shared_ptr<Climber> climb;
     static std::shared_ptr<ShooterIndex> shooterIndex;
 
+
  	virtual void RobotInit();
 	virtual void DisabledInit();
 	virtual void DisabledPeriodic();
@@ -58,5 +62,7 @@ public:
 	virtual void TeleopInit();
 	virtual void TeleopPeriodic();
 	virtual void TestPeriodic();
+
 };
+
 #endif
