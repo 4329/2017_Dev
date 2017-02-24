@@ -10,7 +10,6 @@ ConveyorBelt::ConveyorBelt() : Subsystem("GateKeeper") {
 void ConveyorBelt::InitDefaultCommand() {
     // Set the default command for a subsystem here.
     // SetDefaultCommand(new MySpecialCommand());
-
 }
 
 
