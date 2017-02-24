@@ -25,5 +25,6 @@ ToggleShift::ToggleShift(): InstantCommand() {
 // Called once when this command runs
 void ToggleShift::Initialize() {
 	Robot::transmission->ToggleSHIFTER();
+	Robot::transmission->ToggleHighGear();
 }
 

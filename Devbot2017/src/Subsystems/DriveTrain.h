@@ -34,6 +34,8 @@ private:
 
 //	std::shared_ptr<AHRS> imu;
 
+	bool HighSpeed;
+
 
 public:
 	DriveTrain();
@@ -51,6 +53,9 @@ public:
 	//void SetSpeedMode();
 
 	float Limit(float num);
+
+	void ToggleHighSpeed();
+	bool GetHighSpeed();
 };
 
 #endif

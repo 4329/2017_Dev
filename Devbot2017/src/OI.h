@@ -30,18 +30,19 @@ private:
 	std::shared_ptr<JoystickButton> RobotClimbStop;
 	std::shared_ptr<JoystickButton> Flap;
 	std::shared_ptr<JoystickButton> ConveyorBackward_B;
+	std::shared_ptr<JoystickButton> toggleHighSpeed;
 
 	//controllers
 	std::shared_ptr<XboxController> robotOperator;
 	std::shared_ptr<XboxController> robotDriver;
 
 	//dead zones
-		float LeftX_min 		= 0.15;
-		float LeftY_min 		= 0.15;
-		float LeftTrigger_min 	= 0.15;
-		float Righttrigger_min 	= 0.15;
-		float RightX_min 		= 0.15;
-		float RightY_min 		= 0.15;
+		float LeftX_min 		= 0.1;
+		float LeftY_min 		= 0.1;
+		float LeftTrigger_min 	= 0.1;
+		float Righttrigger_min 	= 0.1;
+		float RightX_min 		= 0.1;
+		float RightY_min 		= 0.1;
 
 public:
 

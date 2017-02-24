@@ -30,6 +30,9 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 
  //   imu = RobotMap::imu;
 
+    //talon values are set at their normal values when true, and are set to a fraction of their normal values when false
+    HighSpeed = true;
+
     SetVoltageMode();
     Config();
 }
@@ -136,11 +139,17 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 		}
 	}
 
-	std::cout << "L: " << leftOutput << " R: " << rightOutput << std::endl;
-
 	//set outputs
+	if (!HighSpeed) {
+		leftOutput *= 0.5;
+		rightOutput *= 0.5;
+	}
+
 	left1->Set(leftOutput);
 	right1->Set(rightOutput);
+
+	//print outputs
+	std::cout << "L: " << leftOutput << " R: " << rightOutput << std::endl;
 
 	//output voltage and current
 	std::cout << "ArcadeDrive voltage: left1: " << left1->GetOutputVoltage() << ", ";
@@ -155,15 +164,23 @@ void DriveTrain::ArcadeDrive(float x, float y) {
 }
 
 void DriveTrain::TankDrive(float left, float right) {
-	float nleft = Limit(left);	//n stands for new
-	float nright = Limit(right);
+	float leftOutput = Limit(left);	//n stands for new
+	float rightOutput = Limit(right);
 
 	//print axis values
-	std::cout << "TankDrive axes: Left: " << nleft << " Right: " << nright << std::endl;
+	std::cout << "TankDrive axes: Left: " << leftOutput << " Right: " << rightOutput << std::endl;
 
 	//set outputs
-	left1->Set(nleft);
-	right1->Set(nright);
+	if (!HighSpeed) {
+		leftOutput *= 0.5;
+		rightOutput *= 0.5;
+	}
+
+	left1->Set(leftOutput);
+	right1->Set(rightOutput);
+
+	//print outputs
+	std::cout << "L: " << leftOutput << " R: " << rightOutput << std::endl;
 
 	//output voltage and current
 	std::cout << "TankDrive voltage: left1: " << left1->GetOutputVoltage() << ", ";
@@ -221,4 +238,20 @@ void DriveTrain::SetPositionMode(){
 void DriveTrain::SetPosition(int left, int right) {
 	left1->SetPosition(left);
 	right1->SetPosition(right);
+}
+
+void DriveTrain::ToggleHighSpeed() {
+	if (HighSpeed) {
+		HighSpeed = false;
+	}
+	else if (!HighSpeed) {
+		HighSpeed = true;
+	}
+	else {	//just in case HighSpeed was neither true nor false
+		HighSpeed = true;
+	}
+}
+
+bool DriveTrain::GetHighSpeed() {
+	return HighSpeed;
 }
