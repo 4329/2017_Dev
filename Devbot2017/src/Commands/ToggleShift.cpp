@@ -26,5 +26,7 @@ ToggleShift::ToggleShift(): InstantCommand() {
 void ToggleShift::Initialize() {
 	Robot::transmission->ToggleSHIFTER();
 	Robot::transmission->ToggleHighGear();
+
+	SmartDashboard::PutBoolean("HighGear", Robot::transmission->GetHighGear());
 }
 

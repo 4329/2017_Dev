@@ -12,5 +12,7 @@ ToggleSpeed::ToggleSpeed(): InstantCommand() {
 // Called once when this command runs
 void ToggleSpeed::Initialize() {
 	Robot::driveTrain->ToggleHighSpeed();
+
+	SmartDashboard::PutBoolean("HighSpeed", Robot::driveTrain->GetHighSpeed());
 }
 

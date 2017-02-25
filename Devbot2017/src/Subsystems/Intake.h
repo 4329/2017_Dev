@@ -2,7 +2,7 @@
  * Intake.h
  *
  *  Created on: Jan 27, 2017
- *      Author: Kurti
+ *      Author: Kurtis
  */
 
 #ifndef SRC_SUBSYSTEMS_INTAKE_H_
