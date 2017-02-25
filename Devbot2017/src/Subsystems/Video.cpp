@@ -16,11 +16,11 @@ Video::Video() : Subsystem("Video"){
 }
 
 void Video::InitDefaultCommand() {
-	SetDefaultCommand(new ToggleCamera());
+	//SetDefaultCommand(new ToggleCamera());
 }
 
 void Video::VideoFeed() {
-
+	/*
 	int cameraDev;
 
 	//set which camera is being used
@@ -30,9 +30,9 @@ void Video::VideoFeed() {
 	else {
 		cameraDev = forwardDev;
 	}
-
+	*/
 	// Get the USB camera from CameraServer
-	cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture(cameraDev);
+	cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture(/*cameraDev*/);
 	// Set the resolution
 	camera.SetResolution(640, 480);
 }
