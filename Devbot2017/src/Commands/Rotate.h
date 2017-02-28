@@ -18,7 +18,7 @@ public:
 
 private:
 	float angle;
-	bool overshot;
+	float output;
 
 };
 

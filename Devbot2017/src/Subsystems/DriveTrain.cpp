@@ -61,7 +61,7 @@ void DriveTrain::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void DriveTrain::Rotate_by_PID(float angle) {
-	imu->ZeroYaw();	//resets the yaw angle to 0
+	imu->ZeroYaw();	//"Sets the user-specified yaw offset to the current yaw value reported by the sensor."
 	turnControl->SetSetpoint(angle);
 	turnControl->Enable();
 }

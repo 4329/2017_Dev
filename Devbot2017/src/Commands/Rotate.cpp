@@ -2,39 +2,43 @@
 
 Rotate::Rotate(float Angle): Command() {
         // Use requires() here to declare subsystem dependencies
-    // eg. requires(Robot::chassis.get());
+    Requires(Robot::driveTrain.get());
+
 	angle = Angle;
-	overshot = false;
+	output = 1;	//all output ranges between 0.1 and 2(if angle isn't > 180)
 }
 
 // Called just before this Command runs the first time
 void Rotate::Initialize() {
-	Robot::driveTrain->Get_imu()->ZeroYaw(); //reset angle
+	Robot::driveTrain->Get_imu()->Reset(); //reset yaw angle to 0
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Rotate::Execute() {
-	float output = 1;
-	if (overshot) {
-		output *= -0.5;	//move slower and in the opposite direction
-	}
-
-	if (angle > 0) {	//move right
+	if (angle > 0) { //move right(when output is positive)
 		Robot::driveTrain->TankDrive(output, -output);
 	}
-	else {	//moving left
+	else {	//moving left(when output is positive)
 		Robot::driveTrain->TankDrive(-output, output);
 	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool Rotate::IsFinished() {
+	//output is smaller as robot gets closer to the sought angle
+	float diff = abs( angle - Robot::driveTrain->Get_imu()->GetYaw() );
+	output = diff / 90;	//output should be 1 when it is 90 degrees away from the sought angle
+	if (output < 0.1) {
+		output = 0.1;	//output is no less than .1
+	}
+
 	if (angle < Robot::driveTrain->Get_imu()->GetYaw()) {	//check if the robot went past the sought angle
-		overshot = true;
+		output = -abs(output);	//output is always negative(opposite direction that it started with)
 	}
 	else {
-		overshot = false;
+		output = abs(output);	//output is always positive(same direction that it started with)
 	}
+
 
     if (abs( angle - Robot::driveTrain->Get_imu()->GetYaw() ) < 4) {	//if the difference between the sought angle and
     																	//the current angle is small enough,
