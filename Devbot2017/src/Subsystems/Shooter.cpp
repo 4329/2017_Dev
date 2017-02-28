@@ -21,6 +21,7 @@ void Shooter::Configuration() {
 	//ConfigEncoder();
 	//SetSpeedMode();
 	SetVoltageMode();
+
 	//shooterTalon1->SetInverted(false);
 	//shooterTalon2->SetInverted(false);
 }
@@ -28,7 +29,7 @@ void Shooter::Configuration() {
 void Shooter::ConfigEncoder() {
 	shooterTalon1->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
 	shooterTalon1->SetSensorDirection(false);
-	shooterTalon1->ConfigEncoderCodesPerRev(1024);
+	shooterTalon1->ConfigEncoderCodesPerRev(512);
 
 	shooterTalon1->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	shooterTalon1->ConfigPeakOutputVoltage(+12.0f, -0.0f);	//may be switched depending on if the
