@@ -15,6 +15,8 @@
 #include "WPILib.h"
 #include "CANTalon.h"
 #include "../MotionController.h"
+#include "PIDOutput.h"
+#include "PIDController.h"
 #include "AHRS.h"
 
 /**
@@ -22,7 +24,7 @@
  *
  * @author ExampleAuthor
  */
-class DriveTrain: public Subsystem {
+class DriveTrain: public Subsystem, public PIDOutput {
 private:
 	// It's desirable that everything possible is private except
 	// for methods that implement subsystem capabilities
@@ -58,6 +60,7 @@ public:
 	void SetPositionMode();
 
 	void Rotate_by_PID(float angle);
+	virtual void PIDWrite(double output);
 
 
 	// Motion Control Methods.

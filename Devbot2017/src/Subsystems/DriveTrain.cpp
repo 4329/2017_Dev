@@ -36,7 +36,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     motionControlled = false;
 
     								    //p,   i,   d,   f,                  source,             output
-    turnControl.reset(new PIDController(0.0, 0.0, 0.0, 0.0, (PIDSource *) Robot::imu.get(), (PIDOutput *) this));
+    turnControl.reset(new PIDController(0.0, 0.0, 0.0, 0.0, (PIDSource *) Robot::imu.get(), this));
     turnControl->SetContinuous(true);
     turnControl->SetInputRange(-180.0,    180.0);
     turnControl->SetOutputRange(-1.0, 1.0);	//so that the robot moves slowly when turning
@@ -57,6 +57,10 @@ void DriveTrain::InitDefaultCommand() {
 
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
+
+void DriveTrain::PIDWrite(double output) {
+	ArcadeDrive(output, 0);	//robot only turns
+}
 
 void DriveTrain::Rotate_by_PID(float angle) {
 	Robot::imu->ZeroYaw();	//"Sets the user-specified yaw offset to the current yaw value reported by the sensor."
