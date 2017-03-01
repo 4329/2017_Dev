@@ -10,7 +10,7 @@ Rotate::Rotate(float Angle): Command() {
 
 // Called just before this Command runs the first time
 void Rotate::Initialize() {
-	Robot::driveTrain->Get_imu()->Reset(); //reset yaw angle to 0
+	Robot::imu->Reset(); //reset yaw angle to 0
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -26,13 +26,13 @@ void Rotate::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool Rotate::IsFinished() {
 	//output is smaller as robot gets closer to the sought angle
-	float diff = abs( angle - Robot::driveTrain->Get_imu()->GetYaw() );
+	float diff = abs( angle - Robot::imu->GetYaw() );
 	output = diff / 90;	//output should be 1 when it is 90 degrees away from the sought angle
 	if (output < 0.1) {
 		output = 0.1;	//output is no less than .1
 	}
 
-	if (angle < Robot::driveTrain->Get_imu()->GetYaw()) {	//check if the robot went past the sought angle
+	if (angle < Robot::imu->GetYaw()) {	//check if the robot went past the sought angle
 		output = -abs(output);	//output is always negative(opposite direction that it started with)
 	}
 	else {
@@ -40,7 +40,7 @@ bool Rotate::IsFinished() {
 	}
 
 
-    if (abs( angle - Robot::driveTrain->Get_imu()->GetYaw() ) < 4) {	//if the difference between the sought angle and
+    if (abs( angle - Robot::imu->GetYaw() ) < 4) {	//if the difference between the sought angle and
     																	//the current angle is small enough,
     																	//the command will end
     	return true;

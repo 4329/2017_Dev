@@ -33,6 +33,7 @@
 #include "Subsystems/Climber.h"
 #include "Subsystems/ShooterIndex.h"
 #include <iostream>
+#include "AHRS.h"
 
 //function to set up the camera
 void Video_Feed();
@@ -54,6 +55,7 @@ public:
     static std::shared_ptr<Climber> climb;
     static std::shared_ptr<ShooterIndex> shooterIndex;
     static std::shared_ptr<Video> video;
+    static std::shared_ptr<AHRS> imu;
 
 
  	virtual void RobotInit();

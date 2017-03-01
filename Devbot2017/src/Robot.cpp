@@ -26,6 +26,7 @@ std::shared_ptr<ShooterPixy> Robot::shooterPixy;
 std::shared_ptr<Climber> Robot::climb;
 std::shared_ptr<ShooterIndex> Robot::shooterIndex;
 std::shared_ptr<Video> Robot::video;
+std::shared_ptr<AHRS> Robot::imu;
 
 void Video_Feed() {
 	Robot::video->VideoFeed();
@@ -36,6 +37,7 @@ void Robot::RobotInit() {
 
 	RobotMap::init();
 
+	imu.reset(new AHRS(frc::SPI::Port::kMXP));
 	shooterIndex.reset(new ShooterIndex());
 	climb.reset(new Climber());
 	intake.reset(new Intake());

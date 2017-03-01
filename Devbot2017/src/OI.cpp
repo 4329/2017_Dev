@@ -31,6 +31,7 @@
 #include "Commands/ToggleGearFlap.h"
 #include "Commands/ConveyorBackward.h"
 #include "Commands/ToggleSpeed.h"
+#include "Commands/Rotate.h"
 
 #include <cmath> //for dead zones
 
@@ -70,6 +71,7 @@ OI::OI() {
     SmartDashboard::PutData("PullGearHolder", new PullGearHolder());
     SmartDashboard::PutData("ToggleGearFlap", new ToggleGearFlap());
     SmartDashboard::PutData("ToggleGearHolder", new ToggleGearHolder());
+    SmartDashboard::PutData("Rotate 90", new Rotate(90));
 
     SmartDashboard::PutBoolean("HighSpeed", Robot::driveTrain->GetHighSpeed());
     SmartDashboard::PutBoolean("HighGear", Robot::transmission->GetHighGear());
