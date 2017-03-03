@@ -5,44 +5,41 @@ Rotate::Rotate(float Angle): Command() {
     Requires(Robot::driveTrain.get());
 
 	angle = Angle;
-	output = 1;	//all output ranges between 0.1 and 2(if angle isn't > 180)
+	output = 0.3;
 }
 
 // Called just before this Command runs the first time
 void Rotate::Initialize() {
+	Robot::driveTrain->SetVoltageMode();
 	Robot::imu->Reset(); //reset yaw angle to 0
 }
 
 // Called repeatedly when this Command is scheduled to run
 void Rotate::Execute() {
-	if (angle > 0) { //move right(when output is positive)
-		Robot::driveTrain->TankDrive(output, -output);
+	std::cout << "Yaw: " << Robot::imu->GetYaw() << std::endl;
+
+	//check if the robot went past the sought angle
+	if (fabs(angle) < fabs(Robot::imu->GetYaw())) {
+		output = -fabs(output);	//output is always negative(opposite direction that it started with)
 	}
-	else {	//moving left(when output is positive)
-		Robot::driveTrain->TankDrive(-output, output);
+	else {
+		output = fabs(output);	//output is always positive(same direction that it started with)
+	}
+
+	if (angle > 0) { //move left(when output is positive)
+		Robot::driveTrain->DirectDrive(output, -output);
+	}
+	else {	//moving right(when output is positive)
+		Robot::driveTrain->DirectDrive(-output, output);
 	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool Rotate::IsFinished() {
-	//output is smaller as robot gets closer to the sought angle
-	float diff = abs( angle - Robot::imu->GetYaw() );
-	output = diff / 90;	//output should be 1 when it is 90 degrees away from the sought angle
-	if (output < 0.1) {
-		output = 0.1;	//output is no less than .1
-	}
-
-	if (angle < Robot::imu->GetYaw()) {	//check if the robot went past the sought angle
-		output = -abs(output);	//output is always negative(opposite direction that it started with)
-	}
-	else {
-		output = abs(output);	//output is always positive(same direction that it started with)
-	}
-
-
-    if (abs( angle - Robot::imu->GetYaw() ) < 4) {	//if the difference between the sought angle and
+    if (fabs( fabs(angle) - fabs(Robot::imu->GetYaw()) ) < 4) {	//if the difference between the sought angle and
     																	//the current angle is small enough,
     																	//the command will end
+    	std::cout << "done rotating" << std::endl;
     	return true;
     }
     else {

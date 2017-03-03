@@ -53,6 +53,7 @@ public:
 	void TankDrive(float left, float right);
 	void ArcadeDrive(float x, float y);	//arcade drive also works as a split drive
 	void SetPosition(int left, int right);
+	void DirectDrive(float left, float right);
 	void StopMotors();
 
 	void Config();

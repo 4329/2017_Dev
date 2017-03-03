@@ -217,6 +217,12 @@ void DriveTrain::TankDrive(float left, float right)
 	std::cout << "right2: " << right2->GetOutputCurrent() << std::endl;
 }
 
+void DriveTrain::DirectDrive(float left, float right) {
+	std::cout << "Left: " << left << " Right: " << right << std:: endl;
+	left1->Set(left);
+	right1->Set(right);
+}
+
 void DriveTrain::StopMotors() {
 	left1->Set(0);
 	right1->Set(0);

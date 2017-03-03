@@ -71,7 +71,19 @@ OI::OI() {
     SmartDashboard::PutData("PullGearHolder", new PullGearHolder());
     SmartDashboard::PutData("ToggleGearFlap", new ToggleGearFlap());
     SmartDashboard::PutData("ToggleGearHolder", new ToggleGearHolder());
+
+    //Positive rotates left, negative rotates right
     SmartDashboard::PutData("Rotate 90", new Rotate(90));
+    SmartDashboard::PutData("Rotate 45", new Rotate(45));
+    SmartDashboard::PutData("Rotate 180", new Rotate(180));
+    SmartDashboard::PutData("Rotate 30", new Rotate(30));
+    SmartDashboard::PutData("Rotate 60", new Rotate(60));
+
+    SmartDashboard::PutData("Rotate -90", new Rotate(-90));
+    SmartDashboard::PutData("Rotate -45", new Rotate(-45));
+    SmartDashboard::PutData("Rotate -180", new Rotate(-180));
+    SmartDashboard::PutData("Rotate -30", new Rotate(-30));
+    SmartDashboard::PutData("Rotate -60", new Rotate(-60));
 
     SmartDashboard::PutBoolean("HighSpeed", Robot::driveTrain->GetHighSpeed());
     SmartDashboard::PutBoolean("HighGear", Robot::transmission->GetHighGear());
