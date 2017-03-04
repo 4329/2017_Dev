@@ -69,7 +69,7 @@ void Robot::RobotInit() {
 	visionThread.detach();
 
 	//add motion profiles here
-	Robot::driveTrain->AddMotionProfile(3, 1, k3ftMotionProfile, k3ftMotionProfileSz, k3ftMotionProfile, k3ftMotionProfileSz);
+	Robot::driveTrain->AddMotionProfile(k3ftMotionProfileNdx, 1, k3ftMotionProfile, k3ftMotionProfileSz, k3ftMotionProfile, k3ftMotionProfileSz);
 
 	std::cout << "robot init complete" << std::endl;
   }

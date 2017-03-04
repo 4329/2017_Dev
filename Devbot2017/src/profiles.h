@@ -1,3 +1,5 @@
+const int k3ftMotionProfileNdx = 3;
+
 const int k3ftMotionProfileSz =184;
 		
 double k3ftMotionProfile[][3] = {
