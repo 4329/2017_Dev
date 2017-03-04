@@ -4,13 +4,15 @@ Rotate::Rotate(float Angle): Command() {
         // Use requires() here to declare subsystem dependencies
     Requires(Robot::driveTrain.get());
 
-	angle = Angle + 4;	//so the robot aims for 4 above the angle and stops at the angle
-	output = 0.2;
+    correctAngle = Angle;	//just for set up
+	targetAngle = Angle;
+	output = 0.25;
+	direction = 1;	//just for set up
 }
 
 // Called just before this Command runs the first time
 void Rotate::Initialize() {
-	std::cout << "now rotating " << angle << std::endl;
+	std::cout << "now rotating " << targetAngle << std::endl;
 	Robot::driveTrain->SetVoltageMode();
 	Robot::imu->Reset(); //reset yaw angle to 0
 }
@@ -19,25 +21,24 @@ void Rotate::Initialize() {
 void Rotate::Execute() {
 	std::cout << "Yaw: " << Robot::imu->GetYaw() << std::endl;
 
-	//check if the robot went past the sought angle
-	if (fabs(angle) < fabs(Robot::imu->GetYaw())) {
-		output = -fabs(output);	//output is always negative(opposite direction that it started with)
+	float correctYaw;
+	float sensorYaw = Robot::imu->GetYaw();
+
+	if (sensorYaw < 0) {
+		correctYaw = 360 + sensorYaw;
+		direction = -1.0;
 	}
 	else {
-		output = fabs(output);	//output is always positive(same direction that it started with)
+		correctYaw = sensorYaw;
+		direction = 1.0;
 	}
 
-	if (angle > 0) { //move left(when output is positive)
-		Robot::driveTrain->DirectDrive(output, -output);
-	}
-	else {	//moving right(when output is positive)
-		Robot::driveTrain->DirectDrive(-output, output);
-	}
+	Robot::driveTrain->DirectDrive(output*direction, output*direction);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool Rotate::IsFinished() {
-    if (fabs( fabs(angle) - fabs(Robot::imu->GetYaw()) ) < 4) {	//if the difference between the sought angle and
+    if (fabs( targetAngle - GetCorrectAngle(Robot::imu->GetYaw()) ) < 4) {	//if the difference between the sought angle and
     																	//the current angle is small enough,
     																	//the command will end
     	std::cout << "done rotating" << std::endl;
@@ -57,4 +58,13 @@ void Rotate::End() {
 // subsystems is scheduled to run
 void Rotate::Interrupted() {
 
+}
+
+float Rotate::GetCorrectAngle(float angle) {
+	if (angle < 0) {
+		return 360 + angle;
+	}
+	else {
+		return angle;
+	}
 }

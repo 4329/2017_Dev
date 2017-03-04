@@ -20,7 +20,7 @@ MotionController::MotionController(std::string device, std::shared_ptr<CANTalon>
 	_Start = false;
 	_loopTimeout = -1;
 	_profileInProgress = false;
-	_profileComplete = true;
+	_profileComplete = false;
 	_enableDebug = false;
 }
 

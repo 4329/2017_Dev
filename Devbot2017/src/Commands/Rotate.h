@@ -16,10 +16,13 @@ public:
 	virtual void End();
 	virtual void Interrupted();
 
-private:
-	float angle;
-	float output;
+	float GetCorrectAngle(float angle);
 
+private:
+	float correctAngle;
+	float targetAngle;
+	float output;
+	float direction;
 };
 
 #endif
