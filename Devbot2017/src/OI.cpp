@@ -32,6 +32,7 @@
 #include "Commands/ConveyorBackward.h"
 #include "Commands/ToggleSpeed.h"
 #include "Commands/Rotate.h"
+#include "Commands/MoveStraight.h"
 
 #include <cmath> //for dead zones
 
@@ -84,6 +85,8 @@ OI::OI() {
     SmartDashboard::PutData("Rotate -180", new Rotate(-180));
     SmartDashboard::PutData("Rotate -30", new Rotate(-30));
     SmartDashboard::PutData("Rotate -60", new Rotate(-60));
+
+    SmartDashboard::PutData("Forward 3ft", new MoveStraight(3));
 
     SmartDashboard::PutBoolean("HighSpeed", Robot::driveTrain->GetHighSpeed());
     SmartDashboard::PutBoolean("HighGear", Robot::transmission->GetHighGear());

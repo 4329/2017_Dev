@@ -4,12 +4,13 @@ Rotate::Rotate(float Angle): Command() {
         // Use requires() here to declare subsystem dependencies
     Requires(Robot::driveTrain.get());
 
-	angle = Angle;
-	output = 0.3;
+	angle = Angle + 4;
+	output = 0.2;
 }
 
 // Called just before this Command runs the first time
 void Rotate::Initialize() {
+	std::cout << "now rotating " << angle << std::endl;
 	Robot::driveTrain->SetVoltageMode();
 	Robot::imu->Reset(); //reset yaw angle to 0
 }

@@ -10,6 +10,7 @@ MoveStraight::MoveStraight(int index): Command() {
 void MoveStraight::Initialize() {
 	Robot::driveTrain->SetActiveMotionProfile(_index);
 	Robot::driveTrain->StartMotionProfile();
+	std::cout << "now moving straight" << std::endl;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -26,6 +27,7 @@ bool MoveStraight::IsFinished() {
 void MoveStraight::End() {
 	Robot::driveTrain->StopMotionProfile();
 	Robot::driveTrain->StopMotors();
+	std::cout << "done moving straight" << std::endl;
 }
 
 // Called when another command which requires one or more of the same
