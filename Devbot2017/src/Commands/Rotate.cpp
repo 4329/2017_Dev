@@ -4,10 +4,10 @@ Rotate::Rotate(float Angle): Command() {
         // Use requires() here to declare subsystem dependencies
     Requires(Robot::driveTrain.get());
 
-    correctAngle = Angle;	//just for set up
+    correctYaw = 0.0;
 	targetAngle = Angle;
-	output = 0.25;
-	direction = 1;	//just for set up
+	output = 0.2;
+	error = 4;
 }
 
 // Called just before this Command runs the first time
@@ -21,9 +21,10 @@ void Rotate::Initialize() {
 void Rotate::Execute() {
 	std::cout << "Yaw: " << Robot::imu->GetYaw() << std::endl;
 
-	float correctYaw;
+	float direction = 1;
 	float sensorYaw = Robot::imu->GetYaw();
 
+	//get the correct yaw (value between 0 and 180) and set the direction (right or left)
 	if (sensorYaw < 0) {
 		correctYaw = 360 + sensorYaw;
 		direction = -1.0;
@@ -33,20 +34,31 @@ void Rotate::Execute() {
 		direction = 1.0;
 	}
 
+	//move robot
 	Robot::driveTrain->DirectDrive(output*direction, output*direction);
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool Rotate::IsFinished() {
-    if (fabs( targetAngle - GetCorrectAngle(Robot::imu->GetYaw()) ) < 4) {	//if the difference between the sought angle and
-    																	//the current angle is small enough,
-    																	//the command will end
-    	std::cout << "done rotating" << std::endl;
-    	return true;
-    }
-    else {
-    	return false;
-    }
+	float correctAngle;
+
+	//set the correct angle
+	if (targetAngle < 0) {
+								//360 + (-180 - 4) = 176, it should be 184 [360 + (-180 + 4) = 4]
+		correctAngle = 360 + (targetAngle + error);
+	}
+	else {
+		correctAngle = targetAngle + error;
+	}
+
+	//if the difference between the yaw and angle is small enough command will stop
+	if (fabs(correctAngle - correctYaw) < error) {
+		std::cout << "done rotating " << std::endl;
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 // Called once after isFinished returns true
@@ -58,13 +70,4 @@ void Rotate::End() {
 // subsystems is scheduled to run
 void Rotate::Interrupted() {
 
-}
-
-float Rotate::GetCorrectAngle(float angle) {
-	if (angle < 0) {
-		return 360 + angle;
-	}
-	else {
-		return angle;
-	}
 }
