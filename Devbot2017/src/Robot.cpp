@@ -66,6 +66,8 @@ void Robot::RobotInit() {
 	std::thread visionThread(Video_Feed);
 	visionThread.detach();
 
+	//add motion profiles here
+
 	std::cout << "robot init complete" << std::endl;
   }
 

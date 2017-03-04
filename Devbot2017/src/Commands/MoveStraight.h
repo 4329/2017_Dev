@@ -8,7 +8,7 @@
 
 class MoveStraight: public Command {
 public:
-	MoveStraight();
+	MoveStraight(int index);
 
 	virtual void Initialize();
 	virtual void Execute();
@@ -17,6 +17,7 @@ public:
 	virtual void Interrupted();
 
 private:
+	int _index;
 
 };
 
