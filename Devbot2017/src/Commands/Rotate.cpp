@@ -44,8 +44,7 @@ bool Rotate::IsFinished() {
 
 	//set the correct angle
 	if (targetAngle < 0) {
-								//360 + (-180 - 4) = 176, it should be 184 [360 + (-180 + 4) = 4]
-		correctAngle = 360 + (targetAngle + error);
+		correctAngle = 360 + (targetAngle - error);
 	}
 	else {
 		correctAngle = targetAngle + error;
