@@ -4,7 +4,7 @@ Rotate::Rotate(float Angle): Command() {
         // Use requires() here to declare subsystem dependencies
     Requires(Robot::driveTrain.get());
 
-	angle = Angle + 4;
+	angle = Angle + 4;	//so the robot aims for 4 above the angle and stops at the angle
 	output = 0.2;
 }
 
