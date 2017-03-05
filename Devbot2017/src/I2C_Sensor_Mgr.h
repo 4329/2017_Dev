@@ -3,7 +3,7 @@
 #include "WPILib.h"
 #include "Pixy.h"
 #include "I2CXL_MS_EZ.h"
-#include "../RobotMap.h"
+#include "RobotMap.h"
 
 
 

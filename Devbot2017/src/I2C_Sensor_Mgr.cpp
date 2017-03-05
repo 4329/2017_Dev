@@ -1,5 +1,5 @@
 #include "I2C_Sensor_Mgr.h"
-#include "../RobotMap.h"
+#include "RobotMap.h"
 
 
 I2C_Sensor_Mgr* I2C_Sensor_Mgr::_singleton = NULL;
