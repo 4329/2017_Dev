@@ -35,7 +35,7 @@ void Rotate::Execute() {
 	}
 
 	//move robot
-	Robot::driveTrain->DirectDrive(output*direction, output*direction);
+	Robot::driveTrain->DirectDrive(-output*direction, output*direction);
 }
 
 // Make this return true when this Command no longer needs to run execute()
