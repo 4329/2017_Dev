@@ -10,8 +10,10 @@
 
 #include "WPILIB.h"
 #include "I2C.h"
+#include "LiveWindow/LiveWindowSendable.h"
 #include "SensorBase.h"
 #include <vector>
+#include <string>
 
 
 // Communication/misc parameters
@@ -105,10 +107,10 @@ struct Block
 };
 
 
-class Pixy {
+class Pixy : public LiveWindowSendable {
 public:
-	Pixy(uint8_t address, I2C::Port port=PIXY_I2C_DEFAULT_PORT);
-	~Pixy();
+	Pixy(std::string name, uint8_t address, I2C::Port port=PIXY_I2C_DEFAULT_PORT);
+	virtual ~Pixy();
 
 	void      Set_AlignmentOffset(int x, int y);
 	uint16_t  GetBlocks(uint16_t maxBlocks=1000);
@@ -116,6 +118,13 @@ public:
 	int8_t    SetBrightness(uint8_t brightness);
 	int8_t    SetLED(uint8_t r, uint8_t g, uint8_t b);
 	std::vector<Block> signatures;
+
+	void UpdateTable() override;
+	void StartLiveWindowMode() override;
+	void StopLiveWindowMode() override;
+	std::string GetSmartDashboardType() const override;
+	void InitTable(std::shared_ptr<ITable> subTable) override;
+	std::shared_ptr<ITable> GetTable() const override;
 
 private:
 	bool      GetStart();
@@ -137,6 +146,9 @@ private:
 
 	int       x_offset;
 	int       y_offset;
+
+	std::string _myName;
+	std::shared_ptr<ITable> m_table;
 };
 
 #endif /* SRC_PIXY_H_ */

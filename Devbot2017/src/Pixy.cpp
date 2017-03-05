@@ -33,7 +33,7 @@ void Block::print()
 }
 
 
-Pixy::Pixy(uint8_t address, enum frc::I2C::Port port) : Wire(port, address)
+Pixy::Pixy(std::string name, uint8_t address, enum frc::I2C::Port port) : Wire(port, address)
 {
 	_address = address;
 	_port = port;
@@ -47,6 +47,12 @@ Pixy::Pixy(uint8_t address, enum frc::I2C::Port port) : Wire(port, address)
 	blockType = UNDEFINED;
 	x_offset = 0;
 	y_offset = 0;
+
+	std::stringstream ss;
+	ss << "Pixy_" << name;
+	ss >> _myName;
+
+	LiveWindow::GetInstance()->AddSensor(_myName, port, this);
 }
 
 Pixy::~Pixy()
@@ -240,4 +246,24 @@ int8_t Pixy::SetLED(uint8_t r, uint8_t g, uint8_t b)
 
     return Send(outBuf, 5);
 }
+
+void Pixy::UpdateTable() {
+  if (m_table != nullptr) {
+	  uint16_t inView = GetBlocks();
+	  m_table->PutNumber("ObjectsInView", inView);
+  }
+}
+
+void Pixy::StartLiveWindowMode() {}
+
+void Pixy::StopLiveWindowMode() {}
+
+std::string Pixy::GetSmartDashboardType() const { return _myName; }
+
+void Pixy::InitTable(std::shared_ptr<ITable> subTable) {
+  m_table = subTable;
+  UpdateTable();
+}
+
+std::shared_ptr<ITable> Pixy::GetTable() const { return m_table; }
 

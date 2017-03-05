@@ -10,7 +10,10 @@
 
 #include "WPILIB.h"
 #include "I2C.h"
+#include "LiveWindow/LiveWindowSendable.h"
+#include "PIDSource.h"
 #include "SensorBase.h"
+#include <string>
 
 
 #define I2CXLMSEZ_DEFAULT_ADDR     0xE0
@@ -59,18 +62,27 @@
 
  */
 
-namespace MaxSonar
+class I2CXL_EZ : public PIDSource, public LiveWindowSendable
 {
-
-class I2CXL_EZ {
 public:
-	I2CXL_EZ(uint8_t address, I2C::Port port=I2C::Port::kOnboard);
-	~I2CXL_EZ();
+	I2CXL_EZ(std::string name, uint8_t address, I2C::Port port=I2C::Port::kOnboard);
+	virtual ~I2CXL_EZ();
 
 	void     TakeMeasurement();
-	uint16_t GetLastRange();
+	double   GetLastRange();
 
 	bool ChangeAddress(uint8_t toAddress);
+
+	double PIDGet() override;
+	void SetPIDSourceType(PIDSourceType pidSource) override;
+
+	void UpdateTable() override;
+	void StartLiveWindowMode() override;
+	void StopLiveWindowMode() override;
+	std::string GetSmartDashboardType() const override;
+	void InitTable(std::shared_ptr<ITable> subTable) override;
+	std::shared_ptr<ITable> GetTable() const override;
+
 
 private:
 
@@ -83,8 +95,12 @@ private:
 	uint8_t   _address;
 	I2C       _wire;
 	uint8_t   _byte1, _byte2;
+	std::string _myName;
+
+	double    _lastReportedRange;
+
+	std::shared_ptr<ITable> m_table;
 
 };
 
-}
 #endif /* SRC_I2CXL_MS_EZ_H_ */

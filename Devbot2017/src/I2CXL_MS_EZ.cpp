@@ -5,16 +5,23 @@
  *      Author: mdbal
  */
 
-#include <I2CXL_MS_EZ.h>
+#include "I2CXL_MS_EZ.h"
+#include <sstream>
 
-using MaxSonar;
 
-I2CXL_EZ::I2CXL_EZ(uint8_t address, enum frc::I2C::Port port) : _wire(port, address)
+I2CXL_EZ::I2CXL_EZ(std::string name, uint8_t address, enum frc::I2C::Port port) : _wire(port, address)
 {
 	_address = address;
 	_port = port;
 	_byte1 = 0;
 	_byte2 = 0;
+	_lastReportedRange = -1.0;
+
+	std::stringstream ss;
+	ss << "MaxSonar_I2C_" << name;
+	ss >> _myName;
+
+	LiveWindow::GetInstance()->AddSensor(_myName, port, this);
 }
 
 I2CXL_EZ::~I2CXL_EZ()
@@ -27,14 +34,15 @@ void I2CXL_EZ::TakeMeasurement()
 	uint8_t cmd[2];
 	cmd[0] = _address;
 	cmd[1] = I2CXLMSEZ_RANGE_CMD;
-	Send(&cmd, 2);
+	Send(&cmd[0], 2);
 };
 
-uint16_t I2CXL_EZ::GetLastRange()
+double I2CXL_EZ::GetLastRange()
 {
 	uint8_t cmd = _address | 0x01;
 	Send(&cmd,1);
-	return GetWord();
+	_lastReportedRange = (double) GetWord();
+	return _lastReportedRange;
 };
 
 
@@ -49,7 +57,7 @@ bool I2CXL_EZ::ChangeAddress(uint8_t toAddress)
 	cmd[1] = I2CXLMSEZ_ADDRESS_UNLOCK1;
 	cmd[2] = I2CXLMSEZ_ADDRESS_UNLOCK2;
 	cmd[3] = toAddress;
-	Send(&cmd,4);
+	Send(&cmd[0],4);
 	return true;
 };
 
@@ -73,4 +81,36 @@ int8_t I2CXL_EZ::Send(uint8_t *data, uint8_t len)
     _wire.WriteBulk(data, len);
     return len;
 }
+
+
+double I2CXL_EZ::PIDGet() {
+	return _lastReportedRange;
+}
+
+void I2CXL_EZ::SetPIDSourceType(PIDSourceType pidSource) {
+  if (wpi_assert(pidSource == PIDSourceType::kDisplacement)) {
+    m_pidSource = pidSource;
+  }
+}
+
+void I2CXL_EZ::UpdateTable() {
+  if (m_table != nullptr) {
+	  TakeMeasurement();
+	  GetLastRange();
+	  m_table->PutNumber("Value", _lastReportedRange);
+  }
+}
+
+void I2CXL_EZ::StartLiveWindowMode() {}
+
+void I2CXL_EZ::StopLiveWindowMode() {}
+
+std::string I2CXL_EZ::GetSmartDashboardType() const { return "Ultrasonic"; }
+
+void I2CXL_EZ::InitTable(std::shared_ptr<ITable> subTable) {
+  m_table = subTable;
+  UpdateTable();
+}
+
+std::shared_ptr<ITable> I2CXL_EZ::GetTable() const { return m_table; }
 
