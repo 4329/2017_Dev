@@ -29,11 +29,14 @@ std::shared_ptr<frc::Solenoid> RobotMap::ventSolenoid;
 std::shared_ptr<CANTalon> RobotMap::shooterTalon1;
 std::shared_ptr<CANTalon> RobotMap::shooterTalon2;
 std::shared_ptr<CANTalon> RobotMap::conveyorTalon;
-std::shared_ptr<Pixy> RobotMap::pixy;
 std::shared_ptr<CANTalon> RobotMap::indexTalon;
 std::shared_ptr<frc::Solenoid> RobotMap::gearSolenoidFlap;
-
 std::shared_ptr<CANTalon> RobotMap::climberMotor;
+
+std::shared_ptr<Pixy> RobotMap::shooterPixy;
+std::shared_ptr<Pixy> RobotMap::gearPixy;
+std::shared_ptr<I2CXL_EZ> RobotMap::shooterRangeFinder;
+std::shared_ptr<I2CXL_EZ> RobotMap::gearRangeFinder;
 
 
 void RobotMap::init() {
@@ -75,8 +78,6 @@ void RobotMap::init() {
     conveyorTalon.reset(new CANTalon(6));
     lw->AddActuator("ConveyorBelt", "conveyorTalon", conveyorTalon);
 
-    pixy.reset(new Pixy(0x54));
-
     climberMotor.reset(new CANTalon(10));
     lw->AddActuator("Climber", "climberMotor", climberMotor);
 
@@ -85,4 +86,10 @@ void RobotMap::init() {
 
     gearSolenoidFlap.reset(new frc::Solenoid(7));
     lw->AddActuator("GearHolder", "gearSolenoidFlap", gearSolenoidFlap);
+
+    gearPixy.reset(new Pixy(std::string("GearPixy"), PIXY_GEAR_ADDR));
+    shooterPixy.reset(new Pixy(std::string("ShooterPixy"), PIXY_SHOOT_ADDR));
+
+    gearRangeFinder.reset(new I2CXL_EZ(std::string("GearRangeFinder"), I2CXLMSEZ_GEAR_ADDR));
+    shooterRangeFinder.reset(new I2CXL_EZ(std::string("ShooterRangeFinder"), I2CXLMSEZ_SHOOT_ADDR));
 }

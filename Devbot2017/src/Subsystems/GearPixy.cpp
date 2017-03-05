@@ -1,13 +1,13 @@
-#include "ShooterPixy.h"
+#include "GearPixy.h"
 #include "../RobotMap.h"
 #include "../I2C_Sensor_Mgr.h"
 
 
-ShooterPixy::ShooterPixy() : Subsystem("ShooterPixy") {
+GearPixy::GearPixy() : Subsystem("GearPixy") {
 
 }
 
-void ShooterPixy::InitDefaultCommand() {
+void GearPixy::InitDefaultCommand() {
     // Set the default command for a subsystem here.
     // SetDefaultCommand(new MySpecialCommand());
 
@@ -17,7 +17,7 @@ void ShooterPixy::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-Block * ShooterPixy::Get_Target() {
+Block * GearPixy::Get_Target() {
 //Set Up
 	Block * block_ptr;	//points to the correct block (the 15 in. by 4 in. one)
 	double new_ratio;	//the w/h ratio of the newest block
@@ -25,11 +25,11 @@ Block * ShooterPixy::Get_Target() {
 	double new_ratio_diff;	//the difference of the new ratio to high block ratio
 	double old_ratio_diff;	//the difference of the old ratio to high block ratio
 
-	I2C_Sensor_Mgr::Instance()->Update_ShooterPixy();
-	std::vector<Block> sigs = I2C_Sensor_Mgr::Instance()->Get_ShooterSignatures();
+	I2C_Sensor_Mgr::Instance()->Update_GearPixy();
+	std::vector<Block> sigs = I2C_Sensor_Mgr::Instance()->Get_GearSignatures();
 
 	int num_of_blocks = sigs.size();
-	std::cout << "ShooterPixy: number of targets: " << num_of_blocks << std::endl;
+	std::cout << "GearPixy: number of targets: " << num_of_blocks << std::endl;
 
 	//print block values
 	for(int i = 0; i < num_of_blocks; i++) {	//print values of all blocks
@@ -91,14 +91,14 @@ Block * ShooterPixy::Get_Target() {
 	return block_ptr;
 }
 
-float ShooterPixy::Distance_From_Target() {	//doesn't need to account for the target being off-centered as this function will be called
+float GearPixy::Distance_From_Target() {	//doesn't need to account for the target being off-centered as this function will be called
 											//after the robot has faced towards the target
 	Block * block_ptr = Get_Target();
 
 	//look at the end of this for details: http://wpilib.screenstepslive.com/s/4485/m/24194/l/288985-identifying-and-processing-the-targets
 	//gets distance from pixy directly to the tape
 	float distance = (15.0 * 319.0) / (2 * block_ptr->width * tan( ((H_FOV / 2.0) * pi)) / 180.0);
-	std::cout << "ShooterPixy: direct distance: " << distance << std::endl;
+	std::cout << "GearPixy: direct distance: " << distance << std::endl;
 
 	// (y_pixels) / (target_y_value) = V_HOV / angle
 	// target_y_value * V_HOV = y_pixels * angle
@@ -107,17 +107,17 @@ float ShooterPixy::Distance_From_Target() {	//doesn't need to account for the ta
 
 	// cos( (angle * pi) /180.0 ) = (horizontal distance) / (direct distance)
 	distance = cos(  (angle * pi) / 180.0 ) * distance;
-	std::cout << "ShooterPixy: horizontal distance: " << distance << std::endl;
+	std::cout << "GearPixy: horizontal distance: " << distance << std::endl;
 
 	return distance;
 }
 
-void ShooterPixy::printBlockData() {
-	I2C_Sensor_Mgr::Instance()->Update_ShooterPixy();
-	std::vector<Block> sigs = I2C_Sensor_Mgr::Instance()->Get_ShooterSignatures();
+void GearPixy::printBlockData() {
+	I2C_Sensor_Mgr::Instance()->Update_GearPixy();
+	std::vector<Block> sigs = I2C_Sensor_Mgr::Instance()->Get_GearSignatures();
 
 	int num_of_blocks = sigs.size();
-	std::cout << "ShooterPixy: number of targets: " << num_of_blocks << std::endl;
+	std::cout << "GearPixy: number of targets: " << num_of_blocks << std::endl;
 
 	//print block values
 	for(int i = 0; i < num_of_blocks; i++) {	//print values of all blocks
@@ -129,7 +129,7 @@ void ShooterPixy::printBlockData() {
 	}
 }
 
-bool ShooterPixy::OnTarget() {
+bool GearPixy::OnTarget() {
 	if ( abs(Angle_From_Target()) < 5) {	//5 is a place holder (final number will be in config file)
 		return true;
 	}
@@ -138,7 +138,7 @@ bool ShooterPixy::OnTarget() {
 	}
 }
 
-float ShooterPixy::Angle_From_Target() {	//if angle is positive, robot turns right; if angle is negative, robot turns left
+float GearPixy::Angle_From_Target() {	//if angle is positive, robot turns right; if angle is negative, robot turns left
 	Block * block_ptr = Get_Target();
 
 	// ( Pixy_pixels_on_1_side / block_ptr->x_deviation ) = ( (H_FOV / 2) / angle_from_target)

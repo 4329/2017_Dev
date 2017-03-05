@@ -117,7 +117,9 @@ public:
 	int8_t    SetServos(uint16_t s0, uint16_t s1);
 	int8_t    SetBrightness(uint8_t brightness);
 	int8_t    SetLED(uint8_t r, uint8_t g, uint8_t b);
-	std::vector<Block> signatures;
+
+	std::vector<Block> Get_Signatures();
+	void Clear_Signatures();
 
 	void UpdateTable() override;
 	void StartLiveWindowMode() override;
@@ -133,6 +135,8 @@ private:
 	uint16_t  GetWord();
 	uint8_t   GetByte();
 	int8_t    Send(uint8_t *data, uint8_t len);
+
+	std::vector<Block> signatures;
 
 	bool      skipStart;
 	BlockType blockType;

@@ -30,6 +30,7 @@
 #include "Subsystems/Shooter.h"
 #include "Subsystems/ConveyorBelt.h"
 #include "Subsystems/ShooterPixy.h"
+#include "Subsystems/GearPixy.h"
 #include "Subsystems/Climber.h"
 #include "Subsystems/ShooterIndex.h"
 #include <iostream>
@@ -51,12 +52,13 @@ public:
     static std::shared_ptr<GearHolder> gearholder;
     static std::shared_ptr<Shooter> shooter;
     static std::shared_ptr<ConveyorBelt> conveyorBelt;
-    static std::shared_ptr<ShooterPixy> shooterPixy;
     static std::shared_ptr<Climber> climb;
     static std::shared_ptr<ShooterIndex> shooterIndex;
     static std::shared_ptr<Video> video;
     static std::shared_ptr<AHRS> imu;
 
+    static std::shared_ptr<ShooterPixy> shooterPixy;
+    static std::shared_ptr<GearPixy> gearPixy;
 
  	virtual void RobotInit();
 	virtual void DisabledInit();

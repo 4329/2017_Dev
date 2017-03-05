@@ -1,5 +1,5 @@
-#ifndef SHOOTERPIXY_H
-#define SHOOTERPIXY_H
+#ifndef GEARPIXY_H
+#define GEARPIXY_H
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "../Pixy.h"
@@ -17,13 +17,13 @@
  *
  * @author ExampleAuthor
  */
-class ShooterPixy: public Subsystem {
+class GearPixy: public Subsystem {
 private:
 	// It's desirable that everything possible is private except
 	// for methods that implement subsystem capabilities
 
 public:
-	ShooterPixy();
+	GearPixy();
 	void InitDefaultCommand();
 
 	Block * Get_Target();	//return the correct target

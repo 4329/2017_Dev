@@ -7,6 +7,7 @@
 
 #include "Pixy.h"
 #include "Timer.h"
+#include <sstream>
 
 void Block::print()
 {
@@ -64,6 +65,16 @@ void Pixy::Set_AlignmentOffset(int x, int y)
 {
 	x_offset = x;
 	y_offset = y;
+}
+
+std::vector<Block> Pixy::Get_Signatures()
+{
+	return signatures;
+}
+
+void Pixy::Clear_Signatures()
+{
+	signatures.clear();
 }
 
 
@@ -251,6 +262,47 @@ void Pixy::UpdateTable() {
   if (m_table != nullptr) {
 	  uint16_t inView = GetBlocks();
 	  m_table->PutNumber("ObjectsInView", inView);
+	  std::vector<Block>::iterator itt = signatures.begin();
+
+	  for (int i = 0; i < 6; i++)
+	  {
+		  std::stringstream ss;
+		  std::string entry;
+		  ss << i;
+		  ss >> entry;
+		  std::vector<double> temp;
+		  if (itt != signatures.end())
+		  {
+			  temp.push_back(1.0);
+			  temp.push_back((double) itt->x);
+			  temp.push_back((double) itt->y);
+			  temp.push_back((double) itt->width);
+			  temp.push_back((double) itt->height);
+			  temp.push_back((double) itt->x_top);
+			  temp.push_back((double) itt->x_bottom);
+			  temp.push_back((double) itt->y_left);
+			  temp.push_back((double) itt->y_right);
+			  temp.push_back((double) itt->x_deviation);
+			  temp.push_back((double) itt->y_deviation);
+			  itt++;
+		  } else
+		  {
+			  temp.push_back(0.0);
+			  temp.push_back(0.0);
+			  temp.push_back(0.0);
+			  temp.push_back(0.0);
+			  temp.push_back(0.0);
+			  temp.push_back(0.0);
+			  temp.push_back(0.0);
+			  temp.push_back(0.0);
+			  temp.push_back(0.0);
+			  temp.push_back(0.0);
+			  temp.push_back(0.0);
+		  }
+		  llvm::ArrayRef<double> arr(temp);
+
+		  m_table->PutNumberArray(entry, arr);
+	  }
   }
 }
 
