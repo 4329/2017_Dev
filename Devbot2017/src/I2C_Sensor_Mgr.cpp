@@ -19,7 +19,7 @@ I2C_Sensor_Mgr::I2C_Sensor_Mgr()
 	_GearPixy = RobotMap::gearPixy;
 	_GearRangeFinder = RobotMap::gearRangeFinder;
 	_ShooterPixy = RobotMap::shooterPixy;
-	_ShooterRangeFinder = RobotMap::shooterRangeFinder;
+//	_ShooterRangeFinder = RobotMap::shooterRangeFinder;
 }
 
 I2C_Sensor_Mgr::~I2C_Sensor_Mgr()

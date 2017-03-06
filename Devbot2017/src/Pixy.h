@@ -101,8 +101,8 @@ struct Block
   uint16_t x_bottom;
   uint16_t y_left;
   uint16_t y_right;
-  uint16_t x_deviation;
-  uint16_t y_deviation;
+  int16_t  x_deviation;
+  int16_t  y_deviation;
   void print();
 };
 

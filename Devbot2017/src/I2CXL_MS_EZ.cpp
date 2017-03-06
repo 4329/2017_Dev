@@ -35,6 +35,13 @@ void I2CXL_EZ::TakeMeasurement()
 	cmd[0] = _address;
 	cmd[1] = I2CXLMSEZ_RANGE_CMD;
 	Send(&cmd[0], 2);
+    frc::Timer *delay = new frc::Timer();
+    delay->Start();
+    while (!delay->HasPeriodPassed(0.1))
+    {
+        // Wait 100 milliseconds
+    }
+//	std::cout << _myName << ": Taking Measurement." << std::endl;
 };
 
 double I2CXL_EZ::GetLastRange()
@@ -42,6 +49,7 @@ double I2CXL_EZ::GetLastRange()
 	uint8_t cmd = _address | 0x01;
 	Send(&cmd,1);
 	_lastReportedRange = (double) GetWord();
+	//if (_lastReportedRange > 0.0) std::cout << _myName << ": Measured: " << _lastReportedRange << std::endl;
 	return _lastReportedRange;
 };
 
@@ -63,10 +71,9 @@ bool I2CXL_EZ::ChangeAddress(uint8_t toAddress)
 
 uint16_t I2CXL_EZ::GetWord()
 {
-	_wire.ReadOnly(1,&_byte1);
-	_wire.ReadOnly(1,&_byte2);
-
-    uint16_t w = (_byte2 << 8) + _byte1;
+    uint8_t bytes[2];
+	_wire.Read(_address,2,bytes);
+    uint16_t w = (bytes[0] << 8) + bytes[1];
     return w;
 }
 

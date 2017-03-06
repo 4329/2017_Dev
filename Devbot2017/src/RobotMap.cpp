@@ -91,5 +91,5 @@ void RobotMap::init() {
     shooterPixy.reset(new Pixy(std::string("ShooterPixy"), PIXY_SHOOT_ADDR));
 
     gearRangeFinder.reset(new I2CXL_EZ(std::string("GearRangeFinder"), I2CXLMSEZ_GEAR_ADDR));
-    shooterRangeFinder.reset(new I2CXL_EZ(std::string("ShooterRangeFinder"), I2CXLMSEZ_SHOOT_ADDR));
+  //  shooterRangeFinder.reset(new I2CXL_EZ(std::string("ShooterRangeFinder"), I2CXLMSEZ_SHOOT_ADDR));
 }

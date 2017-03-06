@@ -260,9 +260,10 @@ int8_t Pixy::SetLED(uint8_t r, uint8_t g, uint8_t b)
 
 void Pixy::UpdateTable() {
   if (m_table != nullptr) {
+	  Clear_Signatures();
 	  uint16_t inView = GetBlocks();
 	  m_table->PutNumber("ObjectsInView", inView);
-	  std::vector<Block>::iterator itt = signatures.begin();
+/*	  std::vector<Block>::iterator itt = signatures.begin();
 
 	  for (int i = 0; i < 6; i++)
 	  {
@@ -271,8 +272,10 @@ void Pixy::UpdateTable() {
 		  ss << i;
 		  ss >> entry;
 		  std::vector<double> temp;
+
 		  if (itt != signatures.end())
 		  {
+			  itt->print();
 			  temp.push_back(1.0);
 			  temp.push_back((double) itt->x);
 			  temp.push_back((double) itt->y);
@@ -302,7 +305,7 @@ void Pixy::UpdateTable() {
 		  llvm::ArrayRef<double> arr(temp);
 
 		  m_table->PutNumberArray(entry, arr);
-	  }
+	  }*/
   }
 }
 
@@ -310,7 +313,7 @@ void Pixy::StartLiveWindowMode() {}
 
 void Pixy::StopLiveWindowMode() {}
 
-std::string Pixy::GetSmartDashboardType() const { return _myName; }
+std::string Pixy::GetSmartDashboardType() const { return "DigitalInput"; }
 
 void Pixy::InitTable(std::shared_ptr<ITable> subTable) {
   m_table = subTable;

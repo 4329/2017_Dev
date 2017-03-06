@@ -22,7 +22,7 @@
 
 #define PIXY_GEAR_ADDR          0x54
 #define PIXY_SHOOT_ADDR         0x55
-#define I2CXLMSEZ_GEAR_ADDR     0xE0
+#define I2CXLMSEZ_GEAR_ADDR     0x70
 #define I2CXLMSEZ_SHOOT_ADDR    0xE1
 
 /**
