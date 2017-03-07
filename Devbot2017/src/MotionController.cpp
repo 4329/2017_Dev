@@ -11,6 +11,11 @@ MotionController::MotionController(std::string device, std::shared_ptr<CANTalon>
 {
 	_myDevice = device;
 	_Talon = talon;
+
+	if (_Talon) {
+		std::cout << "motion control talon exists" << std::endl;
+	}
+
 	_State = 0;
 	_Profiles.clear();
 	_currentProfile = -1;
