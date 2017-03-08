@@ -1,6 +1,7 @@
 #include "GearPixy.h"
 #include "../RobotMap.h"
 #include "../I2C_Sensor_Mgr.h"
+#include <cmath>
 
 
 GearPixy::GearPixy() : Subsystem("GearPixy") {
@@ -144,4 +145,45 @@ float GearPixy::Angle_From_Target() {	//if angle is positive, robot turns right;
 	// ( Pixy_pixels_on_1_side / block_ptr->x_deviation ) = ( (H_FOV / 2) / angle_from_target)
 	// block_ptr->x_deviation * (H_FOV / 2) = Pixy_pixels_on_1_side * angle_from_target
 	return  (block_ptr->x_deviation * (H_FOV / 2) ) / 160.0;
+}
+
+//this works with the offset of the pixy
+double GearPixy::X_Offset_From_Target(std::vector<Block> sigs) {
+	uint16_t x_center;
+	uint16_t pixel_from_center;
+	double dist_from_target;
+	double distance_of_one_side_of_pixy;
+	double offset;
+
+	x_center = ( sigs[0].x + sigs[1].x ) / 2;
+	pixel_from_center = x_center - PIXY_CENT_X;
+
+	I2C_Sensor_Mgr::Instance()->Update_ShooterRangeFinder();
+	dist_from_target = I2C_Sensor_Mgr::Instance()->Get_GearRange_cm();
+	distance_of_one_side_of_pixy = tan( (17.5 * pi) / 180) * dist_from_target;
+
+	//pixel_from_center / PIXY_CENT_X = offset / distance_of_one_side_of_pixy
+	offset = distance_of_one_side_of_pixy * ( pixel_from_center / PIXY_CENT_X);
+
+	return 25.4 + offset;	//25.4 is cm from gear holder to gear pixy (is not exact)
+}
+
+std::vector<Block> GearPixy::Return_All_Targets() {
+	I2C_Sensor_Mgr::Instance()->Update_GearPixy();
+	std::vector<Block> sigs = I2C_Sensor_Mgr::Instance()->Get_GearSignatures();
+
+	int num_of_blocks = sigs.size();
+	std::cout << "GearPixy: number of targets: " << num_of_blocks << std::endl;
+
+	//print block values
+	for(int i = 0; i < num_of_blocks; i++) {	//print values of all blocks
+			std::cout << "block " << i + 1 << ": x: " << sigs[i].x << ", ";
+			std::cout << "y: " << sigs[i].y << ", ";
+			std::cout << "width: " << sigs[i].width << ", ";
+			std::cout << "height: " << sigs[i].height << ", ";
+			std::cout << "w/h: " << sigs[i].width / sigs[i].height << std::endl;
+	}
+
+	return sigs;
+
 }

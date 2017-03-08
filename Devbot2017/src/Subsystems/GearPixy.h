@@ -30,6 +30,8 @@ public:
 	float Distance_From_Target(); //gets horizontal distance from the pixy to the target (boiler) in inches
 	float Angle_From_Target();
 	bool OnTarget();	//check if shooter is facing boiler
+	double X_Offset_From_Target(std::vector<Block> sigs);
+	std::vector<Block> Return_All_Targets();
 
 	void printBlockData();
 
