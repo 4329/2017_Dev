@@ -4,6 +4,7 @@
 MoveStraight_With_S_Ranger::MoveStraight_With_S_Ranger(bool forward, double cm_target_distance): Command() {
         // Use requires() here to declare subsystem dependencies
     Requires(Robot::driveTrain.get());
+
     if (forward) {
     	output = 0.225;
     }
@@ -30,11 +31,21 @@ bool MoveStraight_With_S_Ranger::IsFinished() {
 	I2C_Sensor_Mgr::Instance()->Update_ShooterRangeFinder();
 	distance = I2C_Sensor_Mgr::Instance()->Get_ShooterRange_cm();
 
-	if (distance > target_distance) {
-		return true;
+	if (output > 0) {
+		if (distance < target_distance) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	else {
-		return false;
+		if (distance > target_distance) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
 
