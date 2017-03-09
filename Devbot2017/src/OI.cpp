@@ -25,6 +25,8 @@
 #include "Commands/AlignShoot.h"
 #include "Commands/MoveStraight_With_S_Ranger.h"
 
+#include "Commands/ToggleCamera.h"
+
 #include "Commands/FuelIntake.h"
 #include "Commands/ToggleGearHolder.h"
 #include "Commands/Shoot.h"
@@ -57,8 +59,10 @@ OI::OI() {
     RobotClimb.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Y));
     Flap.reset(new JoystickButton(robotOperator.get(), Xbox_Button::B));	//held for now
     ConveyorBackward_B.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Left_Bumper));
+    toggleCamera.reset(new JoystickButton(robotDriver.get(), Xbox_Button::A));
 
     //Specify which commands to call when button is pressed, released, etc
+    toggleCamera->WhenPressed(new ToggleCamera());
     ConveyorBackward_B->WhenPressed(new ConveyorBackward());
     Flap->WhenPressed(new OpenFlap());	//actually while held
     ToggleGearHolder_B->WhenPressed(new ToggleGearHolder());
@@ -79,8 +83,10 @@ OI::OI() {
 
     SmartDashboard::PutData("AlignGear", new AlignGear());
     SmartDashboard::PutData("AlignShoot", new AlignShoot());
-    SmartDashboard::PutData("MoveForward_With_S_Ranger", new MoveStraight_With_S_Ranger(true, 100.0));
-    SmartDashboard::PutData("MoveBackward_With_S_Ranger", new MoveStraight_With_S_Ranger(false, 100.0));
+    SmartDashboard::PutData("MoveForward_With_S_Ranger", new MoveStraight_With_S_Ranger(true, 200.0));
+    SmartDashboard::PutData("MoveBackward_With_S_Ranger", new MoveStraight_With_S_Ranger(false, 200.0));
+
+    SmartDashboard::PutData("ToggleCamera", new ToggleCamera());
 
     SmartDashboard::PutData("PrintBlockData", new PrintBlockData());
     SmartDashboard::PutData("Vent_On", new Vent_On());

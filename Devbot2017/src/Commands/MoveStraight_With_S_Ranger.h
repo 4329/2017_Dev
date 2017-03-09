@@ -17,9 +17,10 @@ public:
 	virtual void Interrupted();
 
 private:
-	int output;
+	float output;
 	double distance;
 	double target_distance;
+	bool _forward;
 };
 
 #endif

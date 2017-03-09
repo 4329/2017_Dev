@@ -15,8 +15,10 @@ void AlignShoot::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AlignShoot::Execute() {
-	Block* block = Robot::gearPixy->Get_Target();
+	Block* block = Robot::shooterPixy->Get_Target();
 	distance = block->x_deviation;
+
+	std::cout << "AS distance: " << distance << std::endl;
 
 	//neg right, pos left
 	if (distance < 0) {

@@ -5,11 +5,15 @@ MoveStraight_With_S_Ranger::MoveStraight_With_S_Ranger(bool forward, double cm_t
         // Use requires() here to declare subsystem dependencies
     Requires(Robot::driveTrain.get());
 
-    if (forward) {
-    	output = 0.225;
+    //forward is the intake side
+
+    _forward = forward;
+    //values are swapped
+    if (_forward) {
+    	output = -0.175;
     }
     else {
-    	output = -0.225;
+    	output = 0.175;
     }
 
     distance = 0.0;
@@ -28,11 +32,14 @@ void MoveStraight_With_S_Ranger::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool MoveStraight_With_S_Ranger::IsFinished() {
-	I2C_Sensor_Mgr::Instance()->Update_ShooterRangeFinder();
-	distance = I2C_Sensor_Mgr::Instance()->Get_ShooterRange_cm();
+	I2C_Sensor_Mgr::Instance()->Update_GearRangeFinder();
+	distance = I2C_Sensor_Mgr::Instance()->Get_GearRange_cm();
 
-	if (output > 0) {
-		if (distance < target_distance) {
+	std::cout << "MS distance: " << distance << std::endl;
+
+	if (_forward) {
+		if (distance > target_distance) {
+			Robot::driveTrain->StopMotors();
 			return true;
 		}
 		else {
@@ -40,7 +47,8 @@ bool MoveStraight_With_S_Ranger::IsFinished() {
 		}
 	}
 	else {
-		if (distance > target_distance) {
+		if (distance < target_distance) {
+			Robot::driveTrain->StopMotors();
 			return true;
 		}
 		else {
@@ -51,7 +59,6 @@ bool MoveStraight_With_S_Ranger::IsFinished() {
 
 // Called once after isFinished returns true
 void MoveStraight_With_S_Ranger::End() {
-	Robot::driveTrain->StopMotors();
 	std::cout << "done moving straight" << std::endl;
 }
 

@@ -45,11 +45,11 @@ void Video::VideoFeed() {
 	camera1.SetFPS(15);
 	camera2.SetFPS(15);
 	cvsink1 = new cs::CvSink("GearCam");
-	cvsink1.SetSource(camera1);
-	cvsink1.SetEnabled(true);
+	cvsink1->SetSource(camera1);
+	cvsink1->SetEnabled(true);
 	cvsink2 = new cs::CvSink("ShooterCam");
-	cvsink2.SetSource(camera2);
-	cvsink2.SetEnabled(true);
+	cvsink2->SetSource(camera2);
+	cvsink2->SetEnabled(true);
 }
 
 void Video::_ToggleCamera() {

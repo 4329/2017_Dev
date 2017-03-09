@@ -29,8 +29,8 @@ private:
 
 	cs::UsbCamera camera1;
 	cs::UsbCamera camera2;
-	cs::CvSink cvsink1;
-	cs::CvSink cvsink2;
+	cs::CvSink *cvsink1;
+	cs::CvSink *cvsink2;
 	cs::VideoSink server;
 };
 
