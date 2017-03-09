@@ -17,7 +17,8 @@ public:
 	virtual void Interrupted();
 
 private:
-
+	float output;
+	int16_t distance;
 };
 
 #endif

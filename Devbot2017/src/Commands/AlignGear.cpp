@@ -6,7 +6,6 @@ AlignGear::AlignGear(): Command() {
 
     output = 0.225;
     distance = 10;	//set for set up
-    //pos right, neg left
 }
 
 // Called just before this Command runs the first time
@@ -19,6 +18,7 @@ void AlignGear::Execute() {
 	std::vector<Block> sigs = Robot::gearPixy->Return_All_Targets();
 	distance = Robot::gearPixy->X_Offset_From_Target(sigs);
 
+	//pos right, neg left
 	if (distance > 0) {
 		Robot::driveTrain->DirectDrive(output, -output);
 	}
@@ -29,7 +29,8 @@ void AlignGear::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool AlignGear::IsFinished() {
-	if (fabs(distance) < 3) {
+	//can't check if distance is less than an small number or else the robot will shuffle back and forth
+	if (fabs(distance) + 2.5 < 3) {	//adds 2.5 so robot doesn't stop 3 units short
 		return true;
 	}
 	else {
