@@ -14,6 +14,8 @@ private:
 	std::shared_ptr<CANTalon> shooterTalon1;
 	std::shared_ptr<CANTalon> shooterTalon2;
 
+	double TargetRPM;
+
 public:
 	//shooter should be moving forward( set to positive values ) when not inverted
 

@@ -1,6 +1,7 @@
 #include "AutoSimple.h"
 #include "MoveStraight_With_S_Ranger.h"
 #include "Rotate.h"
+#include "AutoPrint.h"
 
 
 AutoSimple::AutoSimple() {
@@ -9,7 +10,8 @@ AutoSimple::AutoSimple() {
 	Requires(Robot::driveTrain.get());
 
 	//robot starts out facing towards the wall
-	AddSequential(new MoveStraight_With_S_Ranger(true, 690.0));	//move backwards near the middle of the field
+	AddSequential(new AutoPrint("Simple"));
+	AddSequential(new MoveStraight_With_S_Ranger(true, 230.0));	//move past line
 }
 
 

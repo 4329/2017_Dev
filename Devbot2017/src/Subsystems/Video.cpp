@@ -1,47 +1,16 @@
 #include "Video.h"
 
-#include "../Commands/ToggleCamera.h"
 
-#include <CameraServer.h>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/core/core.hpp>
-#include <opencv2/core/types.hpp>
 
-Video::Video() : Subsystem("Video"){
-	GearCamOn = true;
-	TriggerPressed = false;
-
-	gearDev = 0;
-	forwardDev = 1;
-}
-
-void Video::InitDefaultCommand() {
-	//SetDefaultCommand(new ToggleCamera());
-}
-
-void Video::VideoFeed() {
-	/*
-	int cameraDev;
-
-	//set which camera is being used
-	if (GearCamOn) {
-		cameraDev = gearDev;
-	}
-	else {
-		cameraDev = forwardDev;
-	}
-	*/
-	// Get the USB camera from CameraServer
-	//cs::UsbCamera camera = frc::CameraServer::GetInstance()->StartAutomaticCapture(/*cameraDev*/);
-	// Set the resolution
-	//camera.SetResolution(640, 480);
-
-	camera1 = CameraServer::GetInstance()->StartAutomaticCapture(0);
-	camera2 = CameraServer::GetInstance()->StartAutomaticCapture(1);
-	server = CameraServer::GetInstance()->GetServer();
+Video::Video() {
+	camera1 = frc::CameraServer::GetInstance()->StartAutomaticCapture(0);
+	camera2 = frc::CameraServer::GetInstance()->StartAutomaticCapture(1);
+	server = frc::CameraServer::GetInstance()->GetServer();
 	  // dummy sinks to keep camera connections open
 	camera1.SetResolution(320, 240);
 	camera2.SetResolution(320, 240);
+	camera1.SetBrightness(60);
+	camera2.SetBrightness(60);
 	camera1.SetFPS(15);
 	camera2.SetFPS(15);
 	cvsink1 = new cs::CvSink("GearCam");
@@ -50,32 +19,59 @@ void Video::VideoFeed() {
 	cvsink2 = new cs::CvSink("ShooterCam");
 	cvsink2->SetSource(camera2);
 	cvsink2->SetEnabled(true);
+	myCC = NULL;
+	myChangeCount = 0;
+	myCam = 0;
+	server.SetSource(camera1);
 }
 
-void Video::_ToggleCamera() {
-	GearCamOn = !GearCamOn;
+void Video::SetCC(cameraControl *cc)
+{
+	myCC = cc;
+	myChangeCount = cc->changeCount;
+}
 
-	if (GearCamOn)
+bool Video::Init()
+{
+	return true;
+}
+
+void Video::Run()
+{
+	while (true)
 	{
-		server.SetSource(camera1);
-	} else
-	{
-		server.SetSource(camera2);
+		Configure();
 	}
 }
 
-int Video::GetForwardDev() {
-	return forwardDev;
+void Video::End()
+{
+
 }
 
-int Video::GetGearDev() {
-	return gearDev;
+void Video::Configure()
+{
+	if (myCC->changeCount != myChangeCount)
+	{
+		ChangeCam(myCC->SelectedCamera);
+	}
+
+	myChangeCount = myCC->changeCount;
 }
 
-bool Video::GetTriggerPressed() {
-	return TriggerPressed;
+void Video::ChangeCam(int cam)
+{
+	if (myCam != cam)
+	{
+		if (cam == 0)
+		{
+			std::cout << "Selecting Camera 1" << std::endl;
+			server.SetSource(camera1);
+		} else
+		{
+			std::cout << "Selecting Camera 2" << std::endl;
+			server.SetSource(camera2);
+		}
+	}
 }
 
-void Video::SetTriggerpressed(bool set) {
-	TriggerPressed = false;
-}

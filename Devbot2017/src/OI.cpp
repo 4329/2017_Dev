@@ -85,7 +85,6 @@ OI::OI() {
     SmartDashboard::PutData("AlignShoot", new AlignShoot());
     SmartDashboard::PutData("MoveForward_With_S_Ranger", new MoveStraight_With_S_Ranger(true, 200.0));
     SmartDashboard::PutData("MoveBackward_With_S_Ranger", new MoveStraight_With_S_Ranger(false, 200.0));
-
     SmartDashboard::PutData("ToggleCamera", new ToggleCamera());
 
     SmartDashboard::PutData("PrintBlockData", new PrintBlockData());

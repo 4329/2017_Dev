@@ -31,8 +31,11 @@ std::shared_ptr<ShooterIndex> Robot::shooterIndex;
 std::shared_ptr<Video> Robot::video;
 std::shared_ptr<AHRS> Robot::imu;
 
-void Video_Feed() {
-	Robot::video->VideoFeed();
+cameraControl Robot::cc;
+
+void VideoT()
+{
+	Robot::video->Run();
 }
 
 void Robot::RobotInit() {
@@ -61,15 +64,22 @@ void Robot::RobotInit() {
 	oi.reset(new OI());
 
 	// instantiate the command used for the autonomous period
-	autoSimple.reset(new AutoSimple());
+	chooser.reset(new frc::SendableChooser<Command*>());
+	chooser->AddDefault(std::string("0) Auto Move past line."), new AutoSimple());
+	chooser->AddObject(std::string("1) Stand Still."), new Auto1());
+	frc::SmartDashboard::PutData("Autonomous Modes", chooser.get());
 
 	video.reset(new Video());	//must be called before the thread
+	cc.SelectedCamera = 1;
+	cc.changeCount = 0;
+	video->SetCC(&cc);
+	video->Init();
 
-	std::thread visionThread(Video_Feed);
+	std::thread visionThread(VideoT);
 	visionThread.detach();
 
 	//add motion profiles here
-	Robot::driveTrain->AddMotionProfile(k3ftMotionProfileNdx, 1, k3ftMotionProfile, k3ftMotionProfileSz, k3ftMotionProfile, k3ftMotionProfileSz);
+	//Robot::driveTrain->AddMotionProfile(k3ftMotionProfileNdx, 1, k3ftMotionProfile, k3ftMotionProfileSz, k3ftMotionProfile, k3ftMotionProfileSz);
 
 	std::cout << "robot init complete" << std::endl;
   }
@@ -87,8 +97,9 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
-	if (autoSimple.get() != nullptr)
-		autoSimple->Start();
+	autonomous.reset(chooser->GetSelected());
+	if (autonomous.get() != nullptr)
+		autonomous->Start();
 }
 
 void Robot::AutonomousPeriodic() {
@@ -100,8 +111,8 @@ void Robot::TeleopInit() {
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove
 	// these lines or comment it out.
-	if (autoSimple.get() != nullptr)
-		autoSimple->Cancel();
+	if (autonomous.get() != nullptr)
+		autonomous->Cancel();
 }
 
 void Robot::TeleopPeriodic() {

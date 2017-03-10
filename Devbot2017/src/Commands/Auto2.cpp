@@ -7,6 +7,7 @@
 #include "AlignShoot.h"
 #include "Delay.h"
 #include "PullGearHolder.h"
+#include "AutoPrint.h"
 
 //218.44 cm from robot to airship
 
@@ -16,6 +17,8 @@ Auto2::Auto2() {
 	Requires(Robot::driveTrain.get());
 	Requires(Robot::gearholder.get());
 	Requires(Robot::shooter.get());
+
+	AddSequential(new AutoPrint("2"));
 
 	AddSequential(new PullGearHolder());	//just in case the gear holder was out
 

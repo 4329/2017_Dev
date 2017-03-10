@@ -1,37 +1,40 @@
 #ifndef VIDEO_H
 #define VIDEO_H
 
-#include "Commands/Subsystem.h"
 #include "WPILib.h"
+#include <Thread>
+#include <CameraServer.h>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/core/types.hpp>
 
-class Video : public Subsystem {
+typedef struct
+{
+	int SelectedCamera;
+	int changeCount;
+} cameraControl;
+
+class Video {
 public:
 	Video();
 
-	void InitDefaultCommand();
-
-	int GetForwardDev();	//get the device number of the forward camera
-	int GetGearDev();	//get the device number of the gear camera
-	bool GetTriggerPressed();
-	void SetTriggerpressed(bool set);
-
-	void _ToggleCamera();	//change which camera is in use
-
-	void VideoFeed();
-
+    void SetCC(cameraControl *cc);
+    bool Init();
+    void Run();
+    void End();
+    void Configure();
+    void ChangeCam(int cam);
 
 private:
-	bool GearCamOn;	//true when gear cam is on, false when forward cam is on
-	bool TriggerPressed;	//will be true when the trigger is pressed and false when trigger is 0
-
-	int forwardDev;	//device number of the forward camera
-	int gearDev;	//device number of the gear camera
-
 	cs::UsbCamera camera1;
 	cs::UsbCamera camera2;
 	cs::CvSink *cvsink1;
 	cs::CvSink *cvsink2;
 	cs::VideoSink server;
+	int myChangeCount;
+	cameraControl *myCC;
+	int myCam;
+
 };
 
 #endif

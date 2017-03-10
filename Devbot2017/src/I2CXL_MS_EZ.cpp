@@ -49,6 +49,7 @@ double I2CXL_EZ::GetLastRange()
 	uint8_t cmd = _address | 0x01;
 	Send(&cmd,1);
 	_lastReportedRange = (double) GetWord();
+	std::cout << "last reported range (double): " << _lastReportedRange << std::endl;
 	//if (_lastReportedRange > 0.0) std::cout << _myName << ": Measured: " << _lastReportedRange << std::endl;
 	return _lastReportedRange;
 };
@@ -73,7 +74,9 @@ uint16_t I2CXL_EZ::GetWord()
 {
     uint8_t bytes[2];
 	_wire.Read(_address,2,bytes);
+	std::cout << "the two 8bit numbers: " << bytes[0] << ", " << bytes[1] << std::endl;
     uint16_t w = (bytes[0] << 8) + bytes[1];
+    std::cout << "16bit number: " << w << std::endl;
     return w;
 }
 

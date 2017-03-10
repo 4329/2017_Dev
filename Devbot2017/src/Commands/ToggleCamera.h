@@ -6,15 +6,11 @@
 #include "../Robot.h"
 
 
-class ToggleCamera: public Command {
+class ToggleCamera: public InstantCommand {
 public:
 	ToggleCamera();
 
 	virtual void Initialize();
-	virtual void Execute();
-	virtual bool IsFinished();
-	virtual void End();
-	virtual void Interrupted();
 
 private:
 
