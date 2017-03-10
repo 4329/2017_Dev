@@ -20,7 +20,8 @@ void SpeedUpShooter::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool SpeedUpShooter::IsFinished() {
-    return Robot::shooter->CorrectRPM();
+	bool stop = Robot::shooter->CorrectRPM() || Robot::oi->getShootButton()->Get();
+    return stop;
 }
 
 // Called once after isFinished returns true

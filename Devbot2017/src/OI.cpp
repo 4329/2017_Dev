@@ -20,11 +20,10 @@
 #include "Commands/Auto1.h"
 #include "Commands/Auto2.h"
 #include "Commands/Auto3.h"
+#include "Commands/MoveStraight_By_Timeout.h"
 
 #include "Commands/AlignGear.h"
 #include "Commands/AlignShoot.h"
-#include "Commands/MoveStraight_With_S_Ranger.h"
-
 #include "Commands/ToggleCamera.h"
 
 #include "Commands/FuelIntake.h"
@@ -45,6 +44,7 @@
 #include "Commands/MoveStraight.h"
 
 #include <cmath> //for dead zones
+#include "Commands/MoveStraight_With_G_Ranger.h"
 
 OI::OI() {
     // Process operator interface input here.
@@ -63,7 +63,7 @@ OI::OI() {
 
     //Specify which commands to call when button is pressed, released, etc
     toggleCamera->WhenPressed(new ToggleCamera());
-    ConveyorBackward_B->WhenPressed(new ConveyorBackward());
+    //ConveyorBackward_B->WhenPressed(new ConveyorBackward());
     Flap->WhenPressed(new OpenFlap());	//actually while held
     ToggleGearHolder_B->WhenPressed(new ToggleGearHolder());
     shoot->WhenPressed(new Shoot());	//actually while held
@@ -80,11 +80,12 @@ OI::OI() {
     SmartDashboard::PutData("Auto1", new Auto1());
     SmartDashboard::PutData("Auto2", new Auto2());
     SmartDashboard::PutData("Auto3", new Auto3());
+    SmartDashboard::PutData("AutoSimple2", new MoveStraight_By_Timeout());
 
     SmartDashboard::PutData("AlignGear", new AlignGear());
     SmartDashboard::PutData("AlignShoot", new AlignShoot());
-    SmartDashboard::PutData("MoveForward_With_S_Ranger", new MoveStraight_With_S_Ranger(true, 200.0));
-    SmartDashboard::PutData("MoveBackward_With_S_Ranger", new MoveStraight_With_S_Ranger(false, 200.0));
+    SmartDashboard::PutData("MoveForward_With_G_Ranger", new MoveStraight_With_G_Ranger(true, 200.0));
+    SmartDashboard::PutData("MoveBackward_With_G_Ranger", new MoveStraight_With_G_Ranger(false, 200.0));
     SmartDashboard::PutData("ToggleCamera", new ToggleCamera());
 
     SmartDashboard::PutData("PrintBlockData", new PrintBlockData());

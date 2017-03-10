@@ -65,8 +65,9 @@ void Robot::RobotInit() {
 
 	// instantiate the command used for the autonomous period
 	chooser.reset(new frc::SendableChooser<Command*>());
-	chooser->AddDefault(std::string("0) Auto Move past line."), new AutoSimple());
+	chooser->AddDefault(std::string("0) Auto Move past line by sensor."), new AutoSimple());
 	chooser->AddObject(std::string("1) Stand Still."), new Auto1());
+	chooser->AddObject(std::string("2) Auto Move past line by timeout."), new MoveStraight_By_Timeout());
 	frc::SmartDashboard::PutData("Autonomous Modes", chooser.get());
 
 	video.reset(new Video());	//must be called before the thread

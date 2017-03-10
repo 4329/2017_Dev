@@ -53,7 +53,7 @@ void ShooterIndex::SetVoltageMode() {
 }
 
 void ShooterIndex::RunVoltage() {	//moves talon in voltage mode
-	indexTalon->Set(-1);	//1 is a place holder
+	indexTalon->Set(-0.2);	//.2 is a place holder
 }
 
 void ShooterIndex::SetSpeedMode() {

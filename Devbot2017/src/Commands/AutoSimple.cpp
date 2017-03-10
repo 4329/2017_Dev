@@ -1,7 +1,7 @@
 #include "AutoSimple.h"
-#include "MoveStraight_With_S_Ranger.h"
 #include "Rotate.h"
 #include "AutoPrint.h"
+#include "MoveStraight_With_G_Ranger.h"
 
 
 AutoSimple::AutoSimple() {
@@ -11,7 +11,7 @@ AutoSimple::AutoSimple() {
 
 	//robot starts out facing towards the wall
 	AddSequential(new AutoPrint("Simple"));
-	AddSequential(new MoveStraight_With_S_Ranger(true, 230.0));	//move past line
+	AddSequential(new MoveStraight_With_G_Ranger(true, 230.0));	//move past line
 }
 
 

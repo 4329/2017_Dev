@@ -18,9 +18,9 @@ void Shooter::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void Shooter::Configuration() {
-	//ConfigEncoder();
-	//SetSpeedMode();
-	SetVoltageMode();
+	ConfigEncoder();
+	SetSpeedMode();
+	//SetVoltageMode();
 
 	//shooterTalon1->SetInverted(false);
 	//shooterTalon2->SetInverted(false);
@@ -94,7 +94,7 @@ void Shooter::Stop() {
 }
 
 bool Shooter::CorrectRPM() {
-	if ( fabs(shooterTalon1->GetSpeed() ) >= 10000) {	//needs to work with config system
+	if ( fabs(shooterTalon1->GetSpeed() ) >= TargetRPM) {	//needs to work with config system
 		return true;
 	}
 	else {

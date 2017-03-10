@@ -1,14 +1,14 @@
-#ifndef MOVESTRAIGHT_WITH_S_RANGER_H
-#define MOVESTRAIGHT_WITH_S_RANGER_H
+#ifndef MOVESTRAIGHT_WITH_G_RANGER_H
+#define MOVESTRAIGHT_WITH_G_RANGER_H
 
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
-//this command is meant to move a certain distance based on the GEAR ultrasonic sensor
-class MoveStraight_With_S_Ranger: public Command {
+//this command is meant to move a certain distance based on the gear ultrasonic sensor
+class MoveStraight_With_G_Ranger: public Command {
 public:
-	MoveStraight_With_S_Ranger(bool forward, double cm_target_distance);
+	MoveStraight_With_G_Ranger(bool forward, double cm_target_distance);
 
 	virtual void Initialize();
 	virtual void Execute();

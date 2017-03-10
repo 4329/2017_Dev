@@ -1,7 +1,7 @@
-#include "MoveStraight_With_S_Ranger.h"
 #include "../I2C_Sensor_Mgr.h"
+#include "MoveStraight_With_G_Ranger.h"
 
-MoveStraight_With_S_Ranger::MoveStraight_With_S_Ranger(bool forward, double cm_target_distance): Command() {
+MoveStraight_With_G_Ranger::MoveStraight_With_G_Ranger(bool forward, double cm_target_distance): Command() {
         // Use requires() here to declare subsystem dependencies
     Requires(Robot::driveTrain.get());
 
@@ -23,17 +23,17 @@ MoveStraight_With_S_Ranger::MoveStraight_With_S_Ranger(bool forward, double cm_t
 }
 
 // Called just before this Command runs the first time
-void MoveStraight_With_S_Ranger::Initialize() {
+void MoveStraight_With_G_Ranger::Initialize() {
 	std::cout << "now moving straight" << std::endl;
 }
 
 // Called repeatedly when this Command is scheduled to run
-void MoveStraight_With_S_Ranger::Execute() {
+void MoveStraight_With_G_Ranger::Execute() {
 	Robot::driveTrain->DirectDrive(output, output);	//move forward or backwards
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool MoveStraight_With_S_Ranger::IsFinished() {
+bool MoveStraight_With_G_Ranger::IsFinished() {
 	//get distance from ultrasonic sensor
 	I2C_Sensor_Mgr::Instance()->Update_GearRangeFinder();
 	distance = I2C_Sensor_Mgr::Instance()->Get_GearRange_cm();
@@ -73,12 +73,12 @@ bool MoveStraight_With_S_Ranger::IsFinished() {
 }
 
 // Called once after isFinished returns true
-void MoveStraight_With_S_Ranger::End() {
+void MoveStraight_With_G_Ranger::End() {
 	std::cout << "done moving straight" << std::endl;
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void MoveStraight_With_S_Ranger::Interrupted() {
+void MoveStraight_With_G_Ranger::Interrupted() {
 
 }

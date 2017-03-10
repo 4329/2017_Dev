@@ -8,7 +8,6 @@
 #include "ShooterTurn.h"
 #include "ShooterForward.h"
 
-#include "ConveyorForward.h"
 #include "RunIndex.h"
 #include "RunShooter.h"
 
@@ -18,7 +17,6 @@ Shoot::Shoot() {
     // eg. requires(Robot::chassis.get());
 	Requires(Robot::shooter.get());
 	Requires(Robot::shooterIndex.get());
-	Requires(Robot::conveyorBelt.get());
 
 	//run shooter until it is at the appropriate speed
 	//AddSequential(new SpeedUpShooter());	//possibly add timeout?						//AddParallel(new SpeedUpShooter());
@@ -28,8 +26,7 @@ Shoot::Shoot() {
 																						//AddSequential(new ShooterForward());
 
 	//take in fuel and continuously run the shooter to shoot the fuel
-	AddParallel(new RunShooter());
+	AddSequential(new SpeedUpShooter());
 	AddParallel(new RunIndex());
-	AddSequential(new Delay(1));
-	AddParallel(new ConveyorForward());
+
 }
