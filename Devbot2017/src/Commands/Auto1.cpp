@@ -8,7 +8,6 @@ Auto1::Auto1() {
 	Requires(Robot::driveTrain.get());
 
 	AddSequential(new AutoPrint("1"));
-
 }
 
 

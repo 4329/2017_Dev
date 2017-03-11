@@ -31,7 +31,7 @@ private:
 	std::shared_ptr<JoystickButton> Flap;
 	std::shared_ptr<JoystickButton> ConveyorBackward_B;
 	std::shared_ptr<JoystickButton> toggleHighSpeed;
-	std::shared_ptr<JoystickButton> toggleCamera;
+	//std::shared_ptr<JoystickButton> toggleCamera;
 
 	//controllers
 	std::shared_ptr<XboxController> robotOperator;

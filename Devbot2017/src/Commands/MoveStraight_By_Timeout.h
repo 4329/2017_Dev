@@ -8,7 +8,7 @@
 
 class MoveStraight_By_Timeout: public Command {
 public:
-	MoveStraight_By_Timeout();
+	MoveStraight_By_Timeout(float timeout, float output);
 
 	virtual void Initialize();
 	virtual void Execute();
@@ -17,7 +17,9 @@ public:
 	virtual void Interrupted();
 
 private:
-
+	float _timeout;
+	float _output;	//Positive output moves robot in the gear holder direction
+					//negative output moves robot in the fuel intake direction
 };
 
 #endif

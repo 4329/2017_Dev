@@ -1,42 +1,32 @@
 #include "Auto2.h"
-#include "Rotate.h"
 #include "ToggleGearHolder.h"
-#include "Shoot.h"
-#include "AlignGear.h"
-#include "AlignShoot.h"
 #include "Delay.h"
 #include "PullGearHolder.h"
+#include "PushGearHolder.h"
 #include "AutoPrint.h"
 #include "MoveStraight_With_G_Ranger.h"
+#include "MoveStraight_By_Timeout.h"
 
-//218.44 cm from robot to airship
+//279.4 cm from wall to airship
+//53.34 cm from back side of robot to shooter ultrasonic sensor
+//final distance is 221.1 cm (226.1 - 5)
+//the robot gets to the airship in about 2.7 seconds at 0.5 voltage
+//so the robot moves 83.7 cm / second at 0.5 voltage (8.37 cm per 10 milliseconds)
 
+//this currently uses the gear ultrasonic sensor
 Auto2::Auto2() {
         // Use requires() here to declare subsystem dependencies
     // eg. requires(Robot::chassis.get());
 	Requires(Robot::driveTrain.get());
 	Requires(Robot::gearholder.get());
-	Requires(Robot::shooter.get());
 
-	AddSequential(new AutoPrint("2"));
+	AddSequential(new AutoPrint("auto 2"));
 
-	AddSequential(new PullGearHolder());	//just in case the gear holder was out
-
-	AddSequential(new MoveStraight_With_G_Ranger(true, 145.0));	//145 is about 2/3 to the airship
-	AddSequential(new AlignGear());	//face the gear
-	AddSequential(new MoveStraight_With_G_Ranger(true, 10.0));	//get right in front of peg
-	AddSequential(new ToggleGearHolder());	//place gear
-	AddSequential(new Delay(1));	//wait until gear is placed on peg
-
-	//move back and pull the gear holder at the same time
-	AddParallel(new ToggleGearHolder());
-	AddSequential(new MoveStraight_With_G_Ranger(false, 109.0));	//109 is about 1/2 to the wall
-
-	AddSequential(new Rotate(70));	//face somewhat close to the boiler
-	AddSequential(new AlignShoot());	//face boiler
-	AddSequential(new MoveStraight_With_G_Ranger(true, 30.0));	//go to boiler (30 cm is just a place holder)
-	AddSequential(new AlignShoot());	//face boiler again
-
-	AddParallel(new Shoot());	//start shooting until end of auto
+	AddSequential(new MoveStraight_With_G_Ranger(false, 25));	//move until 25 cm away from airship
+	AddSequential(new MoveStraight_By_Timeout(0.5, 0.25));	//move a little bit so the peg is in the robot
+	AddSequential(new PushGearHolder());	//put gear on peg
+	AddSequential(new Delay(1));	//wait a little bit
+	AddSequential(new MoveStraight_By_Timeout(2, -0.3));	//slowly move back towards the wall
+	AddSequential(new PullGearHolder());	//Retract the gear holder
 }
 

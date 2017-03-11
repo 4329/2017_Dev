@@ -59,10 +59,10 @@ OI::OI() {
     RobotClimb.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Y));
     Flap.reset(new JoystickButton(robotOperator.get(), Xbox_Button::B));	//held for now
     ConveyorBackward_B.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Left_Bumper));
-    toggleCamera.reset(new JoystickButton(robotDriver.get(), Xbox_Button::A));
+    //toggleCamera.reset(new JoystickButton(robotDriver.get(), Xbox_Button::A));
 
     //Specify which commands to call when button is pressed, released, etc
-    toggleCamera->WhenPressed(new ToggleCamera());
+    //toggleCamera->WhenPressed(new ToggleCamera());
     //ConveyorBackward_B->WhenPressed(new ConveyorBackward());
     Flap->WhenPressed(new OpenFlap());	//actually while held
     ToggleGearHolder_B->WhenPressed(new ToggleGearHolder());
@@ -80,7 +80,7 @@ OI::OI() {
     SmartDashboard::PutData("Auto1", new Auto1());
     SmartDashboard::PutData("Auto2", new Auto2());
     SmartDashboard::PutData("Auto3", new Auto3());
-    SmartDashboard::PutData("AutoSimple2", new MoveStraight_By_Timeout());
+    SmartDashboard::PutData("AutoSimple2", new MoveStraight_By_Timeout(3, 0.5));
 
     SmartDashboard::PutData("AlignGear", new AlignGear());
     SmartDashboard::PutData("AlignShoot", new AlignShoot());

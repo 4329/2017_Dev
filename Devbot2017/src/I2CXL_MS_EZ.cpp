@@ -48,7 +48,10 @@ double I2CXL_EZ::GetLastRange()
 {
 	uint8_t cmd = _address | 0x01;
 	Send(&cmd,1);
-	_lastReportedRange = (double) GetWord();
+	double temp = (double) GetWord();
+	if (temp < 800) {	//if the value is valid put it into the last reported range
+		_lastReportedRange = temp;
+	}
 	std::cout << "last reported range (double): " << _lastReportedRange << std::endl;
 	//if (_lastReportedRange > 0.0) std::cout << _myName << ": Measured: " << _lastReportedRange << std::endl;
 	return _lastReportedRange;

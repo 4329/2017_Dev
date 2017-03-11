@@ -24,7 +24,7 @@ void Shooter::Configuration() {
 
 	//shooterTalon1->SetInverted(false);
 	//shooterTalon2->SetInverted(false);
-	TargetRPM = 3500.0;
+	TargetRPM = 4200.0;
 }
 
 void Shooter::ConfigEncoder() {
