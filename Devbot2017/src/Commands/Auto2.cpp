@@ -10,8 +10,9 @@
 //279.4 cm from wall to airship
 //53.34 cm from back side of robot to shooter ultrasonic sensor
 //final distance is 221.1 cm (226.1 - 5)
-//the robot gets to the airship in about 2.7 seconds at 0.5 voltage
-//so the robot moves 83.7 cm / second at 0.5 voltage (8.37 cm per 10 milliseconds)
+
+//the robot gets to the 76 inch(193 cm) in about 2.5 seconds at 0.5 voltage
+//so the robot moves 77.22 cm / second at 0.5 voltage (7.72 cm per 10 milliseconds)
 
 //this currently uses the gear ultrasonic sensor
 Auto2::Auto2() {

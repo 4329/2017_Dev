@@ -19,6 +19,10 @@
 #include "PIDController.h"
 #include "AHRS.h"
 
+//in header drive
+#define max_adjust 0.2
+#define max_angle 90.0
+
 /**
  *
  *
@@ -54,6 +58,8 @@ public:
 	void ArcadeDrive(float x, float y);	//arcade drive also works as a split drive
 	void SetPosition(int left, int right);
 	void DirectDrive(float left, float right);
+	void HeadingDrive(float output);	//recalculates the outputs on the right and left side based on the angle
+										//(so the robot can drive straight)
 	void StopMotors();
 
 	void Config();

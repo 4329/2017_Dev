@@ -10,5 +10,5 @@ AutoPrint::AutoPrint(std::string autoMode): InstantCommand() {
 // Called just before this Command runs the first time
 void AutoPrint::Initialize()
 {
-	std::cout << "Auto Mode: " << _autoMode << std::endl;
+	std::cout << "4329 Log: " << GetTime() << ", Auto Mode: " << _autoMode << std::endl;
 }

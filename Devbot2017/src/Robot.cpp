@@ -80,6 +80,8 @@ void Robot::RobotInit() {
 	std::thread visionThread(VideoT);
 	visionThread.detach();
 
+	imu->ZeroYaw(); //reset yaw before match starts
+
 	//add motion profiles here
 	//Robot::driveTrain->AddMotionProfile(k3ftMotionProfileNdx, 1, k3ftMotionProfile, k3ftMotionProfileSz, k3ftMotionProfile, k3ftMotionProfileSz);
 

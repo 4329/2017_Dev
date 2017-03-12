@@ -170,7 +170,7 @@ void DriveTrain::ArcadeDrive(float x, float y)
 	right1->Set(rightOutput);
 
 	//print outputs
-	std::cout << "L: " << leftOutput << " R: " << rightOutput << std::endl;
+	std::cout << "4329 Log: " << GetTime() << ", L: " << leftOutput << " R: " << rightOutput << std::endl;
 
 	//output voltage and current
 	std::cout << "ArcadeDrive voltage: left1: " << left1->GetOutputVoltage() << ", ";
@@ -204,7 +204,7 @@ void DriveTrain::TankDrive(float left, float right)
 	right1->Set(rightOutput);
 
 	//print outputs
-	std::cout << "L: " << leftOutput << " R: " << rightOutput << std::endl;
+	std::cout << "4329 Log: " << GetTime() << ", L: " << leftOutput << " R: " << rightOutput << std::endl;
 
 	//output voltage and current
 	std::cout << "TankDrive voltage: left1: " << left1->GetOutputVoltage() << ", ";
@@ -221,7 +221,58 @@ void DriveTrain::TankDrive(float left, float right)
 //Positive voltage moves the robot in the direction of the gear holder
 //negative voltage moves the robot in the direction of the intake
 void DriveTrain::DirectDrive(float left, float right) {
-	std::cout << "Left: " << left << " Right: " << right << std:: endl;
+	std::cout << "4329 Log: " << GetTime() << ", Left: " << left << " Right: " << right << std:: endl;
+	left1->Set(left);
+	right1->Set(right);
+}
+
+void DriveTrain::HeadingDrive(float output) {
+	float adjust = max_adjust;
+	float left = output;
+	float right = output;
+
+	//check the gear holder side of the robot is facing forward or if it is facing the other direction
+	bool gear_forward;
+	if (output > 0) {
+		gear_forward = true;
+	}
+	else {
+		gear_forward = false;
+	}
+
+	//recalibrate the output
+	double yaw = Robot::imu->GetYaw();
+	if (gear_forward) {
+		if (yaw > 0) {
+			//increase left side
+			adjust = max_adjust * (yaw / max_angle);
+			left += adjust;
+		}
+		else {
+			//increase right side
+			adjust = max_adjust * (yaw / max_angle);
+			right += adjust;
+		} //yaw = 0 will not changes output
+	}
+	else {
+		if (yaw > 0) {
+			//increase right side
+			adjust = max_adjust * (yaw / max_angle);
+			right -= adjust;
+		}
+		else {
+			//increase left side
+			adjust = max_adjust * (yaw / max_angle);
+			left -= adjust;
+
+		} //yaw = 0 will not changes output
+	}
+
+
+	//print out stuff
+	std::cout << "4329 Log: " << GetTime() << ", gear_forward: " << gear_forward << ", yaw: " << yaw << ", right: " << right << ", left: " << left << std::endl;
+
+	//set the output
 	left1->Set(left);
 	right1->Set(right);
 }
@@ -242,7 +293,7 @@ void DriveTrain::SetVoltageMode() {
 	left2->Set(1); // change to work with config system
 	right2->Set(3);
 
-	std::cout << "drivetrain set Voltage mode on kPercentVbus" << std::endl;
+	std::cout << "4329 Log: " << GetTime() << ", drivetrain set Voltage mode on kPercentVbus" << std::endl;
 
 	left1->Enable();	//enable after changing the control mode
 	left2->Enable();

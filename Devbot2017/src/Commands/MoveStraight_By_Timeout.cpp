@@ -9,13 +9,14 @@ MoveStraight_By_Timeout::MoveStraight_By_Timeout(float timeout, float output): C
 
 // Called just before this Command runs the first time
 void MoveStraight_By_Timeout::Initialize() {
-	std::cout << "doing auto: move straight by timeout" << std::endl;
+	Robot::imu->ZeroYaw();	//resets the yaw before the command
+	std::cout << "4329 Log: " << GetTime() << ", doing auto: move straight by timeout" << std::endl;
 	SetTimeout(_timeout);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void MoveStraight_By_Timeout::Execute() {
-	Robot::driveTrain->DirectDrive(_output, _output);
+	Robot::driveTrain->HeadingDrive(_output);
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -25,6 +26,8 @@ bool MoveStraight_By_Timeout::IsFinished() {
 
 // Called once after isFinished returns true
 void MoveStraight_By_Timeout::End() {
+	std::cout << "4329 Log: " << GetTime() << ", done moving straight by timeout" << std::endl;
+	Robot::imu->ZeroYaw();	//resets the yaw before the next usage
 	Robot::driveTrain->StopMotors();
 }
 

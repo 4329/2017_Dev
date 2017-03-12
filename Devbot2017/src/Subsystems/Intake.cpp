@@ -41,7 +41,7 @@ float Intake::Limit(float num) {	//sets number to correct value if it's over 1 o
 
 void Intake::fuel_intake(float trigger_axis) {
 	float nValue = Limit(trigger_axis);	//get right trigger axis value
-	std::cout << "Intake right trigger axis: " << nValue << std::endl;	//print axis value
+	std::cout << "4329 Log: " << GetTime() << ", Intake right trigger axis: " << nValue << std::endl;	//print axis value
 
 	intakeMotor->Set(-nValue);	//set motor value ( number will betweeen the deadzone and 1)
 	std::cout << "Intake: voltage: " << intakeMotor->GetOutputVoltage() << "  ";	//print voltage
@@ -50,7 +50,7 @@ void Intake::fuel_intake(float trigger_axis) {
 
 void Intake::fuel_outtake(float trigger_axis) {
 	float nValue = Limit(trigger_axis);	//get left trigger axis value
-	std::cout << "Intake left trigger axis: " << nValue << std::endl;	//print axis value
+	std::cout << "4329 Log: " << GetTime() << ", Intake left trigger axis: " << nValue << std::endl;	//print axis value
 
 	intakeMotor->Set(nValue);	//set motor value ( number will be between -deadzone and -1
 	std::cout << "Intake: voltage: " << intakeMotor->GetOutputVoltage() << "  ";	//print voltage

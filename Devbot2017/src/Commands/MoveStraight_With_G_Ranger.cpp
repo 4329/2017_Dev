@@ -23,12 +23,13 @@ MoveStraight_With_G_Ranger::MoveStraight_With_G_Ranger(bool forward, double cm_t
 
 // Called just before this Command runs the first time
 void MoveStraight_With_G_Ranger::Initialize() {
-	std::cout << "now moving straight" << std::endl;
+	Robot::imu->ZeroYaw();	//resets the yaw before command starts
+	std::cout << "4329 Log: " << GetTime() << ", now moving straight" << std::endl;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void MoveStraight_With_G_Ranger::Execute() {
-	Robot::driveTrain->DirectDrive(output, output);	//move forward or backwards
+	Robot::driveTrain->HeadingDrive(output);	//move forward or backwards
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -74,7 +75,8 @@ bool MoveStraight_With_G_Ranger::IsFinished() {
 
 // Called once after isFinished returns true
 void MoveStraight_With_G_Ranger::End() {
-	std::cout << "done moving straight" << std::endl;
+	Robot::imu->ZeroYaw();	//resets the yaw before the next usage
+	std::cout << "4329 Log: " << GetTime() << ", done moving straight" << std::endl;
 }
 
 // Called when another command which requires one or more of the same

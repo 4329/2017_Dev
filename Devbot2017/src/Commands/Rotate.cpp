@@ -12,7 +12,7 @@ Rotate::Rotate(float Angle): Command() {
 
 // Called just before this Command runs the first time
 void Rotate::Initialize() {
-	std::cout << "now rotating " << targetAngle << std::endl;
+	std::cout << "4329 Log: " << GetTime() << ", now rotating " << targetAngle << std::endl;
 	Robot::driveTrain->SetVoltageMode();
 	Robot::imu->Reset(); //reset yaw angle to 0
 }
@@ -62,7 +62,7 @@ bool Rotate::IsFinished() {
 
 	//if the difference between the yaw and angle is small enough command will stop
 	if (fabs(correctAngle - correctYaw) < error) {
-		std::cout << "done rotating " << std::endl;
+		std::cout << "4329 Log: " << GetTime() << ", done rotating " << std::endl;
 		return true;
 	}
 	else {
