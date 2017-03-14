@@ -19,6 +19,7 @@ public:
 private:
 	float output;
 	double distance;
+	bool clockwise;	//tell whihc direction the robot should turn just in case it doesn't see any blocks
 };
 
 #endif

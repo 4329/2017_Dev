@@ -149,30 +149,25 @@ float GearPixy::Angle_From_Target() {	//if angle is positive, robot turns right;
 
 //this works with the offset of the pixy
 double GearPixy::X_Offset_From_Target(std::vector<Block> sigs) {
-	std::cout << "XOFF Entry " << std::endl;
 	uint16_t x_center;
-
 	uint16_t pixel_from_center;
 	double dist_from_target;
 	double distance_of_one_side_of_pixy;
 	double offset;
 
-	std::cout << "XOFF 1 " << std::endl;
 	x_center = ( sigs[0].x + sigs[1].x ) / 2;
-	std::cout << "XOFF 2 " << std::endl;
 	pixel_from_center = x_center - PIXY_CENT_X;
-	std::cout << "XOFF 3 " << std::endl;
+	std::cout << "GearPixy: pixel_from_center: " << pixel_from_center << std::endl;
 	I2C_Sensor_Mgr::Instance()->Update_GearRangeFinder();
 
-	std::cout << "XOFF 4 " << std::endl;
 	dist_from_target = I2C_Sensor_Mgr::Instance()->Get_GearRange_cm();
-	std::cout << "XOFF 5 " << std::endl;
-	distance_of_one_side_of_pixy = tan( (17.5 * pi) / 180) * dist_from_target;
+	std::cout << "GearPixy: dist_from_target: " << dist_from_target << std::endl;
+	distance_of_one_side_of_pixy = tan( ((H_FOV/2) * pi) / 180) * dist_from_target;
+	std::cout << "GearPixy: distance_of_one_side_of_pixy: " << distance_of_one_side_of_pixy << std::endl;
 
-	std::cout << "XOFF 6 " << std::endl;
 	//pixel_from_center / PIXY_CENT_X = offset / distance_of_one_side_of_pixy
 	offset = distance_of_one_side_of_pixy * ( pixel_from_center / PIXY_CENT_X);
-	std::cout << "XOFF Exit " << std::endl;
+	std::cout << "GearPixy: offset: " << offset << std::endl;
 	return 25.4 + offset;	//25.4 is cm from gear holder to gear pixy (is not exact)
 }
 

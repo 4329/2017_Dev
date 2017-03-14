@@ -5,7 +5,8 @@ AlignGear::AlignGear(): Command() {
     Requires(Robot::driveTrain.get());
 
     output = 0.15;
-    distance = 10;	//set for set up
+    distance = 100;	//set for set up
+    clockwise = true;
 }
 
 // Called just before this Command runs the first time
@@ -17,23 +18,37 @@ void AlignGear::Initialize() {
 void AlignGear::Execute() {
 	std::vector<Block> sigs = Robot::gearPixy->Return_All_Targets();
 	std::cout << "AG Made it here: "  << std::endl;
-	distance = Robot::gearPixy->X_Offset_From_Target(sigs);
 
-	std::cout << "AG distance: " << distance << std::endl;
+	if (sigs.size() > 0) {
+		distance = Robot::gearPixy->X_Offset_From_Target(sigs);
+		std::cout << "AG distance: " << distance << std::endl;
 
-	//pos right, neg left(but flipped)
-	if (distance > 0) {
-		Robot::driveTrain->DirectDrive(-output, output);
+		//assumes gear holder is facing peg
+		//distance > 0 means gear holder is to the left of the peg
+		//distance < 0 means gear holder is to the right of peg
+		if (distance > 0) {
+			clockwise = true;
+			Robot::driveTrain->DirectDrive(output, -output);
+		}
+		else {
+			clockwise = false;
+			Robot::driveTrain->DirectDrive(-output, output);
+		}
 	}
-	else {
-		Robot::driveTrain->DirectDrive(output, -output);
+	else {	//if robot fails to see the targets
+		if (clockwise) {
+			Robot::driveTrain->DirectDrive(-output, output);//robot will go the opposite direction of it's direction when it did see blocks
+		}
+		else {
+			Robot::driveTrain->DirectDrive(output, -output);
+		}
 	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AlignGear::IsFinished() {
 	//can't check if distance is less than an small number or else the robot will shuffle back and forth
-	if (fabs(distance) + 9.5 < 10) {	//adds 9.5 so robot doesn't stop 10 units short
+	if (fabs(distance) < 10) {
 		return true;
 	}
 	else {

@@ -107,6 +107,9 @@ OI::OI() {
 
     SmartDashboard::PutBoolean("HighSpeed", Robot::driveTrain->GetHighSpeed());
     SmartDashboard::PutBoolean("HighGear", Robot::transmission->GetHighGear());
+
+    //for testing in iowa
+    SmartDashboard::PutData("MoveStraight_By_Timeout (7 sec)", new MoveStraight_By_Timeout(7, 0.3));
 }
 
 std::shared_ptr<XboxController> OI::getRobotDriver() {

@@ -19,6 +19,8 @@ MoveStraight_With_G_Ranger::MoveStraight_With_G_Ranger(bool forward, double cm_t
     target_distance = cm_target_distance;
 
     count = 0;
+
+    error = 0.0;
 }
 
 // Called just before this Command runs the first time
@@ -40,7 +42,7 @@ bool MoveStraight_With_G_Ranger::IsFinished() {
 
 	std::cout << "MS distance: " << distance << std::endl;
 
-	if (distance > 1000) {
+	if (distance > 800) {
 		count++;
 		std::cout << "count: " << count << std::endl;
 		return false;
@@ -54,7 +56,7 @@ bool MoveStraight_With_G_Ranger::IsFinished() {
 	}
 
 	if (_forward) {	//distance should be increasing, so stop when it's past a certain distance
-		if (distance >= target_distance) {
+		if (distance >= (target_distance + error)) {
 			Robot::driveTrain->StopMotors(); //stop early
 			return true;
 		}
@@ -63,7 +65,7 @@ bool MoveStraight_With_G_Ranger::IsFinished() {
 		}
 	}
 	else {	//distance should be decreasing, so stop when it's less than a certain distance
-		if (distance <= target_distance) {
+		if (distance <= (target_distance - error)) {
 			Robot::driveTrain->StopMotors();
 			return true;
 		}

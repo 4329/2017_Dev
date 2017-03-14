@@ -23,6 +23,7 @@ private:
 	bool _forward;
 	int count;	//if count is high enough robot will stop
 				//count increments by 1 when the distance value is weird (above 1000)
+	float error;	//the distance (cm) it takes the robot to move in 10 ms at 0.3 voltage
 };
 
 #endif

@@ -9,16 +9,18 @@ MoveStraight_With_S_Ranger::MoveStraight_With_S_Ranger(bool forward, double cm_t
 
     _forward = forward;
     if (_forward) {
-    	output = -0.5;	//robot will move in the direction of the intake
+    	output = -0.3;	//robot will move in the direction of the intake
     }
     else {
-    	output = 0.5;	//robot will move in the direction of the gear holder
+    	output = 0.3;	//robot will move in the direction of the gear holder
     }
 
     distance = 0.0;
     target_distance = cm_target_distance;
 
     count = 0;
+
+    error = 0.0;
 }
 
 // Called just before this Command runs the first time
@@ -40,7 +42,7 @@ bool MoveStraight_With_S_Ranger::IsFinished() {
 
 	std::cout << "MS distance: " << distance << std::endl;
 
-	if (distance > 1000) {
+	if (distance > 800) {
 		count++;
 		return false;
 	}
@@ -53,7 +55,7 @@ bool MoveStraight_With_S_Ranger::IsFinished() {
 	}
 
 	if (_forward) {	//distance should be decreasing, so stop when it's less than a certain distance
-		if (distance <= target_distance) {
+		if (distance <= (target_distance - error)) {
 			Robot::driveTrain->StopMotors(); //stop early
 			return true;
 		}
@@ -62,7 +64,7 @@ bool MoveStraight_With_S_Ranger::IsFinished() {
 		}
 	}
 	else {	//distance should be increasing, so stop when it's past than a certain distance
-		if (distance >= target_distance) {
+		if (distance >= (target_distance + error)) {
 			Robot::driveTrain->StopMotors();
 			return true;
 		}
