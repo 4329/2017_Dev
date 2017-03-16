@@ -55,6 +55,7 @@ OI::OI() {
     shift.reset(new JoystickButton(robotDriver.get(), Xbox_Button::Right_Bumper));
     toggleHighSpeed.reset(new JoystickButton(robotDriver.get(), Xbox_Button::Left_Bumper));
     ToggleGearHolder_B.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Right_Bumper));
+    //toggle gear floor, left bumper
     shoot.reset(new JoystickButton(robotOperator.get(), Xbox_Button::X));
     RobotClimb.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Y));
     Flap.reset(new JoystickButton(robotOperator.get(), Xbox_Button::B));	//held for now
@@ -109,7 +110,7 @@ OI::OI() {
     SmartDashboard::PutBoolean("HighGear", Robot::transmission->GetHighGear());
 
     //for testing in iowa
-    SmartDashboard::PutData("MoveStraight_By_Timeout (7 sec)", new MoveStraight_By_Timeout(7, 0.3));
+    SmartDashboard::PutData("MoveStraight_By_Timeout (7 sec)", new MoveStraight_By_Timeout(7, -0.3));
 }
 
 std::shared_ptr<XboxController> OI::getRobotDriver() {
