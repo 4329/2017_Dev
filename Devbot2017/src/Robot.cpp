@@ -73,9 +73,8 @@ void Robot::RobotInit() {
 
 	// instantiate the command used for the autonomous period
 	chooser.reset(new frc::SendableChooser<Command*>());
-	chooser->AddDefault(std::string("2) Auto Move past line by timeout."), new MoveStraight_By_Timeout(3, 0.5));
+	chooser->AddDefault(std::string("2) Auto Move past line by timeout."), new AutoForward());
 	chooser->AddObject(std::string("0) Auto Move past line by sensor."), new AutoSimple());
-	chooser->AddObject(std::string("1) Stand Still."), new Auto1());
 	chooser->AddObject(std::string("3) Place gear on center peg."), new Auto2());
 	chooser->AddObject(std::string("4) Place gear on left peg."), new Auto1());
 	chooser->AddObject(std::string("5) Place gear on right peg."), new Auto3());

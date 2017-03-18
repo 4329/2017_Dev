@@ -21,6 +21,7 @@
 #include "CANLight.h"
 using mindsensors::CANLight;
 
+#include "Commands/AutoForward.h"
 #include "Commands/AutoSimple.h"
 #include "Commands/Auto1.h"
 #include "Commands/Auto2.h"

@@ -37,6 +37,7 @@ public:
 	void Configuration();
 
 	void ToggleSHIFTER();
+	void ShifterOff();
 	void ToggleHighGear();
 
 	bool GetHighGear();

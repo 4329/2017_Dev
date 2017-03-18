@@ -26,6 +26,7 @@
 #include "Commands/AlignShoot.h"
 #include "Commands/ToggleCamera.h"
 
+#include "Commands/ToggleFloorGear.h"
 #include "Commands/FuelIntake.h"
 #include "Commands/ToggleGearHolder.h"
 #include "Commands/Shoot.h"
@@ -55,16 +56,17 @@ OI::OI() {
     shift.reset(new JoystickButton(robotDriver.get(), Xbox_Button::Right_Bumper));
     toggleHighSpeed.reset(new JoystickButton(robotDriver.get(), Xbox_Button::Left_Bumper));
     ToggleGearHolder_B.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Right_Bumper));
-    //toggle gear floor, left bumper
+    floorGear.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Left_Bumper));
     shoot.reset(new JoystickButton(robotOperator.get(), Xbox_Button::X));
     RobotClimb.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Y));
     Flap.reset(new JoystickButton(robotOperator.get(), Xbox_Button::B));	//held for now
-    ConveyorBackward_B.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Left_Bumper));
+    //ConveyorBackward_B.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Left_Bumper));
     //toggleCamera.reset(new JoystickButton(robotDriver.get(), Xbox_Button::A));
 
     //Specify which commands to call when button is pressed, released, etc
     //toggleCamera->WhenPressed(new ToggleCamera());
     //ConveyorBackward_B->WhenPressed(new ConveyorBackward());
+    floorGear->WhenPressed(new ToggleFloorGear());
     Flap->WhenPressed(new OpenFlap());	//actually while held
     ToggleGearHolder_B->WhenPressed(new ToggleGearHolder());
     shoot->WhenPressed(new Shoot());	//actually while held
@@ -132,11 +134,11 @@ std::shared_ptr<JoystickButton> OI::getShootButton() {
 std::shared_ptr<JoystickButton> OI::getFlapButton() {
    return Flap;
 }
-
+/*
 std::shared_ptr<JoystickButton> OI::getConveyorBackwardButton() {
    return ConveyorBackward_B;
 }
-
+*/
 float OI::GetAxisValue(std::shared_ptr<XboxController> controller, int axis) {
 	float value;
 

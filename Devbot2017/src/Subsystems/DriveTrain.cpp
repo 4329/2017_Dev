@@ -248,25 +248,25 @@ void DriveTrain::HeadingDrive(float output) {
 		if (yaw > 0) {
 			//increase left side
 			adjust = max_adjust * (yaw / max_angle);
-			left = left + abs(adjust);
+			left += fabs(adjust);
 			std::cout << "adjust "<< adjust << ", yaw: " << yaw << std::endl;
 		}
 		else {
 			//increase right side
 			adjust = max_adjust * (yaw / max_angle);
-			right = right + abs(adjust);
+			right += fabs(adjust);
 		} //yaw = 0 will not changes output
 	}
 	else {
 		if (yaw > 0) {
 			//increase right side
 			adjust = max_adjust * (yaw / max_angle);
-			right = right - fabs(adjust);
+			right -= fabs(adjust);
 		}
 		else {
 			//increase left side
 			adjust = max_adjust * (yaw / max_angle);
-			left = left - fabs(adjust);
+			left -= fabs(adjust);
 
 		} //yaw = 0 will not changes output
 	}

@@ -3,7 +3,7 @@
 
 AutoPrint::AutoPrint(std::string autoMode): InstantCommand() {
         // Use requires() here to declare subsystem dependencies
-    // eg. requires(Robot::chassis.get());
+    Requires(Robot::transmission.get());
 	_autoMode = autoMode;
 }
 
@@ -11,4 +11,5 @@ AutoPrint::AutoPrint(std::string autoMode): InstantCommand() {
 void AutoPrint::Initialize()
 {
 	std::cout << "4329 Log: " << GetTime() << ", Auto Mode: " << _autoMode << std::endl;
+	Robot::transmission->ShifterOff();	//go to low gear before any auto
 }

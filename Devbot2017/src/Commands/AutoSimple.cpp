@@ -9,8 +9,10 @@ AutoSimple::AutoSimple() {
     // eg. requires(Robot::chassis.get());
 	Requires(Robot::driveTrain.get());
 
+	//print auto mode and go to low gear
+	AddSequential(new AutoPrint("simple"));
+
 	//robot starts out intake facing away from the wall
-	AddSequential(new AutoPrint("Simple"));
 	AddSequential(new MoveStraight_With_G_Ranger(true, 230.0), 5);	//move past line stop after 5 seconds
 }
 

@@ -18,12 +18,13 @@ Auto2::Auto2() {
 	Requires(Robot::driveTrain.get());
 	Requires(Robot::gearholder.get());
 
+	//print auto mode and go to low gear
 	AddSequential(new AutoPrint("auto 2"));
 
 	//AddSequential(new MoveStraight_With_G_Ranger(false, 25));	//move until 25 cm away from airship
-	AddSequential(new MoveStraight_By_Timeout(2.7, 0.3));	//move a little bit so the peg is in the robot
+	AddSequential(new MoveStraight_By_Timeout(4.75, 0.3));	//move a little bit so the peg is in the robot
 	AddSequential(new PushGearHolder());	//put gear on peg
-	AddSequential(new Delay(1.5));	//wait a little bit
+	AddSequential(new Delay(0.5));	//wait a little bit
 	AddSequential(new MoveStraight_By_Timeout(2, -0.3));	//slowly move back towards the wall
 	AddSequential(new PullGearHolder());	//Retract the gear holder
 }
