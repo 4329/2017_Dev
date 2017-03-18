@@ -77,6 +77,8 @@ void Robot::RobotInit() {
 	chooser->AddObject(std::string("0) Auto Move past line by sensor."), new AutoSimple());
 	chooser->AddObject(std::string("1) Stand Still."), new Auto1());
 	chooser->AddObject(std::string("3) Place gear on center peg."), new Auto2());
+	chooser->AddObject(std::string("4) Place gear on left peg."), new Auto1());
+	chooser->AddObject(std::string("5) Place gear on right peg."), new Auto3());
 	frc::SmartDashboard::PutData("Autonomous Modes", chooser.get());
 
 	video.reset(new Video());	//must be called before the thread
@@ -101,17 +103,19 @@ void Robot::RobotInit() {
  * You can use it to reset subsystems before shutting down.
  */
 void Robot::DisabledInit(){
+	/*
 	if(ds->GetAlliance() == DriverStation::Alliance::kRed){
 		disableseqred();
 	}else if(ds->GetAlliance() == DriverStation::Alliance::kBlue){
 		disableseqblue();
 	}
+	*/
 }
 
 void Robot::DisabledPeriodic() {
 	Scheduler::GetInstance()->Run();
 
-	inactivefade();
+	//inactivefade();
 }
 
 void Robot::AutonomousInit() {
@@ -123,6 +127,7 @@ void Robot::AutonomousInit() {
 void Robot::AutonomousPeriodic() {
 	Scheduler::GetInstance()->Run();
 
+	/*
 	if(ds->GetAlliance() == DriverStation::Alliance::kRed){
 		frameLights->ShowRGB(255, 0, 0);
 	}else if(ds->GetAlliance() == DriverStation::Alliance::kBlue){
@@ -130,6 +135,7 @@ void Robot::AutonomousPeriodic() {
 	}else if(ds->GetAlliance() == DriverStation::Alliance::kInvalid){
 		frameLights->ShowRGB(255, 200, 0); //Yellow
 	}
+	*/
 }
 
 void Robot::TeleopInit() {
@@ -144,6 +150,7 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 
+	/*
 	if(ds->GetAlliance() == DriverStation::Alliance::kRed){
 	    frameLights->ShowRGB(255, 0, 0);
 	}else if(ds->GetAlliance() == DriverStation::Alliance::kBlue){
@@ -151,12 +158,13 @@ void Robot::TeleopPeriodic() {
 	}else if(ds->GetAlliance() == DriverStation::Alliance::kInvalid){
 	    frameLights->ShowRGB(255, 200, 0); //Yellow
 	}
+	*/
 }
 
 void Robot::TestPeriodic() {
 	lw->Run();
 
-	frameLights->ShowRGB(255, 128, 0);
+	//frameLights->ShowRGB(255, 128, 0);
 }
 
 //for the lights
