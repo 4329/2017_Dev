@@ -18,7 +18,7 @@ Auto1::Auto1() {
 	//print auto mode and go to low gear
 	AddSequential(new AutoPrint("1"));
 
-	AddSequential(new MoveStraight_By_Timeout(5, 0.3));	//move forward a bit (robot needs to be at a certain point on the wall
+	AddSequential(new MoveStraight_By_Timeout(2.25, 0.6));	//move forward a bit (robot needs to be at a certain point on the wall
 	AddSequential(new Rotate(60));	//rotate towards the peg
 	//AddSequential(new AlignGear());	//center on the peg
 
@@ -26,7 +26,6 @@ Auto1::Auto1() {
 	AddSequential(new PushGearHolder());	//put gear on peg
 	AddSequential(new Delay(0.5));	//wait a little bit
 	AddSequential(new MoveStraight_By_Timeout(2, -0.3));	//slowly move back towards the wall
-	AddSequential(new PullGearHolder());	//Retract the gear holder
 
 	//AddSequential(new Rotate(-60));	//face towards the middle of the field
 	//AddSequential(new MoveStraight_By_Timeout(1, 0.5));	//move to the middle of the field

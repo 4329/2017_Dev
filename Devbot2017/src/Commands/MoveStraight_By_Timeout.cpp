@@ -10,7 +10,7 @@ MoveStraight_By_Timeout::MoveStraight_By_Timeout(float timeout, float output): C
 // Called just before this Command runs the first time
 void MoveStraight_By_Timeout::Initialize() {
 	Robot::imu->ZeroYaw();	//resets the yaw before the command
-	std::cout << "4329 Log: " << GetTime() << ", doing auto: move straight by timeout" << std::endl;
+	std::cout << "4329 Log: " << GetTime() << ", moving straight by timeout" << std::endl;
 	SetTimeout(_timeout);
 }
 
