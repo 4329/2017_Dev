@@ -43,6 +43,7 @@ public:
 	static std::shared_ptr<CANTalon> intakeMotor;
 	static std::shared_ptr<Solenoid> extenderSolenoid;
 	static std::shared_ptr<Solenoid> ventSolenoid;
+	static std::shared_ptr<Solenoid> floorSolenoid;
 	static std::shared_ptr<CANTalon> shooterTalon1;
 	static std::shared_ptr<CANTalon> shooterTalon2;
 	static std::shared_ptr<CANTalon> conveyorTalon;

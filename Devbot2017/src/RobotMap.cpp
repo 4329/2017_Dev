@@ -26,6 +26,7 @@ std::shared_ptr<frc::DoubleSolenoid> RobotMap::transmissionShifterSolenoid;
 std::shared_ptr<CANTalon> RobotMap::intakeMotor;
 std::shared_ptr<frc::Solenoid> RobotMap::extenderSolenoid;
 std::shared_ptr<frc::Solenoid> RobotMap::ventSolenoid;
+std::shared_ptr<Solenoid> RobotMap::floorSolenoid;
 std::shared_ptr<CANTalon> RobotMap::shooterTalon1;
 std::shared_ptr<CANTalon> RobotMap::shooterTalon2;
 std::shared_ptr<CANTalon> RobotMap::conveyorTalon;
@@ -68,6 +69,9 @@ void RobotMap::init() {
 
     ventSolenoid.reset(new frc::Solenoid(4));
     lw->AddActuator("GearHolder", "gearSolenoid2", ventSolenoid);
+
+    floorSolenoid.reset(new frc::Solenoid(5));
+    lw->AddActuator("FloorGear", "floorSolenoid", floorSolenoid);
 
     shooterTalon1.reset(new CANTalon(7));
     lw->AddActuator("Shooter", "shooterTalon1", shooterTalon1);
