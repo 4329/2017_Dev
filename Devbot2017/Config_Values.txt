@@ -1,30 +1,20 @@
-DriveTrain::left1_CANID 1
-DriveTrain::left2_CANID 2
-DriveTrain::right1_CANID 3
-DriveTrain::right2_CANID 4
+//auto1
+auto1::1st_timeout 2.25
+auto1::1st_output 0.6
+auto1::rotation 60.0
+auto1::2nd_timeout 2.5
+auto1::2nd_output 0.3
+auto1::gear_place_delay 0.5
 
-DriveTrain::left1_inverted true
-DriveTrain::left2_inverted true
-DriveTrain::right1_inverted false
-DriveTrain::right2_inverted false
+//auto2
+auto2::timeout 4.75
+auto2::output 0.3
+auto2::gear_place_delay 1.0
 
-DriveTrain::type TankDrive
-// AracdeDrive TankDrive SplitDrive
-
-ShooterIndex::Inverted false\
-//true false
-ShooterIndex::Speed 2000
-ShooterIndex::P 0
-ShooterIndex::I 0
-ShooterIndex::D 0
-
-Intake::Inverted false
-//true false
-
-ConveyorBelt::Inverted false
-//true false
-
-Climber::Inverted false
-//true false
-
-ShooterPixy::Max_Angle_From_Target 5
+//auto3
+auto3::1st_timeout 2.25
+auto3::1st_output 0.6
+auto3::rotation -60.0
+auto3::2nd_timeout 2.5
+auto3::2nd_output 0.3
+auto3::gear_place_delay 0.5

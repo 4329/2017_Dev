@@ -16,6 +16,7 @@ public:
 	void clearSStream();
 
 	void AssignAll();
+	void AssignDefault();
 
 	int returnInt(string key);
 	bool returnBool(string key);

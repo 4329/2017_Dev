@@ -21,6 +21,8 @@
 #include "CANLight.h"
 using mindsensors::CANLight;
 
+#include "Config.h"
+
 #include "Commands/AutoForward.h"
 #include "Commands/AutoSimple.h"
 #include "Commands/Auto1.h"
@@ -51,6 +53,8 @@ void VideoT();
 
 class Robot : public IterativeRobot {
 public:
+	static std::shared_ptr<Config> config;
+
 	std::unique_ptr<Command> autonomous;
 	std::shared_ptr<SendableChooser<Command*>> chooser;
 	static std::unique_ptr<OI> oi;

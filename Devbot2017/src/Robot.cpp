@@ -35,6 +35,8 @@ std::shared_ptr<ShooterIndex> Robot::shooterIndex;
 std::shared_ptr<Video> Robot::video;
 std::shared_ptr<AHRS> Robot::imu;
 
+std::shared_ptr<Config> Robot::config;
+
 cameraControl Robot::cc;
 
 void VideoT()
@@ -44,6 +46,8 @@ void VideoT()
 
 void Robot::RobotInit() {
 	std::cout << "robot init start" << std::endl;
+
+	config.reset(new Config("C:/Users/4329Admin/Desktop/Config_Values.txt"));
 
 	RobotMap::init();
 

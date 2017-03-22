@@ -4,7 +4,12 @@
 Config::Config(string fileName) {	//the constructor opens the file, assigns all of the necessary configurations, and closes the file at the end
 	cf_fstream.open(fileName.c_str());
 
-	AssignAll();
+	if (cf_fstream.is_open()) {
+		AssignAll();
+	}
+	else {
+		AssignDefault();
+	}
 
 	cf_fstream.close();
 
@@ -49,6 +54,29 @@ void Config::AssignAll() {	//assigns all for the values for every subsystem
 		key = "";
 		value = "";
 	}
+}
+
+void Config::AssignDefault() {
+	//auto1
+	cf_map["auto1::1st_timeout"] = "2.25";
+	cf_map["auto1::1st_output"] = "0.6";
+	cf_map["auto1::rotation"] = "60.0";
+	cf_map["auto1::2nd_timeout"] = "2.5";
+	cf_map["auto1::2nd_output"] = "0.3";
+	cf_map["auto1::gear_place_delay"] = "0.5";
+
+	//auto2
+	cf_map["auto2::timeout"] = "4.75";
+	cf_map["auto2::output"] = "0.3";
+	cf_map["auto2::gear_place_delay"] = "1.0";
+
+	//auto3
+	cf_map["auto3::1st_timeout"] = "2.25";
+	cf_map["auto3::1st_output"] = "0.6";
+	cf_map["auto3::rotation"] = "-60.0";
+	cf_map["auto3::2nd_timeout"] = "2.5";
+	cf_map["auto3::2nd_output"] = "0.3";
+	cf_map["auto3::gear_place_delay"] = "0.5";
 }
 
 int Config::returnInt(string key) {
