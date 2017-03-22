@@ -47,7 +47,8 @@ void VideoT()
 void Robot::RobotInit() {
 	std::cout << "robot init start" << std::endl;
 
-	config.reset(new Config("C:/Users/4329Admin/Desktop/Config_Values.txt"));
+	std::cout << "running config" << std::endl;
+	config.reset(new Config("../Config_Values.txt"));
 
 	RobotMap::init();
 

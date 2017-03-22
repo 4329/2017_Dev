@@ -6,9 +6,11 @@ Config::Config(string fileName) {	//the constructor opens the file, assigns all 
 
 	if (cf_fstream.is_open()) {
 		AssignAll();
+		std::cout << "file correctly opened" << std::endl;
 	}
 	else {
 		AssignDefault();
+		std::cout << "file did not open" << std::endl;
 	}
 
 	cf_fstream.close();
