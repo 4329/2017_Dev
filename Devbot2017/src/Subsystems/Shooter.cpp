@@ -24,11 +24,11 @@ void Shooter::Configuration() {
 
 	//shooterTalon1->SetInverted(false);
 	//shooterTalon2->SetInverted(false);
-	TargetRPM = 4200.0;
+	TargetRPM = 3500.0;
 }
 
 void Shooter::ConfigEncoder() {
-	shooterTalon1->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
+	shooterTalon1->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
 	shooterTalon1->SetSensorDirection(false);
 	shooterTalon1->ConfigEncoderCodesPerRev(4096);
 
@@ -95,9 +95,11 @@ void Shooter::Stop() {
 
 bool Shooter::CorrectRPM() {
 	if ( fabs(shooterTalon1->GetSpeed() ) >= TargetRPM) {	//needs to work with config system
+		std::cout << "reached the correct speed" << std::endl;
 		return true;
 	}
 	else {
+		std::cout << "Speed: " << fabs(shooterTalon1->GetSpeed()) << std::endl;
 		return false;
 	}
 }

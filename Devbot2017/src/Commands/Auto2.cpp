@@ -20,6 +20,7 @@ Auto2::Auto2() {
 
 	//print auto mode and go to low gear
 	AddSequential(new AutoPrint("auto 2"));
+	AddSequential(new Delay(0.1));
 
 	//AddSequential(new MoveStraight_With_G_Ranger(false, 25));	//move until 25 cm away from airship
 	AddSequential(new MoveStraight_By_Timeout(4.75, 0.3));	//move a little bit so the peg is in the robot

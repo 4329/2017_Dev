@@ -17,6 +17,7 @@ Auto1::Auto1() {
 
 	//print auto mode and go to low gear
 	AddSequential(new AutoPrint("1"));
+	AddSequential(new Delay(0.1));
 
 	AddSequential(new MoveStraight_By_Timeout(2.25, 0.6));	//move forward a bit (robot needs to be at a certain point on the wall
 	AddSequential(new Rotate(60));	//rotate towards the peg

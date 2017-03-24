@@ -99,7 +99,7 @@ float DriveTrain::Limit(float num) {	//set number to correct value if it's over 
 //arcade drive also works as a split drive
 void DriveTrain::ArcadeDrive(float x, float y)
 {
-	std::cout <<  "YAW: " << Robot::imu->GetYaw() << std::endl;
+	//std::cout <<  "YAW: " << Robot::imu->GetYaw() << std::endl;
 
 	if (motionControlled) return;
 	float nx = Limit(x);	//the n stand for new (new x)
@@ -121,7 +121,7 @@ void DriveTrain::ArcadeDrive(float x, float y)
 	}
 
 	//print axis values
-	//std::cout << "ArcadeDrive axes: x: " << nx << ", y: " << ny << std::endl;
+	std::cout << "4329  arcade drive Log: " << GetTime() <<  ", driverinput: axes: x: " << nx << ", y: " << ny;
 
 	float leftOutput;
 	float rightOutput;
@@ -170,21 +170,28 @@ void DriveTrain::ArcadeDrive(float x, float y)
 
 	left1->Set(leftOutput);
 	right1->Set(rightOutput);
-	/*
+
+	std::string solenoid_value;
+	if (RobotMap::transmissionShifterSolenoid->Get() == frc::DoubleSolenoid::kForward) {
+		solenoid_value = "Forward";
+	}
+	else {
+		solenoid_value = "Reverse";
+	}
+
 	//print outputs
-	std::cout << "4329 Log: " << GetTime() << ", L: " << leftOutput << " R: " << rightOutput << std::endl;
+	std::cout << ", motor command L: " << leftOutput << " R: " << rightOutput << ", transmission: " << solenoid_value;
 
 	//output voltage and current
-	std::cout << "ArcadeDrive voltage: left1: " << left1->GetOutputVoltage() << ", ";
+	std::cout << ", output voltage: left1: " << left1->GetOutputVoltage() << ", ";
 	//std::cout << "left2: " << left2->GetOutputVoltage() << ", ";
-	std::cout << "right1: " << right1->GetOutputVoltage() << ", " << std::endl;
+	std::cout << "right1: " << right1->GetOutputVoltage() << ", ";
 	//std::cout << "right2: " << right2->GetOutputVoltage() << std::endl;
 
-	std::cout << "ArcadeDrive current: left1: " << left1->GetOutputCurrent() << ", ";
+	std::cout << "output current: left1: " << left1->GetOutputCurrent() << ", ";
 	//std::cout << "left2: " << left1->GetOutputCurrent() << ", ";
 	std::cout << "right1: " << right1->GetOutputCurrent() << ", " << std::endl;
 	//std::cout << "right2: " << right2->GetOutputCurrent() << std::endl;
-	*/
 }
 
 void DriveTrain::TankDrive(float left, float right)

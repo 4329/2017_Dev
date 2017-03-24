@@ -20,7 +20,7 @@
 #include "AHRS.h"
 
 //in header drive
-#define max_adjust 3
+#define max_adjust 4	//(6 is too large, anything below 2 is too small)
 #define max_angle 45.0
 
 /**

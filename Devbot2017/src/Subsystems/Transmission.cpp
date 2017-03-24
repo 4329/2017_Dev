@@ -66,12 +66,15 @@ void Transmission::ShifterOff() {
 void Transmission::ToggleHighGear() {
 	if (HighGear) {
 		HighGear = false;
+		std::cout << "high gear set to false, " << shifterSolenoid->Get() << std::endl;
 	}
 	else if (!HighGear) {
 		HighGear = true;
+		std::cout << "high gear set to true, " << shifterSolenoid->Get() << std::endl;
 	}
 	else {	//just in case HighGear was neither true nor false
 		HighGear = true;
+		std::cout << "high gear set to true, " << shifterSolenoid->Get() << std::endl;
 	}
 }
 

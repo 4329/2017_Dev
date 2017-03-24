@@ -5,6 +5,7 @@ RunIndex::RunIndex(): Command() {
         // Use requires() here to declare subsystem dependencies
     // eg. requires(Robot::chassis.get());
 	Requires(Robot::shooterIndex.get());
+	Requires(Robot::shooter.get());
 }
 
 // Called just before this Command runs the first time
@@ -19,9 +20,14 @@ void RunIndex::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool RunIndex::IsFinished() {
-    if (Robot::oi->getShootButton()->Get())
-    return false;
-    return true;
+    if (Robot::oi->getShootButton()->Get()) {
+    	return false;
+    }
+    else {
+    	Robot::shooterIndex->Stop();
+    	Robot::shooter->Stop();
+    	return true;
+    }
 }
 
 // Called once after isFinished returns true
