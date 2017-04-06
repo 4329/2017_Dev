@@ -18,6 +18,7 @@ Auto2::Auto2() {
 	Requires(Robot::driveTrain.get());
 	Requires(Robot::gearholder.get());
 
+
 	//print auto mode and go to low gear
 	AddSequential(new AutoPrint("auto 2"));
 	AddSequential(new Delay(0.1));

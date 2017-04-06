@@ -23,6 +23,7 @@ public:
 
 private:
 	std::shared_ptr<CANTalon> climberMotor;
+	std::shared_ptr<CANTalon> climberMotor2;
 
 };
 

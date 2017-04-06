@@ -30,7 +30,6 @@ private:
 	std::shared_ptr<JoystickButton> RobotClimb;
 	std::shared_ptr<JoystickButton> RobotClimbStop;
 	std::shared_ptr<JoystickButton> Flap;
-	//std::shared_ptr<JoystickButton> ConveyorBackward_B;
 	std::shared_ptr<JoystickButton> toggleHighSpeed;
 	//std::shared_ptr<JoystickButton> toggleCamera;
 

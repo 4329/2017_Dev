@@ -46,12 +46,12 @@ public:
 	static std::shared_ptr<Solenoid> floorSolenoid;
 	static std::shared_ptr<CANTalon> shooterTalon1;
 	static std::shared_ptr<CANTalon> shooterTalon2;
-	static std::shared_ptr<CANTalon> conveyorTalon;
 
 	static std::shared_ptr<CANTalon> indexTalon;
 	static std::shared_ptr<Solenoid> gearSolenoidFlap;
 
 	static std::shared_ptr<CANTalon> climberMotor;
+	static std::shared_ptr<CANTalon> climberMotor2;
 
 	static std::shared_ptr<Pixy> shooterPixy;
 	static std::shared_ptr<Pixy> gearPixy;

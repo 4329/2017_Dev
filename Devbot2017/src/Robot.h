@@ -38,7 +38,6 @@ using mindsensors::CANLight;
 #include "Subsystems/GearHolder.h"
 #include "Subsystems/FloorGear.h"
 #include "Subsystems/Shooter.h"
-#include "Subsystems/ConveyorBelt.h"
 #include "Subsystems/ShooterPixy.h"
 #include "Subsystems/GearPixy.h"
 #include "Subsystems/Climber.h"
@@ -63,7 +62,6 @@ public:
     static std::shared_ptr<GearHolder> gearholder;
     static std::shared_ptr<FloorGear> floorGear;
     static std::shared_ptr<Shooter> shooter;
-    static std::shared_ptr<ConveyorBelt> conveyorBelt;
     static std::shared_ptr<Climber> climb;
     static std::shared_ptr<ShooterIndex> shooterIndex;
     static std::shared_ptr<Video> video;

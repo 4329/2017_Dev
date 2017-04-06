@@ -11,6 +11,7 @@
 
 Climber::Climber() : Subsystem("Climber") {
 	climberMotor = RobotMap::climberMotor;
+	climberMotor2 = RobotMap::climberMotor2;
 	Configuration();
 }
 
@@ -24,8 +25,16 @@ void Climber::InitDefaultCommand() {
 void Climber::Configuration() {
 //add config stuff here
 	climberMotor->SetInverted(false);
+	climberMotor2->SetInverted(false);
+
+	//set mode
 	climberMotor->SetControlMode(CANSpeedController::kPercentVbus);
-	//climberMotor->SetVoltageRamp();
+	climberMotor2->SetControlMode(CANSpeedController::kFollower);
+
+	climberMotor2->Set(10);	//follows the climberMotor
+
+	climberMotor->Enable();
+	climberMotor2->Enable();
 }
 
 

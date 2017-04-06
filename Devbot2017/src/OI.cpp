@@ -39,7 +39,6 @@
 #include "Commands/PushGearHolder.h"
 #include "Commands/PullGearHolder.h"
 #include "Commands/ToggleGearFlap.h"
-#include "Commands/ConveyorBackward.h"
 #include "Commands/ToggleSpeed.h"
 #include "Commands/Rotate.h"
 #include "Commands/MoveStraight.h"
@@ -60,12 +59,10 @@ OI::OI() {
     shoot.reset(new JoystickButton(robotOperator.get(), Xbox_Button::X));
     RobotClimb.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Y));
     Flap.reset(new JoystickButton(robotOperator.get(), Xbox_Button::B));	//held for now
-    //ConveyorBackward_B.reset(new JoystickButton(robotOperator.get(), Xbox_Button::Left_Bumper));
     //toggleCamera.reset(new JoystickButton(robotDriver.get(), Xbox_Button::A));
 
     //Specify which commands to call when button is pressed, released, etc
     //toggleCamera->WhenPressed(new ToggleCamera());
-    //ConveyorBackward_B->WhenPressed(new ConveyorBackward());
     floorGear->WhenPressed(new ToggleFloorGear());
     Flap->WhenPressed(new OpenFlap());	//actually while held
     ToggleGearHolder_B->WhenPressed(new ToggleGearHolder());
