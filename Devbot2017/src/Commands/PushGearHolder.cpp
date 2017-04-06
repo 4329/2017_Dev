@@ -11,5 +11,6 @@ PushGearHolder::PushGearHolder(): InstantCommand() {
 // Called just before this Command runs the first time
 void PushGearHolder::Initialize() {
 	Robot::gearholder->PushGearHolder();
+	std::cout << "pushed the gear holder////////////////////////////////////////////////" << std::endl;
 }
 

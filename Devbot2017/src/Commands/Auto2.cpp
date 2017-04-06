@@ -23,7 +23,8 @@ Auto2::Auto2() {
 	AddSequential(new Delay(0.1));
 
 	//AddSequential(new MoveStraight_With_G_Ranger(false, 25));	//move until 25 cm away from airship
-	AddSequential(new MoveStraight_By_Timeout(5.0, 0.3));	//move a little bit so the peg is in the robot
+	AddSequential(new MoveStraight_By_Timeout(2, 0.55));	//move a little bit so the peg is in the robot
+	AddSequential(new MoveStraight_By_Timeout(0.5, 0.3));	//move a little bit so the peg is in the robot
 	AddSequential(new PushGearHolder());	//put gear on peg
 	AddSequential(new Delay(1));	//wait a little bit
 	AddSequential(new MoveStraight_By_Timeout(2, -0.3));	//slowly move back towards the wall
