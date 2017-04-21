@@ -12,6 +12,10 @@
 #include "CANTalon.h"
 #include "../RobotMap.h"
 
+//
+//the intake is currently not being used
+//
+
 class Intake : public Subsystem {
 public:
 	Intake();

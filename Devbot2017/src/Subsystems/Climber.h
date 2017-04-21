@@ -18,7 +18,7 @@ public:
 	void InitDefaultCommand();
 	void Configuration();
 
-	void climb_start();
+	void climb_start(float voltage);	//takes in values from -1 to 1
 	void climb_stop();
 
 private:

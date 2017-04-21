@@ -15,7 +15,8 @@ Intake::Intake() : Subsystem("Intake") {
 }
 
 void Intake::InitDefaultCommand() {
-	SetDefaultCommand(new FuelIntake());	//setDefaultCommand is used to run commands that take axis values
+	//is commented out as intake is not being used
+	//SetDefaultCommand(new FuelIntake());	//setDefaultCommand is used to run commands that take axis values
 	//SetDefaultCommand(new FuelOuttake());
 
 }

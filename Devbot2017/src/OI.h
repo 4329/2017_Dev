@@ -65,11 +65,11 @@ public:
 	enum Xbox_Axis
 	{
 		Xbox_Axis_Left_X 			= 0,	// left: 1, right -1
-		Xbox_Axis_Left_Y 			= 1,	// upwards: -1, downwards: 1 ( GetAxisValue() makes this upwards: 1, downwards -1 )
+		Xbox_Axis_Left_Y 			= 1,	// upwards: -1, downwards: 1
 		Xbox_Axis_Left_Trigger 		= 2,	// not pressed: 0, pressed: 1
 		Xbox_Axis_Right_Trigger		= 3,	// not pressed: 0, pressed: 1
 		Xbox_Axis_Right_X 			= 4,	// left: 1, right -1
-		Xbox_Axis_Right_Y 			= 5,	// upwards: -1, downwards: 1 ( GetAxisValue() makes this upwards: 1, downwards -1 )
+		Xbox_Axis_Right_Y 			= 5,	// upwards: -1, downwards: 1
 		Xbox_Axis_DPad_X 			= 6,
 		Xbox_Axis_DPad_Y 			= 7
 	};

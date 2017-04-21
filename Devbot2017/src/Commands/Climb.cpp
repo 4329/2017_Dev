@@ -26,7 +26,14 @@ void Climb::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void Climb::Execute() {
-	Robot::climb->climb_start();
+	float trigger_value = Robot::oi->GetAxisValue(Robot::oi->getRobotOperator(), OI::Xbox_Axis_Right_Trigger);
+
+	if (trigger_value != 0) {
+		Robot::climb->climb_start(1);	//go at full speed when the right trigger is pressed
+	}
+	else {
+		Robot::climb->climb_start(0.25);	//go at half speed when the right trigger is not pressed
+	}
 
 }
 
