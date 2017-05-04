@@ -40,8 +40,12 @@ void Climber::Configuration() {
 
 void Climber::climb_start(float voltage) {
 	climberMotor->Set(voltage);	//set motor value ( number will betweeen the deadzone and 1)
-	std::cout << "Climber: voltage: " << climberMotor->GetOutputVoltage() << "  ";	//print voltage
-	std::cout << "current: " << climberMotor->GetOutputCurrent() << std::endl;	//print current
+
+	//prints voltage and current
+	std::cout << "Climber: voltage: " << climberMotor->GetOutputVoltage() << "  ";
+	std::cout << "voltage2: " << climberMotor2->GetOutputVoltage() << "  ";
+	std::cout << "current: " << climberMotor->GetOutputCurrent() << "  ";
+	std::cout << "current2: " << climberMotor2->GetOutputCurrent() << std::endl;
 }
 
 void Climber::climb_stop() {

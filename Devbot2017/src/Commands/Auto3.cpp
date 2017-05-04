@@ -11,6 +11,8 @@
 
 
 Auto3::Auto3() {
+	//auto for right peg
+
         // Use requires() here to declare subsystem dependencies
     // eg. requires(Robot::chassis.get());
 	Requires(Robot::driveTrain.get());

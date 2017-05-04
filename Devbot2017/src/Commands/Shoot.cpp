@@ -27,6 +27,6 @@ Shoot::Shoot() {
 
 	//take in fuel and continuously run the shooter to shoot the fuel
 	AddSequential(new SpeedUpShooter());
-	AddSequential(new RunIndex());
-
+	AddParallel(new RunIndex());
+	AddParallel(new RunShooter());
 }

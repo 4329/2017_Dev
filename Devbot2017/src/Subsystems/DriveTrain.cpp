@@ -121,7 +121,7 @@ void DriveTrain::ArcadeDrive(float x, float y)
 	}
 
 	//print axis values
-	std::cout << "4329  arcade drive Log: " << GetTime() <<  ", driverinput: axes: x: " << nx << ", y: " << ny;
+	//std::cout << "4329  arcade drive Log: " << GetTime() <<  ", driverinput: axes: x: " << nx << ", y: " << ny;
 
 	float leftOutput;
 	float rightOutput;
@@ -178,7 +178,7 @@ void DriveTrain::ArcadeDrive(float x, float y)
 	else {
 		solenoid_value = "Reverse";
 	}
-
+	/*
 	//print outputs
 	std::cout << ", motor command L: " << leftOutput << " R: " << rightOutput << ", transmission: " << solenoid_value;
 
@@ -192,6 +192,7 @@ void DriveTrain::ArcadeDrive(float x, float y)
 	//std::cout << "left2: " << left1->GetOutputCurrent() << ", ";
 	std::cout << "right1: " << right1->GetOutputCurrent() << ", " << std::endl;
 	//std::cout << "right2: " << right2->GetOutputCurrent() << std::endl;
+	 */
 }
 
 void DriveTrain::TankDrive(float left, float right)

@@ -24,24 +24,32 @@ void Shooter::Configuration() {
 
 	//shooterTalon1->SetInverted(false);
 	//shooterTalon2->SetInverted(false);
-	TargetRPM = 3500.0;
+	target_SetPoint = 3500.0;
+	current_SetPoint = target_SetPoint;
+}
+
+void Shooter::Recalc_Fgain() {
+	//calculates F
+	//(number of Rotations / min) X (1 min / 60 sec) X (1 sec / 10 TvelMeas) X (1024 native units / rotation)
+	double Fgain = ( current_SetPoint / 600.0 ) * 4096.0;
+	Fgain = (1.0 * 1023.0) / Fgain;
+
+	shooterTalon1->SelectProfileSlot(0);
+	shooterTalon1->SetF(Fgain);
 }
 
 void Shooter::ConfigEncoder() {
-	shooterTalon1->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Absolute);
+	shooterTalon1->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
 	shooterTalon1->SetSensorDirection(false);
 	shooterTalon1->ConfigEncoderCodesPerRev(4096);
 
 	shooterTalon1->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	shooterTalon1->ConfigPeakOutputVoltage(+12.0f, -0.0f);	//may be switched depending on if the
 															//sensor direction is true or false
-	//calculates F
-	//(number of Rotations / min) X (1 min / 60 sec) X (1 sec / 10 TvelMeas) X (1024 native units / rotation)
-	double Fgain = ( TargetRPM / 600 ) * 1024;
-	Fgain = (0.5 * 1023) / Fgain;	//the 0.5 is a placeholder
+	int allowCerr = 256;
+	shooterTalon1->SetAllowableClosedLoopErr(allowCerr);
+	shooterTalon1->SetVoltageRampRate(8.0);
 
-	shooterTalon1->SelectProfileSlot(0);
-	shooterTalon1->SetF(Fgain);
 	shooterTalon1->SetP(0.9);
 	shooterTalon1->SetI(0.1);
 	shooterTalon1->SetD(0.1);
@@ -82,7 +90,7 @@ void Shooter::SetVoltageMode() {
 }
 
 void Shooter::RunSpeed() {
-	shooterTalon1->Set(TargetRPM);
+	shooterTalon1->Set(current_SetPoint);
 }
 
 void Shooter::RunVoltage() {
@@ -94,12 +102,39 @@ void Shooter::Stop() {
 }
 
 bool Shooter::CorrectRPM() {
-	if ( fabs(shooterTalon1->GetSpeed() ) >= TargetRPM) {	//needs to work with config system
+	if ( fabs(GetRPM() ) >= target_SetPoint) {	//needs to work with config system
 		std::cout << "reached the correct speed" << std::endl;
 		return true;
 	}
 	else {
-		std::cout << "Speed: " << fabs(shooterTalon1->GetSpeed()) << std::endl;
+		std::cout << "Speed: " << fabs(GetRPM()) << std::endl;
 		return false;
 	}
+}
+
+double Shooter::GetCurrent_SetPoint() {
+	return current_SetPoint;
+}
+
+void Shooter::SetCurrent_SetPoint(double value) {
+	current_SetPoint = value;
+	Recalc_Fgain();
+}
+
+double Shooter::GetRPM()
+{
+	double speed = shooterTalon1->GetSpeed();
+	return speed;
+}
+
+double Shooter::GetVoltage()
+{
+	double voltage = shooterTalon1->GetOutputVoltage();
+	return voltage;
+}
+
+double Shooter::GetCurrent()
+{
+	double current = shooterTalon1->GetOutputCurrent();
+	return current;
 }

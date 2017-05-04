@@ -13,6 +13,10 @@ private:
 
 	std::shared_ptr<CANTalon> indexTalon;
 
+	double target_SetPoint;
+
+	void Recalc_Fgain();
+
 public:
 	//index should be moving backwards(set to negative values) when not inverted
 
@@ -32,6 +36,12 @@ public:
 	bool CorrectRPM();
 
 	void Stop();
+
+	double GetRPM();
+	double GetVoltage();
+	double GetCurrent();
+
+	double GetTarget_SetPoint();
 
 };
 

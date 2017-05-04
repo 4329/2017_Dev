@@ -24,6 +24,7 @@ void SpeedUpShooter::Execute() {
 bool SpeedUpShooter::IsFinished() {
 	bool stop = Robot::shooter->CorrectRPM();
 
+	//stop if shooter button is released
 	if ( ! Robot::oi->getShootButton()->Get()) {
 		Robot::shooter->Stop();
 		return true;

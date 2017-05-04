@@ -13,6 +13,8 @@
 
 //this currently uses the gear ultrasonic sensor
 Auto2::Auto2() {
+	//auto for middle peg
+
         // Use requires() here to declare subsystem dependencies
     // eg. requires(Robot::chassis.get());
 	Requires(Robot::driveTrain.get());

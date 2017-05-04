@@ -14,14 +14,29 @@ void RunShooter::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void RunShooter::Execute() {
-	Robot::shooter->RunVoltage();	//set shooter to a certain RPM until shoot command ends
+	Robot::shooter->RunSpeed();
+
+	//print out status
+	double rpm = Robot::shooter->GetRPM();
+	double volt = Robot::shooter->GetVoltage();
+	double current = Robot::shooter->GetCurrent();
+	double currSetPoint = Robot::shooter->GetCurrent_SetPoint();
+	double err = currSetPoint - rpm;
+	double now = GetTime();
+
+	std::cout << "4329_LOG:" << now << ":Shooter:SetPoint:" << currSetPoint << ":MeasuredRPM:" << rpm << ":Error:" << err <<
+			":OutputVoltage:" << volt << ":OutputCurrent:" << current << std::endl;
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool RunShooter::IsFinished() {
-    if (Robot::oi->getShootButton()->Get())
-    return false;
-    return true;
+    if (Robot::oi->getShootButton()->Get()) {
+    	return false;
+    }
+    else {
+    	Robot::shooter->Stop();
+    	return true;
+    }
 }
 
 // Called once after isFinished returns true
