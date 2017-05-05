@@ -18,15 +18,7 @@ Shoot::Shoot() {
 	Requires(Robot::shooter.get());
 	Requires(Robot::shooterIndex.get());
 
-	//run shooter until it is at the appropriate speed
-	//AddSequential(new SpeedUpShooter());	//possibly add timeout?						//AddParallel(new SpeedUpShooter());
-																						//AddParallel(new SpeedUpIndex());
-
-																						//AddSequential(new ShooterTurn());
-																						//AddSequential(new ShooterForward());
-
-	//take in fuel and continuously run the shooter to shoot the fuel
-	AddSequential(new SpeedUpShooter());
+	AddSequential(new SpeedUpShooter(), 5.0);	//will stop speeding up the shooter when 5 seconds have passed
 	AddParallel(new RunIndex());
 	AddParallel(new RunShooter());
 }

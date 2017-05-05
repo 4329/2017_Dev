@@ -27,7 +27,7 @@ void ShooterIndex::Configuration() {
 	target_SetPoint = 2000.0;
 }
 
-void ShooterIndex::Recalc_Fgain() {
+void ShooterIndex::Set_Fgain() {
 	//calculates F
 	//(number of Rotations / min) X (1 min / 60 sec) X (1 sec / 10 TvelMeas) X (1024 native units / rotation)
 	double Fgain = ( target_SetPoint / 600.0 ) * 4096.0;
@@ -45,12 +45,14 @@ void ShooterIndex::ConfigEncoder() {	//the set up of the encoder
 	indexTalon->ConfigNominalOutputVoltage(+0.0f, -0.0f);
 	indexTalon->ConfigPeakOutputVoltage(+12.0f, -0.0f);	//may be switched depending on if the
 															//sensor direction is true or false
+
+	indexTalon->SetVelocityMeasurementPeriod(CANTalon::Period_10Ms);
+
 	int AllowCerr = 256;
 	indexTalon->SetAllowableClosedLoopErr(AllowCerr);
-	indexTalon->SetVoltageRampRate(8.0);
 	indexTalon->SetCloseLoopRampRate(12.0);
 
-	Recalc_Fgain();
+	Set_Fgain();
 
 	indexTalon->SetP(0.5);
 	indexTalon->SetI(0);

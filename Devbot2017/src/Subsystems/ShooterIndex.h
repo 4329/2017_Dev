@@ -15,7 +15,7 @@ private:
 
 	double target_SetPoint;
 
-	void Recalc_Fgain();
+	void Set_Fgain();
 
 public:
 	//index should be moving backwards(set to negative values) when not inverted

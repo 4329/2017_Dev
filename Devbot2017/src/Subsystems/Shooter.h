@@ -15,9 +15,8 @@ private:
 	std::shared_ptr<CANTalon> shooterTalon2;
 
 	double target_SetPoint;
-	double current_SetPoint;
 
-	void Recalc_Fgain();
+	void Set_Fgain();
 
 public:
 	//shooter should be moving forward( set to positive values ) when not inverted
@@ -34,8 +33,7 @@ public:
 	void SetSpeedMode();
 	void SetVoltageMode();
 
-	void SetCurrent_SetPoint(double value);
-	double GetCurrent_SetPoint();
+	double GetTarget_SetPoint();
 
 	double GetRPM();
 	double GetVoltage();

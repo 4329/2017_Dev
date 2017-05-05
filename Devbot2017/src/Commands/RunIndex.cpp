@@ -1,4 +1,5 @@
 #include "RunIndex.h"
+#include "DriverStation.h"
 
 
 RunIndex::RunIndex(): Command() {
@@ -30,13 +31,19 @@ void RunIndex::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool RunIndex::IsFinished() {
-    if (Robot::oi->getShootButton()->Get()) {
-    	return false;
-    }
-    else {
-    	Robot::shooterIndex->Stop();
-    	return true;
-    }
+	if (!DriverStation::GetInstance().IsAutonomous()) {	//check if the y button is being held down when it is not auto mode
+
+		if (Robot::oi->getShootButton()->Get()) {	//keep speeding up if y button is pressed
+			return false;
+		}
+		else {
+			Robot::shooterIndex->Stop();	//stop speeding up if y button is not pressed
+			return true;
+		}
+
+	}
+
+	return false;
 }
 
 // Called once after isFinished returns true

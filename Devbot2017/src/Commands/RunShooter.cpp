@@ -1,4 +1,5 @@
 #include "RunShooter.h"
+#include "DriverStation.h"
 
 
 RunShooter::RunShooter(): Command() {
@@ -20,7 +21,7 @@ void RunShooter::Execute() {
 	double rpm = Robot::shooter->GetRPM();
 	double volt = Robot::shooter->GetVoltage();
 	double current = Robot::shooter->GetCurrent();
-	double currSetPoint = Robot::shooter->GetCurrent_SetPoint();
+	double currSetPoint = Robot::shooter->GetTarget_SetPoint();
 	double err = currSetPoint - rpm;
 	double now = GetTime();
 
@@ -30,13 +31,19 @@ void RunShooter::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool RunShooter::IsFinished() {
-    if (Robot::oi->getShootButton()->Get()) {
-    	return false;
-    }
-    else {
-    	Robot::shooter->Stop();
-    	return true;
-    }
+	if (!DriverStation::GetInstance().IsAutonomous()) {	//check if the y button is being held down when it is not auto mode
+
+		if (Robot::oi->getShootButton()->Get()) {	//keep speeding up if y button is pressed
+			return false;
+		}
+		else {
+			Robot::shooter->Stop();	//stop speeding up if y button is not pressed
+			return true;
+		}
+
+	}
+
+	return false;
 }
 
 // Called once after isFinished returns true

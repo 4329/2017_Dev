@@ -25,13 +25,12 @@ void Shooter::Configuration() {
 	//shooterTalon1->SetInverted(false);
 	//shooterTalon2->SetInverted(false);
 	target_SetPoint = 3500.0;
-	current_SetPoint = target_SetPoint;
 }
 
-void Shooter::Recalc_Fgain() {
+void Shooter::Set_Fgain() {
 	//calculates F
 	//(number of Rotations / min) X (1 min / 60 sec) X (1 sec / 10 TvelMeas) X (1024 native units / rotation)
-	double Fgain = ( current_SetPoint / 600.0 ) * 4096.0;
+	double Fgain = ( target_SetPoint / 600.0 ) * 4096.0;
 	Fgain = (1.0 * 1023.0) / Fgain;
 
 	shooterTalon1->SelectProfileSlot(0);
@@ -50,13 +49,13 @@ void Shooter::ConfigEncoder() {
 	shooterTalon1->SetAllowableClosedLoopErr(allowCerr);
 	shooterTalon1->SetVoltageRampRate(8.0);
 
+	Set_Fgain();
+
 	shooterTalon1->SetP(0.9);
 	shooterTalon1->SetI(0.1);
 	shooterTalon1->SetD(0.1);
 
-	shooterTalon1->SetVelocityMeasurementPeriod(CANTalon::Period_10Ms);
-	shooterTalon1->SetAllowableClosedLoopErr(100);
-	shooterTalon1->SetVoltageRampRate(8.0);
+	//shooterTalon1->SetVelocityMeasurementPeriod(CANTalon::Period_10Ms);
 }
 
 void Shooter::SetSpeedMode() {	//needs to be called before shooter is used
@@ -90,7 +89,7 @@ void Shooter::SetVoltageMode() {
 }
 
 void Shooter::RunSpeed() {
-	shooterTalon1->Set(current_SetPoint);
+	shooterTalon1->Set(target_SetPoint);
 }
 
 void Shooter::RunVoltage() {
@@ -112,29 +111,21 @@ bool Shooter::CorrectRPM() {
 	}
 }
 
-double Shooter::GetCurrent_SetPoint() {
-	return current_SetPoint;
-}
-
-void Shooter::SetCurrent_SetPoint(double value) {
-	current_SetPoint = value;
-	Recalc_Fgain();
+double Shooter::GetTarget_SetPoint() {
+	return target_SetPoint;
 }
 
 double Shooter::GetRPM()
 {
-	double speed = shooterTalon1->GetSpeed();
-	return speed;
+	return shooterTalon1->GetSpeed();
 }
 
 double Shooter::GetVoltage()
 {
-	double voltage = shooterTalon1->GetOutputVoltage();
-	return voltage;
+	return shooterTalon1->GetOutputVoltage();
 }
 
 double Shooter::GetCurrent()
 {
-	double current = shooterTalon1->GetOutputCurrent();
-	return current;
+	return shooterTalon1->GetOutputCurrent();
 }
