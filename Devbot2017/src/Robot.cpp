@@ -92,6 +92,31 @@ void Robot::RobotInit() {
 	//add motion profiles here
 	//Robot::driveTrain->AddMotionProfile(k3ftMotionProfileNdx, 1, k3ftMotionProfile, k3ftMotionProfileSz, k3ftMotionProfile, k3ftMotionProfileSz);
 
+	//shooter preferences
+    Preferences::GetInstance()->PutFloat("Indexer::RPM",0);
+    Preferences::GetInstance()->PutBoolean("Indexer::DirReversed",false);
+    Preferences::GetInstance()->PutBoolean("Indexer::SensorReversed",false);
+
+    Preferences::GetInstance()->PutDouble("Indexer::P",0.0);
+    Preferences::GetInstance()->PutDouble("Indexer::I",0.0);
+    Preferences::GetInstance()->PutDouble("Indexer::D",0.0);
+
+	Preferences::GetInstance()->PutInt("Indexer::EncoderPulses",4096);
+	Preferences::GetInstance()->PutInt("Indexer::AllowableCLerr",2048);
+	Preferences::GetInstance()->PutDouble("Indexer::CLRamp",12.0);
+
+    Preferences::GetInstance()->PutFloat("Shooter::RPM",0);
+    Preferences::GetInstance()->PutBoolean("Shooter::DirReversed",false);
+    Preferences::GetInstance()->PutBoolean("Shooter::SensorReversed",false);
+
+    Preferences::GetInstance()->PutDouble("Shooter::P",0.0);
+    Preferences::GetInstance()->PutDouble("Shooter::I",0.0);
+    Preferences::GetInstance()->PutDouble("Shooter::D",0.0);
+
+	Preferences::GetInstance()->PutInt("Shooter::EncoderPulses",512);
+	Preferences::GetInstance()->PutInt("Shooter::AllowableCLerr",256);
+	Preferences::GetInstance()->PutDouble("Shooter::CLRamp",12.0);
+
 	std::cout << "robot init complete" << std::endl;
   }
 

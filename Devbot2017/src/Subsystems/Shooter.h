@@ -15,6 +15,7 @@ private:
 	std::shared_ptr<CANTalon> shooterTalon2;
 
 	double target_SetPoint;
+	double direction;
 
 	void Set_Fgain();
 

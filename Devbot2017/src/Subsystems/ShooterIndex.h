@@ -14,6 +14,7 @@ private:
 	std::shared_ptr<CANTalon> indexTalon;
 
 	double target_SetPoint;
+	double direction;
 
 	void Set_Fgain();
 
@@ -42,7 +43,6 @@ public:
 	double GetCurrent();
 
 	double GetTarget_SetPoint();
-
 };
 
 #endif

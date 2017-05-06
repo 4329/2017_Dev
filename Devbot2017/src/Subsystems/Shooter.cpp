@@ -24,7 +24,9 @@ void Shooter::Configuration() {
 
 	//shooterTalon1->SetInverted(false);
 	//shooterTalon2->SetInverted(false);
-	target_SetPoint = 3500.0;
+
+	target_SetPoint = 3500.0;	//just as a placeholder
+	direction = 1;
 }
 
 void Shooter::Set_Fgain() {
@@ -35,25 +37,53 @@ void Shooter::Set_Fgain() {
 
 	shooterTalon1->SelectProfileSlot(0);
 	shooterTalon1->SetF(Fgain);
+
+	SmartDashboard::PutNumber("Shooter FGain",Fgain);
 }
 
 void Shooter::ConfigEncoder() {
 	shooterTalon1->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
-	shooterTalon1->SetSensorDirection(false);
-	shooterTalon1->ConfigEncoderCodesPerRev(4096);
+
+	bool _sensorReversed = Preferences::GetInstance()->GetBoolean("Shooter::SensorReversed",false);
+	shooterTalon1->SetSensorDirection(_sensorReversed);
+
+	int EncoderCodes = Preferences::GetInstance()->GetInt("Shooter::EncoderCodesperRev", 4096);
+	shooterTalon1->ConfigEncoderCodesPerRev(EncoderCodes);
 
 	shooterTalon1->ConfigNominalOutputVoltage(+0.0f, -0.0f);
-	shooterTalon1->ConfigPeakOutputVoltage(+12.0f, -0.0f);	//may be switched depending on if the
-															//sensor direction is true or false
-	int allowCerr = 256;
+
+	bool _reversed = Preferences::GetInstance()->GetBoolean("Shooter::DirReversed",false);
+
+	//may be switched depending on if the direction is true or false
+	if (_reversed)	{
+		shooterTalon1->ConfigPeakOutputVoltage(+0.0f, -12.0f);
+		direction = -1;
+	}
+	else {
+		shooterTalon1->ConfigPeakOutputVoltage(+12.0f, -0.0f);
+		direction = 1;
+	}
+
+	target_SetPoint = Preferences::GetInstance()->GetFloat("Shooter::RPM",0);
+	target_SetPoint = direction * target_SetPoint;
+	Set_Fgain();
+
+	int allowCerr = Preferences::GetInstance()->GetInt("Shooter::AllowableCLerr",256);;
 	shooterTalon1->SetAllowableClosedLoopErr(allowCerr);
-	shooterTalon1->SetVoltageRampRate(8.0);
+
+	double RampRate = Preferences::GetInstance()->GetDouble("Shooter::VoltRamp",8.0);
+	shooterTalon1->SetVoltageRampRate(RampRate);
 
 	Set_Fgain();
 
-	shooterTalon1->SetP(0.9);
-	shooterTalon1->SetI(0.1);
-	shooterTalon1->SetD(0.1);
+	double Pgain = Preferences::GetInstance()->GetDouble("Shooter::P",5.0);
+	shooterTalon1->SetP(Pgain);
+
+	double Igain = Preferences::GetInstance()->GetDouble("Shooter::I",0.0);
+	shooterTalon1->SetI(Igain);
+
+	double Dgain = Preferences::GetInstance()->GetDouble("Shooter::D",0.0);
+	shooterTalon1->SetD(Dgain);
 
 	//shooterTalon1->SetVelocityMeasurementPeriod(CANTalon::Period_10Ms);
 }

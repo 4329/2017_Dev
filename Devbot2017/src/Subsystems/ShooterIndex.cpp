@@ -24,7 +24,7 @@ void ShooterIndex::Configuration() {
 
 	//indexTalon->SetInverted(false);
 
-	target_SetPoint = 2000.0;
+	target_SetPoint = 2000.0;	//just as a placeholder
 }
 
 void ShooterIndex::Set_Fgain() {
@@ -39,24 +39,47 @@ void ShooterIndex::Set_Fgain() {
 
 void ShooterIndex::ConfigEncoder() {	//the set up of the encoder
 	indexTalon->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
-	indexTalon->SetSensorDirection(false);
-	indexTalon->ConfigEncoderCodesPerRev(4096);
+
+	bool _sensorReversed = Preferences::GetInstance()->GetBoolean("Indexer::SensorReversed",false);
+	indexTalon->SetSensorDirection(_sensorReversed);
+
+	int EncoderCodes = Preferences::GetInstance()->GetInt("Indexer::EncoderPulses",4096);
+	indexTalon->ConfigEncoderCodesPerRev(EncoderCodes);
 
 	indexTalon->ConfigNominalOutputVoltage(+0.0f, -0.0f);
-	indexTalon->ConfigPeakOutputVoltage(+12.0f, -0.0f);	//may be switched depending on if the
-															//sensor direction is true or false
+
+	bool _reversed = Preferences::GetInstance()->GetBoolean("Indexer::DirReversed",false);
+
+	//may be switched depending on if the direction is true or false
+	if (_reversed) {
+		indexTalon->ConfigPeakOutputVoltage(+0.0f, -12.0f);
+		direction = -1;
+	}
+	else {
+		indexTalon->ConfigPeakOutputVoltage(+12.0f, -0.0f);
+		direction = 1;
+	}
 
 	indexTalon->SetVelocityMeasurementPeriod(CANTalon::Period_10Ms);
 
-	int AllowCerr = 256;
+	int AllowCerr = Preferences::GetInstance()->GetInt("Indexer::AllowableCLerr",256);
 	indexTalon->SetAllowableClosedLoopErr(AllowCerr);
-	indexTalon->SetCloseLoopRampRate(12.0);
 
+	double CLRamp = Preferences::GetInstance()->GetDouble("Indexer::CLRamp",12.0);
+	indexTalon->SetCloseLoopRampRate(CLRamp);
+
+	target_SetPoint = Preferences::GetInstance()->GetFloat("Indexer::RPM",0);
+	target_SetPoint = direction * target_SetPoint;
 	Set_Fgain();
 
-	indexTalon->SetP(0.5);
-	indexTalon->SetI(0);
-	indexTalon->SetD(0);
+	double Pgain = Preferences::GetInstance()->GetDouble("Indexer::P",5.0);
+	indexTalon->SetP(Pgain);
+
+	double Igain = Preferences::GetInstance()->GetDouble("Indexer::I",0.0);
+	indexTalon->SetI(Igain);
+
+	double Dgain = Preferences::GetInstance()->GetDouble("Indexer::D",0.0);
+	indexTalon->SetD(Dgain);
 }
 
 void ShooterIndex::SetVoltageMode() {
