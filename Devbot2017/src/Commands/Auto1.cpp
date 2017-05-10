@@ -21,11 +21,13 @@ Auto1::Auto1() {
 	AddSequential(new AutoPrint("1"));
 	AddSequential(new Delay(0.1));
 
-	AddSequential(new MoveStraight_By_Timeout(2.4, 0.6));	//move forward a bit (robot needs to be at a certain point on the wall
-	AddSequential(new Rotate(60));	//rotate towards the peg
+	//1.907
+	AddSequential(new MoveStraight_By_Timeout(2.075, 0.6));	//move forward a bit (robot needs to be at a certain point on the wall
+	AddSequential(new Rotate(56));	//rotate towards the peg
 	//AddSequential(new AlignGear());	//center on the peg
 
-	AddSequential(new MoveStraight_By_Timeout(2.8, 0.3));	//go to left peg
+	//originally 2.45 seconds at 0.3 voltage
+	AddSequential(new MoveStraight_By_Timeout(1.25, 0.6));	//go to left peg
 	AddSequential(new PushGearHolder());	//put gear on peg
 	AddSequential(new Delay(0.5));	//wait a little bit
 	AddSequential(new MoveStraight_By_Timeout(2, -0.3));	//slowly move back towards the wall
