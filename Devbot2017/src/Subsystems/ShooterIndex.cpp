@@ -4,7 +4,27 @@
 ShooterIndex::ShooterIndex() : Subsystem("Shooter") {
 	indexTalon = RobotMap::indexTalon;
 
-	Configuration();
+//	Configuration();
+
+	ndxTalon = RobotMap::indexTalon;
+    Fgain = 0.0;
+    _currentSetPoint = 0.0;
+    _running = false;
+    direction = 1;
+
+    _targetSetPoint = Preferences::GetInstance()->GetFloat("Indexer::RPM",500);
+    _reversed = Preferences::GetInstance()->GetBoolean("Indexer::DirReversed",false);
+    _sensorReversed = Preferences::GetInstance()->GetBoolean("Indexer::SensorReversed",false);
+
+    pgain = Preferences::GetInstance()->GetDouble("Indexer::P",0.05);
+    igain = Preferences::GetInstance()->GetDouble("Indexer::I",0.0);
+    dgain = Preferences::GetInstance()->GetDouble("Indexer::D",0.0);
+
+	EncPulses = Preferences::GetInstance()->GetInt("Indexer::EncoderPulses",4096);
+	AllowCLerr = Preferences::GetInstance()->GetInt("Indexer::AllowableCLerr",10);
+	CLRamp = Preferences::GetInstance()->GetDouble("Indexer::CLRamp",12.0);
+
+	SmartDashboard::PutBoolean("Indexer Running",_running);
 }
 
 void ShooterIndex::InitDefaultCommand() {
@@ -119,18 +139,183 @@ void ShooterIndex::Stop() {
 	indexTalon->Set(0);
 }
 
-double ShooterIndex::GetRPM() {
-	return indexTalon->GetSpeed();
-}
-
-double ShooterIndex::GetVoltage() {
-	return indexTalon->GetOutputVoltage();
-}
-
-double ShooterIndex::GetCurrent() {
-	return indexTalon->GetOutputCurrent();
-}
-
 double ShooterIndex::GetTarget_SetPoint() {
 	return target_SetPoint;
 }
+
+
+// Ballard Add
+void ShooterIndex::Config()
+{
+	ndxTalon->SetControlMode(frc::CANSpeedController::kSpeed);
+	ndxTalon->SetFeedbackDevice(CANTalon::FeedbackDevice::CtreMagEncoder_Relative);
+
+	_sensorReversed = Preferences::GetInstance()->GetBoolean("Indexer::SensorReversed",false);
+	ndxTalon->SetSensorDirection(_sensorReversed);
+
+	EncPulses = Preferences::GetInstance()->GetInt("Indexer::EncoderPulses",4096);
+	ndxTalon->ConfigEncoderCodesPerRev(EncPulses);
+
+	ndxTalon->ConfigNominalOutputVoltage(+0.0f, -0.0f);
+
+	_reversed = Preferences::GetInstance()->GetBoolean("Indexer::DirReversed",false);
+
+	if (_reversed)
+	{
+		ndxTalon->ConfigPeakOutputVoltage(+0.0f, -12.0f);
+		direction = -1;
+	} else
+	{
+		ndxTalon->ConfigPeakOutputVoltage(+12.0f, -0.0f);
+		direction = 1;
+	}
+
+	//ndxTalon->SetVelocityMeasurementPeriod(CANTalon::Period_10Ms);
+
+	AllowCLerr = Preferences::GetInstance()->GetInt("Indexer::AllowableCLerr",10);
+	ndxTalon->SetAllowableClosedLoopErr(AllowCLerr);
+
+	CLRamp = Preferences::GetInstance()->GetDouble("Indexer::CLRamp",12.0);
+	ndxTalon->SetCloseLoopRampRate(CLRamp);
+
+	_targetSetPoint = Preferences::GetInstance()->GetFloat("Indexer::RPM",0);
+	_currentSetPoint = direction * _targetSetPoint;
+	Recalc();
+
+	ndxTalon->SelectProfileSlot(0);
+	ndxTalon->SetF(Fgain);
+
+	pgain = Preferences::GetInstance()->GetDouble("Indexer::P",0.05);
+	ndxTalon->SetP(pgain);
+
+	igain = Preferences::GetInstance()->GetDouble("Indexer::I",0.0);
+	ndxTalon->SetI(igain);
+
+	dgain = Preferences::GetInstance()->GetDouble("Indexer::D",0.0);
+	ndxTalon->SetD(dgain);
+
+	double now = GetTime();
+	std::cout << "4329_LOG:" << now << ":Indexer:Config:_sensorReversed:" << _sensorReversed <<
+			":EncPulses:" << EncPulses << ":_reversed:" << _reversed <<
+			":AllowCLerr:" << AllowCLerr << ":CLRamp:" << CLRamp <<
+			":pgain:" << pgain << ":igain:" << igain << ":dgain:" << dgain << ":CalFgain:" << Fgain <<
+			":SetPoint:" << _targetSetPoint << std::endl;
+}
+
+double ShooterIndex::CurrentSetPoint()
+{
+	return _currentSetPoint;
+}
+
+void ShooterIndex::Recalc()
+{
+	//calculates F
+	//(number of Rotations / min) X (1 min / 60 sec) X (1 sec / 10 TvelMeas) X (1024 native units / rotation)
+	//Fgain = ( _currentSetPoint / 600 ) * 4096;
+	Fgain = ( _currentSetPoint / 600 ) * EncPulses;
+	Fgain = (1.0 * 1023) / Fgain;
+
+	ndxTalon->SelectProfileSlot(0);
+	ndxTalon->SetF(Fgain);
+
+}
+
+void ShooterIndex::SetCurrentSetPoint(double value)
+{
+	_currentSetPoint = value;
+	Recalc();
+}
+
+double ShooterIndex::GetRPM()
+{
+	double speed = ndxTalon->GetSpeed();
+	SmartDashboard::PutNumber("Indexer Measured RPM",speed);
+	return speed;
+}
+
+double ShooterIndex::GetVoltage()
+{
+	double voltage = ndxTalon->GetOutputVoltage();
+	SmartDashboard::PutNumber("Indexer Output Voltage",voltage);
+	return voltage;
+}
+
+double ShooterIndex::GetCurrent()
+{
+	double current = ndxTalon->GetOutputCurrent();
+	SmartDashboard::PutNumber("Indexer Output Current", current);
+	return current;
+}
+
+void ShooterIndex::Run()
+{
+	if (_running)
+	{
+		ndxTalon->Set(_currentSetPoint);
+		SmartDashboard::PutNumber("Indexer SetPoint RPM",_currentSetPoint);
+	}
+}
+
+void ShooterIndex::Start()
+{
+	if (!_running)
+	{
+		Config();
+		ndxTalon->Enable();
+		_targetSetPoint = Preferences::GetInstance()->GetFloat("Indexer::RPM",0);
+		_currentSetPoint = direction * _targetSetPoint;
+		_running = true;
+		SmartDashboard::PutBoolean("Indexer Running",_running);
+	}
+}
+
+void ShooterIndex::MDBStop()
+{
+	_running = false;
+	_currentSetPoint = 0.0;
+	ndxTalon->Set(_currentSetPoint);
+	ndxTalon->Disable();
+	SmartDashboard::PutBoolean("Indexer Running",_running);
+}
+
+void ShooterIndex::ReverseDirection()
+{
+	_reversed = !_reversed;
+	Config();
+}
+
+void ShooterIndex::ReverseSensor()
+{
+	_sensorReversed = !_sensorReversed;
+	Config();
+}
+
+void ShooterIndex::SetP(double value)
+{
+	pgain = value;
+	ndxTalon->SetP(pgain);
+}
+
+void ShooterIndex::SetI(double value)
+{
+	igain = value;
+	ndxTalon->SetI(igain);
+}
+
+void ShooterIndex::SetD(double value)
+{
+    dgain = value;
+    ndxTalon->SetD(dgain);
+}
+
+void ShooterIndex::Finish()
+{
+	_running = false;
+}
+
+bool ShooterIndex::IsRunning()
+{
+	return _running;
+}
+
+

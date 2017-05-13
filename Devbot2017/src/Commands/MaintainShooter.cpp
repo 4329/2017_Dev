@@ -1,23 +1,21 @@
-#include "RunShooter.h"
-#include "DriverStation.h"
+#include "MaintainShooter.h"
 
 
-RunShooter::RunShooter(): Command() {
+MaintainShooter::MaintainShooter(): Command() {
         // Use requires() here to declare subsystem dependencies
     // eg. requires(Robot::chassis.get());
 	Requires(Robot::shooter.get());
 }
 
+
 // Called just before this Command runs the first time
-void RunShooter::Initialize() {
-	// Ballard Add
-	Robot::shooter->Configuration();
+void MaintainShooter::Initialize() {
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void RunShooter::Execute() {
-	Robot::shooter->RunSpeed();
-
+void MaintainShooter::Execute() {
+	Robot::shooter->Run();
 	//print out status
 	double rpm = Robot::shooter->GetRPM();
 	double volt = Robot::shooter->GetVoltage();
@@ -31,29 +29,17 @@ void RunShooter::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool RunShooter::IsFinished() {
-	if (!DriverStation::GetInstance().IsAutonomous()) {	//check if the y button is being held down when it is not auto mode
-
-		if (Robot::oi->getShootButton()->Get()) {	//keep speeding up if y button is pressed
-			return false;
-		}
-		else {
-			Robot::shooter->Stop();	//stop speeding up if y button is not pressed
-			return true;
-		}
-
-	}
-
-	return false;
+bool MaintainShooter::IsFinished() {
+	return Robot::shooter->IsRunning();
 }
 
 // Called once after isFinished returns true
-void RunShooter::End() {
-	Robot::shooter->Stop();
+void MaintainShooter::End() {
+	Robot::shooter->MDBStop();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void RunShooter::Interrupted() {
+void MaintainShooter::Interrupted() {
 
 }
