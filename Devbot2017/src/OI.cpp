@@ -43,6 +43,7 @@
 #include "Commands/Rotate.h"
 #include "Commands/MoveStraight.h"
 #include "Commands/Reconfig.h"
+#include "Commands/InitConfig.h"
 
 #include <cmath> //for dead zones
 #include "Commands/MoveStraight_With_G_Ranger.h"
@@ -113,7 +114,8 @@ OI::OI() {
     SmartDashboard::PutData("MoveStraight_By_Timeout (7 sec)", new MoveStraight_By_Timeout(7, -0.3));
 
     //for testing the shooter
-    SmartDashboard::PutData("Reconfig Shooter", new Reconfig());
+    SmartDashboard::PutData("ReConfigure", new Reconfig());
+    SmartDashboard::PutData("Initialize Config (Are you sure?)", new InitConfig());
 
 }
 

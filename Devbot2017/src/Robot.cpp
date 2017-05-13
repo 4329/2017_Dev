@@ -93,6 +93,10 @@ void Robot::RobotInit() {
 	//Robot::driveTrain->AddMotionProfile(k3ftMotionProfileNdx, 1, k3ftMotionProfile, k3ftMotionProfileSz, k3ftMotionProfile, k3ftMotionProfileSz);
 
 	//shooter preferences
+	/*
+	 * This code section will overwrite previously stored values every time RobotInit starts.
+	 * These should be located in an InstantCommand(if at all) that would be invoked from the console
+	 * only once to ensure the preferences are initially created.
     Preferences::GetInstance()->PutFloat("Indexer::RPM",0);
     Preferences::GetInstance()->PutBoolean("Indexer::DirReversed",false);
     Preferences::GetInstance()->PutBoolean("Indexer::SensorReversed",false);
@@ -116,7 +120,7 @@ void Robot::RobotInit() {
 	Preferences::GetInstance()->PutInt("Shooter::EncoderPulses",512);
 	Preferences::GetInstance()->PutInt("Shooter::AllowableCLerr",256);
 	Preferences::GetInstance()->PutDouble("Shooter::CLRamp",12.0);
-
+*/
 	std::cout << "robot init complete" << std::endl;
   }
 

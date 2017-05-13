@@ -13,7 +13,12 @@ AutoForward::AutoForward() {
 	//print auto mode and go to low gear
 	AddSequential(new AutoPrint("Forward"));
 
-	AddSequential(new MoveStraight_By_Timeout(3, 0.5));
+	// Configurable parameters.
+	float  Step1_MoveTimeout = Preferences::GetInstance()->GetFloat("AutoForward::Step1_MoveTimeout", 3.0);
+	float  Step1_Output      = Preferences::GetInstance()->GetFloat("AutoForward::Step1_Output", 0.5);
+
+	//AddSequential(new MoveStraight_By_Timeout(3, 0.5));
+	AddSequential(new MoveStraight_By_Timeout(Step1_MoveTimeout, Step1_Output));
 }
 
 
